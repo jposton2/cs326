@@ -20,6 +20,6 @@ Roles:
     Animation
 
 <h2>Gameplay:</h2>
-    Controls
-    Player tracking
-    Movement - collision detection
+    Controls - Jett
+    Player tracking - TheGui
+    Movement - collision detection - TheGui
