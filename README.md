@@ -5,21 +5,21 @@ Maze Game for the maze things, add more to readme later.
 Ok
 
 
-<h1>Roles:</h1>
-<h2>GraphHandler:</h2>
+#Roles:
+##GraphHandler:
     Simpler-graph - Jake
     Generator - Jake
     Handler - Ryan
 
-<h2>GUI:</h2>
+##GUI:
     Title screen & exit - Lucas
 
-<h2>Graphics:</h2>
+##Graphics:
     Libraries - Jett
     Sprites - Jett/Lucas
     Animation
 
-<h2>Gameplay:</h2>
+##Gameplay:
     Controls - Jett
     Player tracking - Theresa
     Movement - collision detection - Theresa
