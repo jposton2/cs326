@@ -11,7 +11,7 @@ Roles:
     <td>Simpler-graph</td> <td>Jake</td></tr>
     Generator - Jake
     Handler - Ryan
-
+</table>
 <h2>GUI:</h2>
     Title screen & exit - Lucas
 
