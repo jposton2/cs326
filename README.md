@@ -7,11 +7,10 @@ Ok
 
 Roles:
 <h2>GraphHandler:</h2>
-<table><tr>
-    <td>Simpler-graph</td> <td>Jake</td></tr>
+    Simpler-graph - Jake
     Generator - Jake
     Handler - Ryan
-</table>
+
 <h2>GUI:</h2>
     Title screen & exit - Lucas
 
