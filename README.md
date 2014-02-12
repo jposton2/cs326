@@ -1,4 +1,4 @@
 cs326
 =====
 
-Maze Game
+Maze Game for the maze things
