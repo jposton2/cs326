@@ -7,7 +7,8 @@ Ok
 
 Roles:
 <h2>GraphHandler:</h2>
-    Simpler-graph - Jake
+<table><tr>
+    <td>Simpler-graph</td> <td>Jake</td></tr>
     Generator - Jake
     Handler - Ryan
 
