@@ -21,5 +21,5 @@ Ok
 
 <h2>Gameplay:</h2>
     Controls - Jett
-    Player tracking - TheGui
-    Movement - collision detection - TheGui
+    Player tracking - Theresa
+    Movement - collision detection - Theresa
