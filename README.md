@@ -5,7 +5,7 @@ Maze Game for the maze things, add more to readme later.
 Ok
 
 
-Roles:
+<h1>Roles:</h1>
 <h2>GraphHandler:</h2>
     Simpler-graph - Jake
     Generator - Jake
