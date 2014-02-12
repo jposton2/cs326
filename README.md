@@ -19,7 +19,7 @@ Graphics:
     Sprites
     Animation
 
-<h1>Gameplay:</h2>
+<h2>Gameplay:</h2>
     Controls
     Player tracking
     Movement - collision detection
