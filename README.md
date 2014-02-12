@@ -6,17 +6,17 @@ Ok
 
 
 Roles:
-GraphHandler:
+<h2>GraphHandler:</h2>
     Simpler-graph - Jake
     Generator - Jake
     Handler - Ryan
 
-Gui:
-    Title screen & exit
+<h2>GUI:</h2>
+    Title screen & exit - Lucas
 
-Graphics:
-    Libraries
-    Sprites
+<h2>Graphics:</h2>
+    Libraries - Jett
+    Sprites - Jett/Lucas
     Animation
 
 <h2>Gameplay:</h2>
