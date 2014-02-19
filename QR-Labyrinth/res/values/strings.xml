@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">QR-Labyrinth</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="level_select">Level Select</string><string name="story">Story</string>
+    
+    <string name="credits">Credits</string><string name="exit">Exit</string><string name="custom_level">Custom Level</string>
+    
+    
+
+</resources>
