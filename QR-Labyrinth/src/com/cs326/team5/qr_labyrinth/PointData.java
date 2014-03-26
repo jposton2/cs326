@@ -1,3 +1,5 @@
+package com.cs326.team5.qr_labyrinth;
+
 public class PointData{
     private boolean black;
     Point destination;

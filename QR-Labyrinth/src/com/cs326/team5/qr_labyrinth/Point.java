@@ -1,3 +1,5 @@
+package com.cs326.team5.qr_labyrinth;
+
 public class Point{
     private int x, y;
     Point(int x, int y){

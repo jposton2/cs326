@@ -1,3 +1,5 @@
+package com.cs326.team5.qr_labyrinth;
+
 import java.util.ArrayList;
 import java.util.Vector;
 
