@@ -26,14 +26,14 @@ public class GridHandler{
      * @param subgrid
      * @return points furthest from each other in the subgrid
      */
-    public Vector<Point> getFurthestPoints(ArrayList<Point> subgrid){
+    public Vector<PointData> getFurthestPoints(ArrayList<PointData> subgrid){
         return null;
     }
     
     /**
      * @param subgrids
      */
-    public void setTeleporters(ArrayList<ArrayList<Point>> subgrids){
+    public void setTeleporters(ArrayList<ArrayList<PointData>> subgrids){
         // TODO:Add teleporter setters 
     }
     
