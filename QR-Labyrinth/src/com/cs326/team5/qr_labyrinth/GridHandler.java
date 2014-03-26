@@ -6,8 +6,8 @@ import java.util.Vector;
 public class GridHandler{
     private int minSize;
     private Grid grid;
-    private ArrayList<ArrayList<Point>> subgraphs;
-    GridHandler(Grid g, int minSize, ArrayList<ArrayList<Point>> subgraphs){
+    private ArrayList<ArrayList<PointData>> subgraphs;
+    GridHandler(Grid g, int minSize, ArrayList<ArrayList<PointData>> subgraphs){
         this.subgraphs = subgraphs;
         this.minSize = minSize;
         grid = g;
@@ -21,7 +21,7 @@ public class GridHandler{
     public void setTeleporters(ArrayList<ArrayList<Point>> subgrids){
         // TODO:Add teleporter setters 
     }
-    ArrayList<ArrayList<Point>> QRTo2DArray(){
+    ArrayList<ArrayList<PointData>> QRTo2DArray(){
         // TODO: Implement
         return subgraphs;
     }
