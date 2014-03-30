@@ -1,11 +1,13 @@
 package com.cs326.team5.qr_labyrinth;
 
+import com.google.zxing.qrcode.QRCodeWriter;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 
 public class MainActivity extends Activity {
-
+	com.google.zxing.Writer writer = new QRCodeWriter();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
