@@ -2,3 +2,5 @@
 *.properties
 *.class
 QR-Labyrinth/gen/com/cs326/team5/qr_labyrinth/R.java
+*.apk
+*.dex
