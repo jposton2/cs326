@@ -7,7 +7,6 @@ import android.app.Activity;
 import android.view.Menu;
 
 public class MainActivity extends Activity {
-	// Follow this: http://stackoverflow.com/questions/4782543/integration-zxing-library-directly-into-my-android-application
 	// QR example here https://github.com/zxing/zxing/blob/master/androidtest/src/com/google/zxing/client/androidtest/ZXingTestActivity.java
     @Override
     protected void onCreate(Bundle savedInstanceState) {
