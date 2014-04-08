@@ -33,6 +33,7 @@
         android:layout_above="@+id/button3"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
+        android:onClick="scan"
         android:text="@string/story" />
 
     <TextView
@@ -53,5 +54,15 @@
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/app_name"
         android:src="@drawable/qrcode" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="18dp"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>
