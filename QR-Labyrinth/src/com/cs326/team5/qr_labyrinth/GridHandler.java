@@ -1,6 +1,9 @@
 package com.cs326.team5.qr_labyrinth;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Vector;
 
 public class GridHandler{
@@ -8,6 +11,10 @@ public class GridHandler{
     private int minSize;
     private Grid grid;
     private ArrayList<ArrayList<PointData>> subgraphs;
+    
+    GridHandler(Grid grid){
+    	this.grid = grid;
+    }
     
     public GridHandler(Grid g, int minSize, ArrayList<ArrayList<PointData>> subgraphs){
         this.subgraphs = subgraphs;
@@ -45,5 +52,84 @@ public class GridHandler{
         return subgraphs;
     }
 
+	/**
+	 * Groups PointData nodes into groups based
+	 * on which white(non-black) nodes are touching.
+	 * Also, sets two teleporter locations based on
+	 * farthest 2 points as determined by a BFS.
+	 */
+	void groupNodes(){
+			Queue<PointData> queue = new LinkedList<PointData>();//BFS queue
+			int currentGroup = 0;//current group counter
+			PointData tempNode = null;
+			Subgrid tempSubgrid;
+			
+			//loop through all nodes
+			for(int j = 0;j<grid.getxBound();j++){//horizontal loop
+				for(int i=0;i<grid.getyBound();i++){//vertical loop
+					if(grid.getGrid()[i][j].isBlack() == false && grid.getGrid()[i][j].getGroupID() == -1){//if is white and not yet in group
+						grid.getGrid()[i][j].setGroupID(currentGroup);//set group id to current
+						queue.add(grid.getGrid()[i][j]);//add to BFS queue
+						tempSubgrid = new Subgrid();//create new subgrid for newly found group
+						grid.arrayOfSubgrids.add(tempSubgrid);//add newly found subgrid to grid subgrid array
+						tempSubgrid.setTeleporterOne(grid.getGrid()[i][j].getX(), grid.getGrid()[i][j].getY());//set the first subgrid teleporter to first found in group(upper left most node)
+						grid.getGrid()[i][j].setTeleporter(true);//give first found node a teleporter
+						
+						//Perform BFS on adjacent nodes, looking for all white nodes in subgrid
+						while(queue.peek() != null){//while BFS queue is not empty
+							tempNode = queue.remove();//remove current node from BFS queue
+							tempSubgrid.subgridArray.add(tempNode);//add current node to subgid array
+							tempNode.setGroupID(currentGroup);//set group id
+							//check adjacent four nodes(not corner nodes) and add to BFS queue
+							if((i-1)>-1 && grid.getAbove(tempNode).isBlack() == false && grid.getAbove(tempNode).getGroupID() == -1){//above
+								queue.add(grid.getAbove(tempNode));
+							}
+							if((i+1)<grid.getyBound() && grid.getBelow(tempNode).isBlack() == false && grid.getBelow(tempNode).getGroupID() == -1){//below
+								queue.add(grid.getBelow(tempNode));
+							}
+							if((i+1)<grid.getxBound() && grid.getRight(tempNode).isBlack() == false && grid.getRight(tempNode).getGroupID() == -1){//right
+								queue.add(grid.getRight(tempNode));
+							}
+							if((j-1)>-1 && grid.getLeft(tempNode).isBlack() == false && grid.getLeft(tempNode).getGroupID() == -1){//left
+								queue.add(grid.getLeft(tempNode));
+							}
+						}
+						currentGroup++;//increment for next group assignment
+						tempNode.setTeleporter(true);//set teleporter to last BFS visited node
+						tempSubgrid.setTeleporterTwo(tempNode.getX(), tempNode.getY());//give teleporter
+					}
+				}
+			}
+			grid.numberOfGroups = currentGroup-1;//set number of groups existing in grid
+		}
+	
+	/**
+	 * Randomly sets linear path through subgrid teleporters
+	 */	
+	void setTeleporters(){
+		ArrayList<Integer> numberList = new ArrayList<Integer>();
+		for(int i=1;i<grid.arrayOfSubgrids.size()-1;i++)numberList.add(i);
+		Collections.shuffle(numberList);
+		
+		grid.arrayOfSubgrids.get(0).setIncomingSubgridIndex(-10);//first
+		grid.arrayOfSubgrids.get(grid.arrayOfSubgrids.size()-1).setOutgoingGridIndex(-20);//finish node
+		
+		//Loop through randomized number list(doesn't include 0th or nth subgrid)
+		for(int i=0;i<numberList.size();i++){
+			if(i==0){//first shuffled item
+				grid.arrayOfSubgrids.get(0).setOutgoingGridIndex(numberList.get(0));//point 0 outgoing to random outgoing
+				grid.arrayOfSubgrids.get(numberList.get(0)).setIncomingSubgridIndex(0);//point random outgoing to 0
+			}
+			if(i+1==numberList.size()){//last shuffled item
+				grid.arrayOfSubgrids.get(grid.arrayOfSubgrids.size()-1).setIncomingSubgridIndex(numberList.get(i));//point finish to second to last
+				grid.arrayOfSubgrids.get(numberList.get(i)).setOutgoingGridIndex(grid.arrayOfSubgrids.size()-1);//point second to last to finish
+				break;
+			}
+			
+			grid.arrayOfSubgrids.get(numberList.get(i)).setOutgoingGridIndex(numberList.get(i+1));//point current subgrid to next
+			grid.arrayOfSubgrids.get(numberList.get(i+1)).setIncomingSubgridIndex(numberList.get(i));//point next subgrid to current
+			
+		}
+	}
 
 }
