@@ -3,6 +3,7 @@ package com.cs326.team5.qr_labyrinth;
 
 
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -64,7 +65,9 @@ public class MainActivity extends Activity {
     	         test.setText(contents);
     	         QRHandler qr = new QRHandler();
     	         Grid g = qr.getGrid(contents, qrheight, qrwidth);
-    	         writeGrid(contents, g);
+    	         File file = getBaseContext().getFileStreamPath(contents);
+    	         if(!file.exists())
+    	         	writeGrid(contents, g);
     	      }
     	   }
     	}
@@ -86,7 +89,7 @@ public class MainActivity extends Activity {
 		}
 		
 	}
-	
+	// TO PUT IN OTHER ACTIVITYYYYY
 	public Grid loadGrid(String s){
 		FileInputStream fis;
 		ObjectInputStream is;
