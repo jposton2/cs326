@@ -11,20 +11,29 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
+
 public class MainActivity extends Activity {
 	private int qrheight = 400;
 	private int qrwidth = 400;
 	
+	SharedPreferences prefs = getSharedPreferences("userValues", MODE_PRIVATE);
 	// QR example here https://github.com/zxing/zxing/blob/master/androidtest/src/com/google/zxing/client/androidtest/ZXingTestActivity.java
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Tests if it is the first run or not.
+        if(prefs.getBoolean("firstRun", true)){
+        	SharedPreferences.Editor editor = prefs.edit();
+        	editor.putBoolean("firstRun", false);
+        	editor.commit();
+        	// TODO: Create level files here
+        }
         setContentView(R.layout.activity_main);
     }
     
@@ -40,7 +49,10 @@ public class MainActivity extends Activity {
     	      if (resultCode == RESULT_OK) {
     	    	 TextView test = (TextView) findViewById(R.id.textView2);
     	         String contents = intent.getStringExtra("SCAN_RESULT");
+    	         
+    	         // We can use format to check if it is a URL, or TEXT or something!
     	         String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
+    	         
     	         test.setText(contents);
     	         QRCodeWriter writer = new QRCodeWriter();
     	         BitMatrix matrix = null;
