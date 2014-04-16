@@ -5,10 +5,13 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="level_select">Level Select</string>
-    <string name="story">Story</string>
+    <string name="story">STORY</string>
     <string name="credits">Credits</string>
-    <string name="exit">Exit</string>
-    <string name="custom_level">Custom Level</string>
+    <string name="exit">EXIT</string>
+    <string name="custom_level">CUSTOM LEVEL</string>
     <string name="title_activity_game_field">GameField</string>
+    <string name="back">Back</string><string name="scan">SCAN</string><string name="play">PLAY</string>
+    
+    
 
 </resources>
