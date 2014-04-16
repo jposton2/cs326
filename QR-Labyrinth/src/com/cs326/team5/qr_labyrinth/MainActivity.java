@@ -3,6 +3,14 @@ package com.cs326.team5.qr_labyrinth;
 
 
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.StreamCorruptedException;
+
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
@@ -10,6 +18,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -21,7 +30,6 @@ import android.widget.TextView;
 public class MainActivity extends Activity {
 	private int qrheight = 400;
 	private int qrwidth = 400;
-	
 	SharedPreferences prefs = getSharedPreferences("userValues", MODE_PRIVATE);
 	// QR example here https://github.com/zxing/zxing/blob/master/androidtest/src/com/google/zxing/client/androidtest/ZXingTestActivity.java
     @Override
@@ -54,92 +62,57 @@ public class MainActivity extends Activity {
     	         String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
     	         
     	         test.setText(contents);
-    	         QRCodeWriter writer = new QRCodeWriter();
-    	         BitMatrix matrix = null;
-    	         try{
-    	        	 matrix = writer.encode(contents,  BarcodeFormat.QR_CODE,  qrwidth, qrheight);  	 
-        	        
-    	         }
-    	         catch (WriterException e) {
-    	        	    e.printStackTrace();
-    	        }
-    	         if(matrix == null)
-    	        	 return;
-    	         
-    	         // squareCount is the size of the "pixels" for each QR code segment
-    	         int xSize = 0;
-    	         int ySize = 0;
-    	         // Start is where the QR Code start is excluding the leading whitespace
-    	         int xStart = 0;
-    	         int yStart = 0;
-    	         int xEnd = 0;
-    	         int yEnd = 0;
-    	         
-    	         loop:
-    	         for(int i = 0; i < qrwidth; i++){
-    	        	for(int j = 0; j < qrheight; j++){
-    	        		if(xStart == 0 && matrix.get(i, j)){
-    	        			xStart = i;
-    	        			yStart = j;
-    	        			break loop;
-    	        		}	
-    	        	}
-    	        }
-    	         int currX = xStart;
-    	         int currY = yStart;
-    	         while(matrix.get(currX, currY)){
-    	        	 currX++;
-    	        	 currY++;
-    	         }
-    	         
-    	 
-    	         // -1 for obv reasons
-    	         xSize = currX - xStart-1;
-    	         ySize = currY - yStart-1;
-    	         
-    	         // This stuff gets how many blocks to the ending corners of the QR code
-    	         int blackCount = 1;
-    	         currX = xStart + xSize*2;
-    	         currY = yStart;
-    	         while(blackCount < 7){
-    	        	 xEnd++;
-    	         	 currX += xSize;
-    	        	 if(matrix.get(currX, currY))
-    	        		 blackCount ++;
-    	       
-    	        	 else
-    	        		 blackCount = 0;
-    	         }
-    	         currX = xStart;
-    	         currY = yStart + ySize*2;
-    	         blackCount = 0;
-    	         while(blackCount < 7){
-    	        	 yEnd++;
-    	         	 currY += ySize;
-    	        	 if(matrix.get(currX, currY))
-    	        		 blackCount ++;
-    	       
-    	        	 else
-    	        		 blackCount = 0;
-    	         }
-    	         
-    	         // Print out the stuff found up there to the LogCat.
-    	         Log.w("MainActivity", Integer.toString(xSize));
-    	         Log.w("MainActivity", Integer.toString(ySize));
-    	         Log.w("MainActivity", Integer.toString(xEnd));
-    	         Log.w("MainActivity", Integer.toString(yEnd));
-    	         
-    	         
-    	         // This was my test case. Prints out wheither or not a cell is black at the relative value
-    	         Log.w("MainActivity", Boolean.toString(matrix.get(xStart + (xSize * 9), yStart + (ySize * 3))));
-    	         
-    	      } else if (resultCode == RESULT_CANCELED) {
-    	         // Handle cancel
+    	         QRHandler qr = new QRHandler();
+    	         Grid g = qr.getGrid(contents, qrheight, qrwidth);
+    	         writeGrid(contents, g);
     	      }
     	   }
     	}
     
-
+    // TO PUT IN OTHER ACTIVITY
+	public void writeGrid(String s, Grid g){
+		FileOutputStream fos;
+		ObjectOutputStream os;
+		try {
+			fos = openFileOutput(s, Context.MODE_PRIVATE);
+			os = new ObjectOutputStream(fos);
+			os.writeObject(this);
+			os.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public Grid loadGrid(String s){
+		FileInputStream fis;
+		ObjectInputStream is;
+		Grid g;
+		try {
+			fis = openFileInput(s);
+			is = new ObjectInputStream(fis);
+			g = (Grid) is.readObject();
+			is.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} catch (StreamCorruptedException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		return g;
+		
+	}
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

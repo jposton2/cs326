@@ -5,10 +5,10 @@ import java.util.ArrayList;
 public class Grid{
 	
 //    private ArrayList<ArrayList<PointData>> grid;
-	private int xBound = 10;
-	private int yBound = 10;
+	private int xBound;
+	private int yBound;
 	private Point start;
-	private PointData[][] gridArray = new PointData[xBound][yBound];
+	private PointData[][] gridArray;
 	int numberOfGroups;
 	ArrayList<Subgrid> arrayOfSubgrids = new ArrayList<Subgrid>();
 	
@@ -24,7 +24,9 @@ public class Grid{
         return start;
     }
 	
-	Grid(Point start, PointData[][] grid){
+	Grid(Point start, PointData[][] grid, int xBound, int yBound){
+		this.xBound = xBound;
+		this.yBound = yBound;
 		this.gridArray = grid;
 		this.start = start;
 		xBound = yBound = gridArray[0].length;
@@ -100,5 +102,7 @@ public class Grid{
 	PointData getLeft(PointData node){
 		return gridArray[node.getX()][node.getY()-1];
 	}
+	
+
     
 }
