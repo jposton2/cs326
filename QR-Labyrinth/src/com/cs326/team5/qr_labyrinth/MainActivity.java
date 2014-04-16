@@ -127,22 +127,6 @@ public class MainActivity extends Activity {
     	   }
     	}
     
-    /**
-     * Writes the given Matrix on a new Bitmap object.
-     * @param matrix the matrix to write.
-     * @return the new {@link Bitmap}-object.
-     This was for testing to make sure QR codes worked
-    public static Bitmap toBitmap(BitMatrix matrix){
-        int height = matrix.getHeight();
-        int width = matrix.getWidth();
-        Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-        for (int x = 0; x < width; x++){
-            for (int y = 0; y < height; y++){
-                bmp.setPixel(x, y, matrix.get(x,y) ? Color.BLACK : Color.WHITE);
-            }
-        }
-        return bmp;
-    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
