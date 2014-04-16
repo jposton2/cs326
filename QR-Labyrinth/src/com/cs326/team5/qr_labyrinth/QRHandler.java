@@ -1,9 +1,5 @@
 package com.cs326.team5.qr_labyrinth;
 
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
-
-import android.content.Context;
 import android.util.Log;
 
 import com.google.zxing.BarcodeFormat;
