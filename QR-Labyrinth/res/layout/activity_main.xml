@@ -28,7 +28,8 @@
             android:layout_gravity="center_horizontal"
             android:text="@string/story"
             android:textColor="#ffff00"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:onClick="handleButton" />
 
         <Button
             android:id="@+id/custom_level"
@@ -36,7 +37,8 @@
             android:layout_height="wrap_content"
             android:text="@string/custom_level"
             android:textColor="#ffff00"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:onClick="handleButton" />
 
         <Button
             android:id="@+id/exit"
@@ -44,7 +46,8 @@
             android:layout_height="wrap_content"
             android:text="@string/exit"
             android:textColor="#ffff00"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:onClick="handleButton" />
     </LinearLayout>
 
     <ImageView
