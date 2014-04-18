@@ -2,14 +2,17 @@ package com.cs326.team5.qr_labyrinth;
 
 import java.util.ArrayList;
 
+
+
 public class Subgrid {
 		
 		ArrayList<PointData> subgridArray = new ArrayList<PointData>();
-		private int incomingSubgridIndex=-1, outgoingNodeIndex=-1;
+		private int incomingSubgridIndex=-1, outgoingNodeIndex=-1, dummyNodeIndex  =-1;
 		
 		int groupID;
-		private Point teleporterOne = new Point();
-		private Point teleporterTwo = new Point();
+		private Point teleporterOne = new Point();//incoming teleporter
+		private Point teleporterTwo = new Point();//outgoing teleporter
+		private Point teleporterThree = new Point();//dummy teleporter
 		
 		/**
 		 * Set teleporter one coordinates
@@ -61,6 +64,35 @@ public class Subgrid {
 		 */
 		public void setOutgoingGridIndex(int outgoingNodeIndex) {
 			this.outgoingNodeIndex = outgoingNodeIndex;
+		}
+		
+		/**
+		 * @return the dummyNodeIndex
+		 */
+		public int getDummyNodeIndex() {
+			return dummyNodeIndex;
+		}
+
+		/**
+		 * @param dummyNodeIndex the dummyNodeIndex to set
+		 */
+		public void setDummyNodeIndex(int dummyNodeIndex) {
+			this.dummyNodeIndex = dummyNodeIndex;
+		}
+		
+		/**
+		 * @return the teleporterThree
+		 */
+		public Point getTeleporterThree() {
+			return teleporterThree;
+		}
+
+		/**
+		 * @param teleporterThree the teleporterThree to set
+		 */
+		public void setTeleporterThree(int x, int y) {
+			teleporterThree.setX(x);
+			teleporterThree.setY(y);
 		}
 		
 }

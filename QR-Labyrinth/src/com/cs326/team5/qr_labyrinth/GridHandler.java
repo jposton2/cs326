@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Vector;
 
+
 public class GridHandler{
 	
     private int minSize;
@@ -137,6 +138,47 @@ public class GridHandler{
 			grid.arrayOfSubgrids.get(numberList.get(i+1)).setIncomingSubgridIndex(numberList.get(i));//point next subgrid to current
 			
 		}
+	}
+	
+	/**
+	 * -Adds third teleporter to subgrids with more than 3 nodes
+	 * -Pairs up subgrids with third teleporter
+	 */
+	void addThirdTeleporter(){
+		int i = 0;
+		ArrayList<PointData> array = new ArrayList<PointData>();//temporarily stores point datas that will be third teleporter
+		
+		for (Subgrid subgrid : grid.arrayOfSubgrids) {//loop through subgrids
+			if(subgrid.subgridArray.size() > 3 && subgrid.getDummyNodeIndex() == -1){//if more than 3 nodes exist in subgrid
+				//loop through nodes, look for node with 3 black adjacencies
+				for (PointData pointData : subgrid.subgridArray) {
+					i=0;//adjacent black counter
+					if(pointData.hasTeleporter())continue;
+					
+					//check for adjacent blacks
+					if(grid.getAbove(pointData).isBlack())i++;
+					if(grid.getBelow(pointData).isBlack())i++;
+					if(grid.getRight(pointData).isBlack())i++;
+					if(grid.getLeft(pointData).isBlack())i++;
+					
+					if(i==3){//if three adjacent sides are black
+						subgrid.setTeleporterThree(pointData.getX(), pointData.getY());
+						grid.getGrid()[pointData.getX()][pointData.getY()].setTeleporter(true);;
+						array.add(pointData);
+						break;
+					}
+				}
+			}
+		}
+		
+		//pair up and connect third teleporters
+		for(i=0;i<array.size();i+=2){
+			if(i+1 != array.size()){
+				grid.arrayOfSubgrids.get(array.get(i).getGroupID()).setDummyNodeIndex(array.get(i+1).getGroupID());
+				grid.arrayOfSubgrids.get(array.get(i+1).getGroupID()).setDummyNodeIndex(array.get(i).getGroupID());
+			}
+		}
+		
 	}
 
 }
