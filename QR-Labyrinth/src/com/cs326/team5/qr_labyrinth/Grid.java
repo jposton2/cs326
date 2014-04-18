@@ -1,9 +1,12 @@
 package com.cs326.team5.qr_labyrinth;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import android.annotation.SuppressLint;
 
 public class Grid{
-	
+        	
 //    private ArrayList<ArrayList<PointData>> grid;
 	private int xBound;
 	private int yBound;
@@ -11,6 +14,7 @@ public class Grid{
 	private PointData[][] gridArray;
 	int numberOfGroups;
 	ArrayList<Subgrid> arrayOfSubgrids = new ArrayList<Subgrid>();
+	PointData deadEnd = null;
 	
 //    public Grid(Point start, ArrayList<ArrayList<PointData>> grid){
 //        this.grid = grid;
@@ -104,5 +108,45 @@ public class Grid{
 	}
 	
 
-    
+	public ArrayList<PointData> getWhiteNeighbors(PointData node){
+		ArrayList<PointData> neighbors = new ArrayList<PointData>();
+		if(!this.getAbove(node).isBlack()){
+			neighbors.add(this.getAbove(node));
+		}
+		if(!this.getBelow(node).isBlack()){
+			neighbors.add(this.getBelow(node));
+		}
+		if(!this.getLeft(node).isBlack()){
+			neighbors.add(this.getLeft(node));
+		}
+		if(!this.getRight(node).isBlack()){
+			neighbors.add(this.getRight(node));
+		}
+		return neighbors;
+	}
+
+	@SuppressLint("UseSparseArrays")
+	public void connectTeleporters() {
+		HashMap<Integer, Subgrid> subgridsById = new HashMap<Integer, Subgrid>();
+		for(Subgrid sg : this.arrayOfSubgrids){
+			subgridsById.put(sg.groupID, sg);
+		}
+		
+		for(Integer gid1 : subgridsById.keySet()){
+			for(Integer gid2 : subgridsById.get(gid1).teleporterDestinations.keySet()){
+				PointData tel1 = subgridsById.get(gid1).teleporterDestinations.get(gid2);
+				PointData tel2 = subgridsById.get(gid2).teleporterDestinations.get(gid1);
+				
+				if(tel1 == null){
+					tel1 = subgridsById.get(gid1).getPseudoTeleporter();
+				}
+				if(tel2 == null){
+					tel2 = subgridsById.get(gid2).getPseudoTeleporter();
+				}
+				
+				tel1.setDestination(tel2);
+				tel2.setDestination(tel1);
+			}
+		}
+	}
 }

@@ -1,98 +1,136 @@
 package com.cs326.team5.qr_labyrinth;
 
 import java.util.ArrayList;
-
-
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 public class Subgrid {
 		
-		ArrayList<PointData> subgridArray = new ArrayList<PointData>();
-		private int incomingSubgridIndex=-1, outgoingNodeIndex=-1, dummyNodeIndex  =-1;
+	Grid grid;
+	int groupID;
+	ArrayList<PointData> subgridArray = new ArrayList<PointData>();
+	
+	HashMap<Integer, PointData> teleporterDestinations;
+	ArrayList<PointData> teleporters;
+	private PointData pseudoTeleporter = null;
+	
+	public Subgrid(Grid grid, int groupId){
+		this.grid = grid;
+		this.groupID = groupId;
+	}
+	
+	public void addTeleporter(int x, int y){
+		this.teleporters.add(grid.getGrid()[x][y]);
+	}
+	
+	private LinkedList<PointData> multiBFS(Collection<PointData> teleporters, Collection<PointData> nodes){
+		HashMap<PointData, Boolean> isEnqueued = new HashMap<PointData, Boolean>();
+		LinkedList<PointData> toVisit = new LinkedList<PointData>();
+		LinkedList<PointData> visited = new LinkedList<PointData>();
 		
-		int groupID;
-		private Point teleporterOne = new Point();//incoming teleporter
-		private Point teleporterTwo = new Point();//outgoing teleporter
-		private Point teleporterThree = new Point();//dummy teleporter
+		for(PointData pd : nodes){
+			isEnqueued.put(pd, false);
+		}
+		for(PointData pd : teleporters){
+			isEnqueued.put(pd, true);
+		}
+		toVisit.addAll(teleporters);
 		
-		/**
-		 * Set teleporter one coordinates
-		 */
-		void setTeleporterOne(int x, int y){
-			teleporterOne.setX(x);
-			teleporterOne.setY(y);;
+		PointData visiting;
+		
+		while(!toVisit.isEmpty()){
+			visiting = toVisit.remove();
+			visited.add(visiting);
+			for(PointData pd: grid.getWhiteNeighbors(visiting)){
+				if(isEnqueued.get(pd) != null && !isEnqueued.get(pd)){
+					isEnqueued.put(pd, false);
+					toVisit.add(pd);
+				}
+			}
 		}
 		
-		/**
-		 * Set teleporter two coordinates
-		 */
-		void setTeleporterTwo(int x, int y){
-			teleporterTwo.setX(x);
-			teleporterTwo.setY(y);;
-		} 
-		
-		Point getTeleporterOne(){
-			return teleporterOne;
+		return visited;
+	}
+	
+	private boolean isSafe(PointData teleportAdd){
+		if(teleportAdd.hasTeleporter()){
+			return false;
+		}
+		for(PointData p : grid.getWhiteNeighbors(teleportAdd)){
+			if(p.hasTeleporter()){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public boolean canAddTeleporter(){
+		for(PointData pd : this.subgridArray){
+			if(this.isSafe(pd)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean addTeleporter(int destinationId){
+		if(this.teleporters.size() == 0 && this.subgridArray.size() > 0){
+			teleporters.add(this.subgridArray.get(0));
+			return true;
 		}
 		
-		Point getTeleporterTwo(){
-			return teleporterTwo;
+		LinkedList<PointData> visitOrder = this.multiBFS(teleporters, this.subgridArray);
+		while(!visitOrder.isEmpty()){
+			PointData candidate = visitOrder.removeLast();
+			if(this.isSafe(candidate)){
+				teleporters.add(candidate);
+				teleporterDestinations.put(destinationId, null);
+				return true;
+			}
 		}
-		
-		/**
-		 * @return the incomingNodeIndex
-		 */
-		public int getIncomingNodeIndex() {
-			return incomingSubgridIndex;
+		return false;
+	}
+	
+	public boolean addTeleporter(Subgrid destination){
+		return this.addTeleporter(destination.groupID);
+	}
+	
+	/**
+	 * @return the pseudoTeleporter
+	 */
+	public PointData getPseudoTeleporter() {
+		return pseudoTeleporter;
+	}
+	
+	/**
+	 * @param pseudoTeleporter the pseudoTeleporter to set
+	 */
+	public void setPseudoTeleporter(PointData pseudoTeleporter) {
+		this.pseudoTeleporter = pseudoTeleporter;
+	}
+	
+	public boolean addPseudoTeleporter(){
+		if(this.pseudoTeleporter != null){
+			return true;
 		}
+		if(this.addTeleporter(-1)){
+			this.teleporters.remove(teleporters.size() - 1);
+			this.setPseudoTeleporter(teleporters.get(teleporters.size() - 1));
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
 
-		/**
-		 * @param incomingSubgridIndex the incomingNodeIndex to set
-		 */
-		public void setIncomingSubgridIndex(int incomingSubgridIndex) {
-			this.incomingSubgridIndex = incomingSubgridIndex;
+	public void assignTeleporterDestinations(){
+		Collections.shuffle(teleporters);
+		int i = 0;
+		for(Integer destination : teleporterDestinations.keySet()){
+			teleporterDestinations.put(destination, teleporters.get(i));
+			++i;
 		}
-
-		/**
-		 * @return the outgoingNodeIndex
-		 */
-		public int getOutgoingGridIndex() {
-			return outgoingNodeIndex;
-		}
-
-		/**
-		 * @param outgoingNodeIndex the outgoingNodeIndex to set
-		 */
-		public void setOutgoingGridIndex(int outgoingNodeIndex) {
-			this.outgoingNodeIndex = outgoingNodeIndex;
-		}
-		
-		/**
-		 * @return the dummyNodeIndex
-		 */
-		public int getDummyNodeIndex() {
-			return dummyNodeIndex;
-		}
-
-		/**
-		 * @param dummyNodeIndex the dummyNodeIndex to set
-		 */
-		public void setDummyNodeIndex(int dummyNodeIndex) {
-			this.dummyNodeIndex = dummyNodeIndex;
-		}
-		
-		/**
-		 * @return the teleporterThree
-		 */
-		public Point getTeleporterThree() {
-			return teleporterThree;
-		}
-
-		/**
-		 * @param teleporterThree the teleporterThree to set
-		 */
-		public void setTeleporterThree(int x, int y) {
-			teleporterThree.setX(x);
-			teleporterThree.setY(y);
-		}
-		
+	}
 }

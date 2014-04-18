@@ -3,11 +3,12 @@ package com.cs326.team5.qr_labyrinth;
 public class PointData{
 	
     private boolean black;
-    private Point destination;
+    private PointData destination = null; //teleporter destination 
 	private int x;
 	private int y;
 	private int groupID = -1;//set to -1 as default, ungrouped, state
 	private boolean teleporter = false;//default of no teleporter present
+	private boolean pseudoTeleporter = false;
 	
 	PointData(){
 		black = true;
@@ -16,6 +17,8 @@ public class PointData{
 	
 	PointData(boolean isBlack, int x, int y){
 		this.black = isBlack;
+		this.x = x;
+		this.y = y;
 	}
 	
 	/**
@@ -79,20 +82,6 @@ public class PointData{
 		this.black = b;
 	}
 	
-	void setDesintation(int x, int y){
-		this.destination.setX(x);
-		this.destination.setY(y);
-	}
-	
-    public PointData(boolean b){
-    	this(null, b);
-    }
-    
-    public PointData(Point p, boolean b){
-        destination = p;
-        black = b;
-    }
-    
     /**
      * @return true if represents a black point, false if white
      */
@@ -103,8 +92,35 @@ public class PointData{
     /**
      * @return destination point
      */
-    public Point getDestination(){
+    public PointData getDestination(){
         return destination;
     }
 
+    /**
+	 * @param destination the destination to set
+	 */
+	public void setDestination(PointData destination) {
+		this.destination = destination;
+	}
+
+	public boolean isPseudoTeleporter() {
+		return pseudoTeleporter;
+	}
+
+	public void setPseudoTeleporter(boolean pseudoTeleporter) {
+		this.pseudoTeleporter = pseudoTeleporter;
+	}
+
+	@Override
+	public boolean equals(Object p2){
+		return ((Integer) this.x).equals(((PointData) p2).x)
+				&& ((Integer) this.y).equals(((PointData) p2).y);
+	}
+	
+	@Override
+	public int hashCode(){
+		return ((Integer) this.x).hashCode() + 8675309*((Integer) this.y).hashCode();
+	}
+
+	
  }
