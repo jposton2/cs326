@@ -35,13 +35,11 @@ public class CustomLevelActivity extends Activity {
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
     	   if (requestCode == 0) {
     	      if (resultCode == RESULT_OK) {
-    	    	 TextView test = (TextView) findViewById(R.id.textView2);
     	         String contents = intent.getStringExtra("SCAN_RESULT");
     	         
     	         // We can use format to check if it is a URL, or TEXT or something!
     	         String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
     	         
-    	         test.setText(contents);
     	         QRHandler qr = new QRHandler();
     	         Grid g = qr.getGrid(contents, qrheight, qrwidth);
     	         

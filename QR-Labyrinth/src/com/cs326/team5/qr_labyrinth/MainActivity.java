@@ -25,6 +25,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.Window;
 import android.widget.TextView;
 
 
@@ -36,6 +37,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
         // Tests if it is the first run or not.
         if(prefs.getBoolean("firstRun", true)){
         	SharedPreferences.Editor editor = prefs.edit();
@@ -64,5 +66,25 @@ public class MainActivity extends Activity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+    
+    /**
+ 	 * Handles button clicks for the UI
+ 	 * @param v view that was clicked
+ 	 */
+ 	public void handleButton(View v) {
+ 		int id = v.getId();
+
+ 		switch (id) {
+ 		case R.id.story: // start server activity
+ 			startActivity(new Intent(this, SelectLevelActivity.class));
+ 			break;
+ 		case R.id.custom_level: // start news activity
+ 			startActivity(new Intent(this, CustomLevelActivity.class));
+ 			break;
+ 		case R.id.exit: // start about activity
+ 			//startActivity(new Intent(this, AboutActivity.class));
+ 			break;
+ 		}
+ 	}
     
 }
