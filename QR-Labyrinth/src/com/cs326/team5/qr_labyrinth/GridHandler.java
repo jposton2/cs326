@@ -94,9 +94,16 @@ public class GridHandler{
 								queue.add(grid.getLeft(tempNode));
 							}
 						}
-						currentGroup++;//increment for next group assignment
-						tempNode.setTeleporter(true);//set teleporter to last BFS visited node
-						tempSubgrid.setTeleporterTwo(tempNode.getX(), tempNode.getY());//give teleporter
+						//remove subgrid if only one node exists
+						if(tempSubgrid.subgridArray.size() == 1){//if only one node exists in subgrid
+							grid.arrayOfSubgrids.remove(tempSubgrid);
+							grid.getGrid()[tempSubgrid.getTeleporterOne().getX()][tempSubgrid.getTeleporterOne().getY()].setTeleporter(false);
+							grid.getGrid()[tempSubgrid.getTeleporterOne().getX()][tempSubgrid.getTeleporterOne().getY()].setGroupID(-1);
+						}else{//if more than one node
+							currentGroup++;//increment for next group assignment
+							tempNode.setTeleporter(true);//set teleporter to last BFS visited node
+							tempSubgrid.setTeleporterTwo(tempNode.getX(), tempNode.getY());//give teleporter
+						}
 					}
 				}
 			}
