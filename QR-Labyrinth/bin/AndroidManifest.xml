@@ -27,6 +27,15 @@
             android:name="com.cs326.team5.qr_labyrinth.GameField"
             android:label="@string/title_activity_game_field" >
         </activity>
+
+        <activity
+            android:name="com.cs326.team5.qr_labyrinth.CustomLevelActivity"
+            android:label="@string/title_activity_custom_level" >
+        </activity>
+        <activity
+            android:name="com.cs326.team5.qr_labyrinth.SelectLevelActivity"
+            android:label="@string/title_activity_select_level" >
+        </activity>
         <activity android:name="com.google.zxing.client.android.CaptureActivity"
    android:screenOrientation="landscape"
    android:configChanges="orientation|keyboardHidden"
