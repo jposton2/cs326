@@ -44,6 +44,8 @@ public class CustomLevelActivity extends Activity {
     	         test.setText(contents);
     	         QRHandler qr = new QRHandler();
     	         Grid g = qr.getGrid(contents, qrheight, qrwidth);
+    	         
+    	         
     	         File file = getBaseContext().getFileStreamPath(contents);
     	         if(!file.exists())
     	         	writeGrid(contents, g);

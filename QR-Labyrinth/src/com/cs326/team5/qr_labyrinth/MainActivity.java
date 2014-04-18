@@ -52,7 +52,12 @@ public class MainActivity extends Activity {
     	intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
     	startActivityForResult(intent, 0);
     }
-    
+    public void exit(View view){
+    	Intent intent = new Intent(this, MainActivity.class);
+    	intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    	intent.putExtra("exit", "true");
+    	startActivity(intent);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
