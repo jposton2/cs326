@@ -13,11 +13,6 @@ public final class R {
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
 
-         Example customization of dimensions originally defined in res/values/dimens.xml
-         (such as screen margins) for screens with more than 820dp of available width. This
-         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
-    
-
          Customize dimensions originally defined in res/values/dimens.xml (such as
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
@@ -67,16 +62,18 @@ public final class R {
     public static final class string {
         public static final int action_settings=0x7f050001;
         public static final int app_name=0x7f050000;
-        public static final int back=0x7f050009;
+        public static final int back=0x7f05000b;
         public static final int credits=0x7f050005;
         public static final int custom_level=0x7f050007;
         public static final int exit=0x7f050006;
         public static final int hello_world=0x7f050002;
         public static final int level_select=0x7f050003;
-        public static final int play=0x7f05000b;
-        public static final int scan=0x7f05000a;
+        public static final int play=0x7f05000d;
+        public static final int scan=0x7f05000c;
         public static final int story=0x7f050004;
+        public static final int title_activity_custom_level=0x7f050009;
         public static final int title_activity_game_field=0x7f050008;
+        public static final int title_activity_select_level=0x7f05000a;
     }
     public static final class style {
         /** 
