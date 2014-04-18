@@ -32,19 +32,19 @@ import android.widget.TextView;
 public class MainActivity extends Activity {
 	private int qrheight = 400;
 	private int qrwidth = 400;
-	SharedPreferences prefs = getSharedPreferences("userValues", MODE_PRIVATE);
+	//SharedPreferences prefs = getSharedPreferences("userValues", MODE_PRIVATE);
 	// QR example here https://github.com/zxing/zxing/blob/master/androidtest/src/com/google/zxing/client/androidtest/ZXingTestActivity.java
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
         // Tests if it is the first run or not.
-        if(prefs.getBoolean("firstRun", true)){
+        /*if(prefs.getBoolean("firstRun", true)){
         	SharedPreferences.Editor editor = prefs.edit();
         	editor.putBoolean("firstRun", false);
         	editor.commit();
         	// TODO: Create level files here
-        }
+        }*/
         setContentView(R.layout.activity_main);
     }
     
