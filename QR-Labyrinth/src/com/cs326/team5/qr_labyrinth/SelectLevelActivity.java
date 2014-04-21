@@ -1,7 +1,5 @@
 package com.cs326.team5.qr_labyrinth;
 
-import com.minecraft.app.R;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
