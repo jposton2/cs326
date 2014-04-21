@@ -48,6 +48,7 @@
             android:textColor="#ffff00"
             android:textStyle="bold"
             android:onClick="handleButton" />
+        
     </LinearLayout>
 
     <ImageView
@@ -64,6 +65,6 @@
         android:layout_height="130dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:src="@drawable/qrcode" />"
+        android:src="@drawable/qr_code" />
 
 </RelativeLayout>
