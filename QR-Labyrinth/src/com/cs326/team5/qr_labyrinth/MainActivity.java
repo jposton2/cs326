@@ -48,13 +48,6 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
     }
     
-
-    public void scan(View view){
-    	Intent intent = new Intent("com.google.zxing.client.android.SCAN");
-    	intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
-    	startActivityForResult(intent, 0);
-    }
-    
     public void onExit(){
     	Intent intent = new Intent(this, MainActivity.class);
     	intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

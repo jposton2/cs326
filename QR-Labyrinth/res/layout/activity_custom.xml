@@ -30,7 +30,8 @@
 	        android:paddingLeft="15dp"
 	        android:text="@string/back"
             android:textColor="#ffff00"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:onClick="handleButton" />
 	
 	    <ListView
 	        android:id="@+id/listView1"
@@ -64,7 +65,8 @@
 	            android:layout_weight="1"
 	            android:text="@string/play"
            		android:textColor="#ffff00"
-            	android:textStyle="bold" />
+            	android:textStyle="bold"
+            	android:onClick="handleButton" />
 	
 	        <Button
 	            android:id="@+id/scan"
@@ -73,7 +75,8 @@
 	            android:layout_weight="1"
 	            android:text="@string/scan"
             	android:textColor="#ffff00"
-            	android:textStyle="bold" />
+            	android:textStyle="bold"
+	            android:onClick="handleButton" />
 	        
 	    </LinearLayout>
 

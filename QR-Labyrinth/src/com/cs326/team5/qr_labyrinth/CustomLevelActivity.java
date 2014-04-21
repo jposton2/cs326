@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.TextView;
 
 public class CustomLevelActivity extends Activity {
@@ -23,6 +24,7 @@ public class CustomLevelActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
     }
     
     public void scan(View view){
@@ -33,23 +35,23 @@ public class CustomLevelActivity extends Activity {
     
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-    	   if (requestCode == 0) {
-    	      if (resultCode == RESULT_OK) {
-    	         String contents = intent.getStringExtra("SCAN_RESULT");
-    	         
-    	         // We can use format to check if it is a URL, or TEXT or something!
-    	         String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
-    	         
-    	         QRHandler qr = new QRHandler();
-    	         Grid g = qr.getGrid(contents, qrheight, qrwidth);
-    	         
-    	         
-    	         File file = getBaseContext().getFileStreamPath(contents);
-    	         if(!file.exists())
-    	         	writeGrid(contents, g);
-    	      }
-    	   }
-    	}
+	   if (requestCode == 0) {
+	      if (resultCode == RESULT_OK) {
+	         String contents = intent.getStringExtra("SCAN_RESULT");
+	         
+	         // We can use format to check if it is a URL, or TEXT or something!
+	         String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
+	         
+	         QRHandler qr = new QRHandler();
+	         Grid g = qr.getGrid(contents, qrheight, qrwidth);
+	         
+	         
+	         File file = getBaseContext().getFileStreamPath(contents);
+	         if(!file.exists())
+	         	writeGrid(contents, g);
+	      }
+	   }
+	}
     
     // TO PUT IN OTHER ACTIVITY
 	public void writeGrid(String s, Grid g){
@@ -68,6 +70,7 @@ public class CustomLevelActivity extends Activity {
 		}
 		
 	}
+	
 	// TO PUT IN OTHER ACTIVITYYYYY
 	public Grid loadGrid(String s){
 		FileInputStream fis;
@@ -93,6 +96,19 @@ public class CustomLevelActivity extends Activity {
 		}
 		
 		return g;
-		
 	}
+	
+    /**
+ 	 * Handles button clicks for the UI
+ 	 * @param v view that was clicked
+ 	 */
+ 	public void handleButton(View v) {
+ 		int id = v.getId();
+
+ 		switch (id) {
+		case R.id.back: // if back button was clicked
+			finish();
+			break;
+		}
+ 	}
 }
