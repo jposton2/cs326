@@ -21,6 +21,23 @@ public class Grid{
 //      this.start = start;
 //  }
 
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getHighscore() {
+		return highscore;
+	}
+
+	public void setHighscore(int highscore) {
+		this.highscore = highscore;
+	}
+
   /**
    * @return start point
    */
@@ -162,6 +179,4 @@ public class Grid{
 	public String toString(){
 		return name + "\n\t" + highscore;
 	}
-
-
 }
