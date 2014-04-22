@@ -102,34 +102,34 @@ public class QRHandler {
 		String s = "null";
 		switch(i){
 		case 1:
-			s = "PenisPenisPenisPenisPenis";
+			s = "Taumatawhakatangihangakoauauotamateapokaiwhenuakitanatahu";
 			break;
 		case 2:
-			s = "ThisLevelNoLongerUsesPenises";
+			s = "Llanfairpwllgwyngyll";
 			break;
 		case 3:
-			s = "ThisLevelNoLongerUsesPenises";
+			s = "Chaubunagungamaug";
 			break;
 		case 4:
-			s = "ThisLevelNoLongerUsesPenises";
+			s = "Pekwachnamaykoskwaskwaypinwanik";
 			break;
 		case 5:
-			s = "ThisLevelNoLongerUsesPenises";
+			s = "Venkatanarasimharajuvaripeta";
 			break;
 		case 6:
-			s = "ThisLevelNoLongerUsesPenises";
+			s = "Onafhankelijkheidsplein";
 			break;
 		case 7:
-			s = "ThisLevelNoLongerUsesPenises";
+			s = "Newtownmountkennedy";
 			break;
 		case 8:
-			s = "ThisLevelNoLongerUsesPenises";
+			s = "Bienwaldziegelhutte";
 			break;
 		case 9:
-			s = "ThisLevelNoLongerUsesPenises";
+			s = "Gasselterboerveenschemond";
 			break;
 		case 10:
-			s = "ThisLevelNoLongerUsesPenises";
+			s = "Muckanaghederdauhaulia";
 			break;
 		}
 		return s;
