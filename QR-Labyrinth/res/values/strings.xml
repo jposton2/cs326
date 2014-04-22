@@ -12,9 +12,10 @@
     <string name="title_activity_game_field">GameField</string>
     <string name="title_activity_custom_level">CustomLevel</string>
     <string name="title_activity_select_level">SelectLevel</string>
-    <string name="back">Back</string><string name="scan">SCAN</string><string name="play">PLAY</string><string name="trash">X</string>
-    
-    
-    
+    <string name="back">Back</string>
+    <string name="scan">SCAN</string>
+    <string name="play">PLAY</string>
+    <string name="trash">X</string>
+    <string name="title_activity_game">GameActivity</string>
 
 </resources>

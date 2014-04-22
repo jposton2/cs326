@@ -13,13 +13,22 @@ public class Grid{
 	int numberOfGroups;
 	ArrayList<Subgrid> arrayOfSubgrids = new ArrayList<Subgrid>();
 	PointData deadEnd = null;
+	private Point player;
 	
 //  public Grid(Point start, ArrayList<ArrayList<PointData>> grid){
 //      this.grid = grid;
 //      this.start = start;
 //  }
 
-  /**
+  public Point getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Point player) {
+		this.player = player;
+	}
+
+/**
    * @return start point
    */
   public PointData getStart(){
