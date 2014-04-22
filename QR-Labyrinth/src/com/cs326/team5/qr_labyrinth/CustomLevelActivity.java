@@ -33,7 +33,6 @@ public class CustomLevelActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        checkFiles();
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_custom);
     }
@@ -44,7 +43,7 @@ public class CustomLevelActivity extends Activity {
     	startActivityForResult(intent, 0);
     }
     
-    public void checkFiles(){
+    public ArrayList<Grid> checkFiles(){
     	QRHandler h = new QRHandler();  
     	ArrayList<Grid> gridList = new ArrayList<Grid>();
         for(int i = 1; i <= 10; i++){
@@ -58,6 +57,7 @@ public class CustomLevelActivity extends Activity {
                       gridList.add(g);
                 }
         }
+        return gridList;
     }
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 	   if (requestCode == 0) {
