@@ -132,6 +132,7 @@ public class QRHandler {
 			s = "ThisLevelNoLongerUsesPenises";
 			break;
 		}
+		return s;
 	}
 
 }
