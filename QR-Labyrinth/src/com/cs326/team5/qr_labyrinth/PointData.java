@@ -122,5 +122,23 @@ public class PointData{
 		return ((Integer) this.x).hashCode() + 8675309*((Integer) this.y).hashCode();
 	}
 
-	
+	/*
+	 *  used for debugging
+	 */
+	@Override
+	public String toString(){
+		if(this.isPseudoTeleporter()){
+			return "(" + this.x + "," + this.y + "):P";
+		}
+		if(this.hasTeleporter()){
+			if (this.destination == null){
+				return "(" + this.x + "," + this.y + ")badbadbadbadbadbadbadbadbadbadbadbadbadbad";
+			}
+			return "(" + this.x + "," + this.y + "):(" + destination.x + "," + destination.y + ")";
+		}
+		if(this.isBlack()){
+			return "B";
+		}
+		return " ";
+	}
  }

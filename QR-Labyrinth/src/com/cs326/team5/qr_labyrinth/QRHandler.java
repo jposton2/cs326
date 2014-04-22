@@ -94,7 +94,7 @@ public class QRHandler {
         	}
         }
         
-		return new Grid(new Point(0,0), gridArray, xEnd-xStart, yEnd-yStart);
+		return new Grid(gridArray, xEnd-xStart, yEnd-yStart);
 	}
 	
 
