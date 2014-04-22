@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.StreamCorruptedException;
+import java.util.ArrayList;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -45,12 +46,16 @@ public class CustomLevelActivity extends Activity {
     
     public void checkFiles(){
     	QRHandler h = new QRHandler();  
+    	ArrayList<Grid> gridList = new ArrayList<Grid>();
         for(int i = 1; i <= 10; i++){
                 File file = getBaseContext().getFileStreamPath("level_" + Integer.toString(i));
                 if(!file.exists()){
 //                      Grid g = h.getGrid("lol", 400, 400);
                       Grid g = h.getGrid(h.getLevel(i), 400, 400);
+                      g.setName("level_"+Integer.toString(i));
+                      g.setHighscore(0);
                       writeGrid("level_"+Integer.toString(i), g);
+                      gridList.add(g);
                 }
         }
     }
