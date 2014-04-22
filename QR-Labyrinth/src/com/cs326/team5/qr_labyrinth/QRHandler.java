@@ -85,15 +85,14 @@ public class QRHandler {
         Log.w("MainActivity", Integer.toString(xEnd));
         Log.w("MainActivity", Integer.toString(yEnd));
         
-        PointData[][] gridArray = new PointData[xEnd-xStart][yEnd-yStart];
+        
+        PointData[][] gridArray = new PointData[xEnd*xSize-xStart][yEnd*xSize-yStart];
         // This was my test case. Prints out whether or not a cell is black at the relative value
-        Log.w("MainActivity", Boolean.toString(matrix.get(xStart + (xSize * 9), yStart + (ySize * 3))));
-        for(int i = xStart; i < xEnd; i++){
-        	for(int j = xStart; j < xEnd; j++){
+        for(int i = xStart; i < xEnd*xSize; i+=xSize){
+        	for(int j = xStart; j < xEnd*ySize; j+=ySize){
         		gridArray[i-xStart][j-yStart] = (matrix.get(i, j) ? new PointData(true,i-xStart, j-yStart) : new PointData(false, i-xStart, j-yStart));
         	}
         }
-        
 		return new Grid(gridArray, xEnd-xStart, yEnd-yStart);
 	}
 	

@@ -9,10 +9,16 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.StreamCorruptedException;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
@@ -42,8 +48,9 @@ public class CustomLevelActivity extends Activity {
         for(int i = 1; i <= 10; i++){
                 File file = getBaseContext().getFileStreamPath("level_" + Integer.toString(i));
                 if(!file.exists()){
+//                      Grid g = h.getGrid("lol", 400, 400);
                       Grid g = h.getGrid(h.getLevel(i), 400, 400);
-                      //writeGrid("level_"+Integer.toString(i), g);
+                      writeGrid("level_"+Integer.toString(i), g);
                 }
         }
     }
