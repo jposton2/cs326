@@ -1,38 +1,42 @@
 package com.cs326.team5.qr_labyrinth;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
-import android.annotation.SuppressLint;
 
 public class Grid{
-        	
-//    private ArrayList<ArrayList<PointData>> grid;
+	
+//  private ArrayList<ArrayList<PointData>> grid;
 	private int xBound;
 	private int yBound;
-	private Point start;
+	private PointData start;
+	private PointData end;
 	private PointData[][] gridArray;
 	int numberOfGroups;
 	ArrayList<Subgrid> arrayOfSubgrids = new ArrayList<Subgrid>();
 	PointData deadEnd = null;
 	
-//    public Grid(Point start, ArrayList<ArrayList<PointData>> grid){
-//        this.grid = grid;
-//        this.start = start;
-//    }
+//  public Grid(Point start, ArrayList<ArrayList<PointData>> grid){
+//      this.grid = grid;
+//      this.start = start;
+//  }
 
-    /**
-     * @return start point
-     */
-    public Point getStart(){
-        return start;
-    }
+  /**
+   * @return start point
+   */
+  public PointData getStart(){
+      return start;
+  }
 	
-	Grid(Point start, PointData[][] grid, int xBound, int yBound){
+	/**
+	 * @param start the start to set
+	 */
+	public void setStart(PointData start) {
+		this.start = start;
+	}
+
+	Grid(PointData[][] grid, int xBound, int yBound){
 		this.xBound = xBound;
 		this.yBound = yBound;
 		this.gridArray = grid;
-		this.start = start;
 		xBound = yBound = gridArray[0].length;
 	}
 	
@@ -77,7 +81,12 @@ public class Grid{
 	 * @return - above node
 	 */
 	PointData getAbove(PointData node){
-		return  gridArray[node.getX() -1][node.getY()];
+		if(node.getX() > 0){
+			return  gridArray[node.getX() -1][node.getY()];
+		}
+		else{
+			return null;
+		}
 	}
 	
 	/**
@@ -86,7 +95,12 @@ public class Grid{
 	 * @return - below node
 	 */
 	PointData getBelow(PointData node){
-		return gridArray[node.getX() +1][node.getY()];
+		if(node.getX() < this.xBound - 1){
+			return gridArray[node.getX() +1][node.getY()];
+		}
+		else{
+			return null;
+		}
 	}
 	
 	/**
@@ -95,7 +109,12 @@ public class Grid{
 	 * @return - right node
 	 */
 	PointData getRight(PointData node){
-		return gridArray[node.getX()][node.getY()+1];
+		if(node.getY() < this.yBound - 1){
+			return gridArray[node.getX()][node.getY()+1];
+		}
+		else{
+			return null;
+		}
 	}
 	
 	/**
@@ -104,49 +123,39 @@ public class Grid{
 	 * @return - left node
 	 */
 	PointData getLeft(PointData node){
-		return gridArray[node.getX()][node.getY()-1];
+		if(node.getY() > 0){
+			return gridArray[node.getX()][node.getY()-1];
+		}
+		else{
+			return null;
+		}
 	}
 	
 
 	public ArrayList<PointData> getWhiteNeighbors(PointData node){
 		ArrayList<PointData> neighbors = new ArrayList<PointData>();
-		if(!this.getAbove(node).isBlack()){
+		if(this.getAbove(node) != null && !this.getAbove(node).isBlack()){
 			neighbors.add(this.getAbove(node));
 		}
-		if(!this.getBelow(node).isBlack()){
+		if(this.getBelow(node) != null && !this.getBelow(node).isBlack()){
 			neighbors.add(this.getBelow(node));
 		}
-		if(!this.getLeft(node).isBlack()){
+		if(this.getLeft(node) != null && !this.getLeft(node).isBlack()){
 			neighbors.add(this.getLeft(node));
 		}
-		if(!this.getRight(node).isBlack()){
+		if(this.getRight(node) != null && !this.getRight(node).isBlack()){
 			neighbors.add(this.getRight(node));
 		}
 		return neighbors;
 	}
 
-	@SuppressLint("UseSparseArrays")
-	public void connectTeleporters() {
-		HashMap<Integer, Subgrid> subgridsById = new HashMap<Integer, Subgrid>();
-		for(Subgrid sg : this.arrayOfSubgrids){
-			subgridsById.put(sg.groupID, sg);
-		}
-		
-		for(Integer gid1 : subgridsById.keySet()){
-			for(Integer gid2 : subgridsById.get(gid1).teleporterDestinations.keySet()){
-				PointData tel1 = subgridsById.get(gid1).teleporterDestinations.get(gid2);
-				PointData tel2 = subgridsById.get(gid2).teleporterDestinations.get(gid1);
-				
-				if(tel1 == null){
-					tel1 = subgridsById.get(gid1).getPseudoTeleporter();
-				}
-				if(tel2 == null){
-					tel2 = subgridsById.get(gid2).getPseudoTeleporter();
-				}
-				
-				tel1.setDestination(tel2);
-				tel2.setDestination(tel1);
-			}
-		}
+	public PointData getEnd() {
+		return end;
 	}
+
+	public void setEnd(PointData end) {
+		this.end = end;
+	}
+
+
 }
