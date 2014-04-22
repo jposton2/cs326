@@ -1,18 +1,12 @@
 package com.cs326.team5.qr_labyrinth;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
+
 import android.widget.TextView;
 
 public class SelectLevelActivity extends Activity {
