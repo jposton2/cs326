@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public class Grid{
 	
 //  private ArrayList<ArrayList<PointData>> grid;
+	private String name;
+	private int highscore;
 	private int xBound;
 	private int yBound;
 	private PointData start;
@@ -155,6 +157,10 @@ public class Grid{
 
 	public void setEnd(PointData end) {
 		this.end = end;
+	}
+	
+	public String toString(){
+		return name + "\n\t" + highscore;
 	}
 
 
