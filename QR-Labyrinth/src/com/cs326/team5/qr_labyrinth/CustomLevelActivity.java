@@ -26,12 +26,6 @@ public class CustomLevelActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        for(int i = 1; i <= 10; i++){
-                File file = getBaseContext().getFileStreamPath("level_" + Integer.toString(i));
-                if(!file.exists()){
-                      QRHandler h = new QRHandler();  
-                }
-        }
         setContentView(R.layout.activity_custom);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
     }
@@ -42,7 +36,16 @@ public class CustomLevelActivity extends Activity {
     	startActivityForResult(intent, 0);
     }
     
-
+    public void checkFiles(){
+        for(int i = 1; i <= 10; i++){
+                File file = getBaseContext().getFileStreamPath("level_" + Integer.toString(i));
+                if(!file.exists()){
+                      QRHandler h = new QRHandler();  
+                      Grid g = h.getGrid(h.getLevel(i), 400, 400);
+                      writeGrid("level"+Integer.toString(i), g);
+                }
+        }
+    }
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 	   if (requestCode == 0) {
 	      if (resultCode == RESULT_OK) {
