@@ -18,6 +18,8 @@ import android.view.Window;
 import android.widget.TextView;
 
 public class CustomLevelActivity extends Activity {
+	
+	private boolean levelSelect = false;
 	private int qrheight = 400;
 	private int qrwidth = 400;
     @Override
@@ -106,6 +108,13 @@ public class CustomLevelActivity extends Activity {
  		int id = v.getId();
 
  		switch (id) {
+ 		case R.id.listView1:
+ 			if(v.levelSelect = true;
+ 			
+ 		case R.id.play:	// if play button was clicked
+ 			break;
+ 		case R.id.scan:	// if play button was clicked
+ 			break;
 		case R.id.back: // if back button was clicked
 			finish();
 			break;

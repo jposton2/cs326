@@ -25,23 +25,24 @@
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentRight="true"
 	        android:layout_alignParentTop="true"
-	        android:paddingLeft="15dp"
+	        android:layout_marginLeft="10dp"
 	        android:text="@string/back"
             android:textColor="#ffff00"
             android:textStyle="bold"
             android:onClick="handleButton" />
 	
 	    <ListView
-	        android:id="@+id/listView1"
+	        android:id="@+id/level_list"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_above="@+id/buttons"
 	        android:layout_alignParentLeft="true"
 	        android:layout_alignTop="@+id/back"
 	        android:layout_toLeftOf="@+id/back"
-	        android:background="#dddddd"
+	        android:background="#bbdddddd"
 	        android:layout_marginLeft="3dp"
-	        android:layout_marginTop="3dp" >
+	        android:layout_marginTop="3dp"
+	        android:fadeScrollbars="false" >
 	        
 	    </ListView>
 	
@@ -62,6 +63,7 @@
 	        android:text="@string/play"
             android:textColor="#ffff00"
             android:textStyle="bold"
+            android:alpha="0.5"
             android:onClick="handleButton" />
 	        
 	    </LinearLayout>
