@@ -98,7 +98,41 @@ public class QRHandler {
 	}
 	
 
-	
+	public String getLevel(int i){
+		String s = "null";
+		switch(i){
+		case 1:
+			s = "PenisPenisPenisPenisPenis";
+			break;
+		case 2:
+			s = "ThisLevelNoLongerUsesPenises";
+			break;
+		case 3:
+			s = "ThisLevelNoLongerUsesPenises";
+			break;
+		case 4:
+			s = "ThisLevelNoLongerUsesPenises";
+			break;
+		case 5:
+			s = "ThisLevelNoLongerUsesPenises";
+			break;
+		case 6:
+			s = "ThisLevelNoLongerUsesPenises";
+			break;
+		case 7:
+			s = "ThisLevelNoLongerUsesPenises";
+			break;
+		case 8:
+			s = "ThisLevelNoLongerUsesPenises";
+			break;
+		case 9:
+			s = "ThisLevelNoLongerUsesPenises";
+			break;
+		case 10:
+			s = "ThisLevelNoLongerUsesPenises";
+			break;
+		}
+	}
 
 }
 		
