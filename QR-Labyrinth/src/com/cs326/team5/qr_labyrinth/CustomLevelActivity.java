@@ -19,9 +19,10 @@ import android.widget.TextView;
 
 public class CustomLevelActivity extends Activity {
 	
-	private boolean levelSelect = false;
 	private int qrheight = 400;
 	private int qrwidth = 400;
+	private TextView prevClick = null;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +36,7 @@ public class CustomLevelActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
     }
     
-    public void scan(View view){
+    public void scan(){
     	Intent intent = new Intent("com.google.zxing.client.android.SCAN");
     	intent.putExtra("SCAN_MODE", "QR_CODE_MODE");
     	startActivityForResult(intent, 0);
@@ -114,13 +115,26 @@ public class CustomLevelActivity extends Activity {
  		int id = v.getId();
 
  		switch (id) {
- 		case R.id.listView1:
- 			if(v.levelSelect = true;
- 			
  		case R.id.play:	// if play button was clicked
+ 			if(prevClick != null){
+ 				//startActivity(new Intent(this, GameActivity.class));
+ 				prevClick = null;
+ 			}
  			break;
- 		case R.id.scan:	// if play button was clicked
+ 		case R.id.scan:	// if scan button was clicked
+ 			scan();
  			break;
+ 		case R.id.listRow:	// if a level was clicked
+			if(prevClick != null){
+				prevClick.setBackgroundColor(0x00000000);
+			}
+			v.setBackgroundColor(0x650000FF);
+			prevClick = (TextView) v;
+			
+			findViewById(R.id.play).setAlpha(1);
+			findViewById(R.id.trash).setAlpha(1);
+			
+			break;
 		case R.id.back: // if back button was clicked
 			finish();
 			break;
