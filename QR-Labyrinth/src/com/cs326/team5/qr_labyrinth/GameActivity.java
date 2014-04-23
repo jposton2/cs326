@@ -11,10 +11,10 @@ public class GameActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_game);
+		setContentView(R.layout.maze_view);
 		Intent i = getIntent();
-		String test = i.getStringExtra("level");
-		Log.i("GameActivity", test);
+		//String test = i.getStringExtra("level");
+		//Log.i("GameActivity", test);
 	}
 
 	@Override

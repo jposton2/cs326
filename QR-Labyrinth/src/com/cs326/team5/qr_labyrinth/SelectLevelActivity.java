@@ -147,11 +147,8 @@ public class SelectLevelActivity extends Activity {
 			}
 			v.setBackgroundColor(0x650000FF);
 			prevClick = (TextView) v;
-			Intent i = new Intent(getApplicationContext(), GameActivity.class);
-			i.putExtra("level", prevClick.toString());
-			startActivity(i);
 			
-			//findViewById(R.id.play).setAlpha(1);
+			findViewById(R.id.play).setAlpha(1);
 			
 			break;
 		case R.id.back: // if back button was clicked
