@@ -71,11 +71,16 @@ public class MainActivity extends Activity implements Serializable{
 	        	gridList.add(g);
             }
             else{
-                    Log.w("Lol", "it existssss!!!");
-                    gridList.add(loadGrid(file));
+                Log.w("Lol", "it existssss!!!");
+                gridList.add(loadGrid(file));
             }
         }
         Log.w("Array", Integer.toString(gridList.size()));
+        
+        if(gridList.isEmpty()){
+        	return null;
+        }
+        
         return gridList;
     }
     public ArrayList<Grid> checkFiles(){
@@ -100,6 +105,11 @@ public class MainActivity extends Activity implements Serializable{
                 //}
         }
         Log.w("Array", Integer.toString(gridList.size()));
+        
+        if(gridList.isEmpty()){
+        	return null;
+        }
+        
         return gridList;
     }
 	public void writeGrid(String s, Grid g){
