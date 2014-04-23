@@ -54,7 +54,7 @@ public class CustomLevelActivity extends Activity {
     }
     
     private void setupListView(){
-    	ListView list = (ListView) findViewById(R.id.level_list);
+    	ListView list = (ListView) findViewById(R.id.custom_list);
 		list.setAdapter(new BaseAdapter() {	//adapter for list of Locations
 			public int getCount() {
 				return levelList.size();
@@ -87,14 +87,14 @@ public class CustomLevelActivity extends Activity {
     public ArrayList<Grid> checkFiles(){
     	QRHandler h = new QRHandler();  
     	ArrayList<Grid> gridList = new ArrayList<Grid>();
-        for(int i = 1; i <= 4; i++){
+        for(int i = 1; i <= 10; i++){
                 File file = getBaseContext().getFileStreamPath("level_" + Integer.toString(i));
                 //if(!file.exists()){
 //                      Grid g = h.getGrid("lol", 400, 400);
               Grid g = h.getGrid(h.getLevel(i), 400, 400);
               Log.w("Array", Integer.toString(i));
               Log.w("Array", h.getLevel(i));
-              g.setName("level_"+Integer.toString(i));
+              g.setName("Story Level "+Integer.toString(i));
               g.setHighscore(0);
               //writeGrid("level_"+Integer.toString(i), g);
               gridList.add(g);
@@ -178,7 +178,7 @@ public class CustomLevelActivity extends Activity {
  		switch (id) {
  		case R.id.play:	// if play button was clicked
  			if(prevClick != null){
- 				//startActivity(new Intent(this, GameActivity.class));
+ 				startActivity(new Intent(this, GameActivity.class));
  				prevClick = null;
  			}
  			break;
