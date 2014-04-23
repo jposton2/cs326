@@ -127,7 +127,7 @@ public class SelectLevelActivity extends Activity {
  		switch (id) {
  		case R.id.play:	// if play button was clicked
  			if(prevClick != null){		
- 	 			//startActivity(new Intent(this, GameActivity.class));
+ 	 			startActivity(new Intent(this, GameActivity.class));
  	 			prevClick = null;
  			}
  			break;

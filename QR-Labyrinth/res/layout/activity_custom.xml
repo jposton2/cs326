@@ -39,7 +39,7 @@
 	        android:layout_alignParentLeft="true"
 	        android:layout_alignTop="@+id/back"
 	        android:layout_toLeftOf="@+id/back"
-	        android:background="#bbdddddd"
+	        android:background="#eedddddd"
 	        android:layout_marginTop="3dp"
 	        android:layout_marginLeft="3dp"
 	        android:fadeScrollbars="false" >
