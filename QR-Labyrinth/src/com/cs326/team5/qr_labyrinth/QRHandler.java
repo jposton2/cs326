@@ -82,16 +82,21 @@ public class QRHandler {
         // Print out the stuff found up there to the LogCat.
         Log.w("MainActivity", Integer.toString(xSize));
         Log.w("MainActivity", Integer.toString(ySize));
+        Log.w("MainActivity", Integer.toString(yStart));
         Log.w("MainActivity", Integer.toString(xEnd));
         Log.w("MainActivity", Integer.toString(yEnd));
         
         
-        PointData[][] gridArray = new PointData[xEnd*xSize-xStart][yEnd*xSize-yStart];
+        PointData[][] gridArray = new PointData[xEnd][yEnd];
         // This was my test case. Prints out whether or not a cell is black at the relative value
-        for(int i = xStart; i < xEnd*xSize; i+=xSize){
-        	for(int j = xStart; j < yEnd*ySize; j+=ySize){
-        		gridArray[i-xStart][j-yStart] = (matrix.get(i, j) ? new PointData(true,i-xStart, j-yStart) : new PointData(false, i-xStart, j-yStart));
+//        String l = "";
+        for(int i = 0; i < xEnd; i++){
+        	for(int j = 0; j < yEnd; j++){
+        		gridArray[i][j] = (matrix.get((i*xSize)+xStart, (j*ySize)+yStart) ? new PointData(true,i, j) : new PointData(false, i, j));
+//        		l+= String.valueOf(gridArray[i][j].isBlack());
         	}
+//        	Log.w("Grid", l);
+//        	l = "";
         }
 		return new Grid(gridArray, xEnd-xStart, yEnd-yStart, name, 0);
 	}
