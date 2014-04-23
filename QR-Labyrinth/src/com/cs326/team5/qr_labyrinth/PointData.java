@@ -1,8 +1,14 @@
 package com.cs326.team5.qr_labyrinth;
 
-public class PointData{
+import java.io.Serializable;
+
+public class PointData implements Serializable{
 	
-    private boolean black;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private boolean black;
     private PointData destination = null; //teleporter destination 
 	private int x;
 	private int y;
