@@ -4,11 +4,20 @@ import java.util.ArrayList;
 
 import android.app.Application;
 
-public class GridStorage extends Application{
+public class QRLabyrinth extends Application{
 	
 	private ArrayList<Grid> levelList;
 	private ArrayList<Grid> customList;;
+	private Grid currentLevel;
 	
+	public Grid getCurrentLevel() {
+		return currentLevel;
+	}
+
+	public void setCurrentLevel(Grid currentLevel) {
+		this.currentLevel = currentLevel;
+	}
+
 	public ArrayList<Grid> getLevelList() {
 		return levelList;
 	}

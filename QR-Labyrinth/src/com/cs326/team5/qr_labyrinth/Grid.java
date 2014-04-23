@@ -7,6 +7,7 @@ public class Grid{
 //  private ArrayList<ArrayList<PointData>> grid;
 	private String name;
 	private int highscore;
+	private String id;
 	private int xBound;
 	private int yBound;
 	private PointData start;
@@ -59,12 +60,19 @@ public class Grid{
 	public void setStart(PointData start) {
 		this.start = start;
 	}
+	
+	public String getID(){
+		return id;
+	}
 
-	Grid(PointData[][] grid, int xBound, int yBound){
+	Grid(PointData[][] grid, int xBound, int yBound, String name, int highscore){
 		this.xBound = xBound;
 		this.yBound = yBound;
 		this.gridArray = grid;
 		xBound = yBound = gridArray[0].length;
+		this.name = name;
+		this.highscore = highscore;
+		this.id = this.toString();
 	}
 	
 	/**

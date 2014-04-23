@@ -64,8 +64,8 @@ public class SelectLevelActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_select_level);
-        GridStorage gs = ((GridStorage)getApplicationContext());
-        levelList = gs.getLevelList();
+        QRLabyrinth qrl = ((QRLabyrinth)getApplicationContext());
+        levelList = qrl.getLevelList();
         setupListView();
     }
     
@@ -119,7 +119,10 @@ public class SelectLevelActivity extends Activity {
 
  		switch (id) {
  		case R.id.play:	// if play button was clicked
- 			if(prevClick != null){		
+ 			if(prevClick != null){
+ 				for(Grid g: ((QRLabyrinth)getApplicationContext()).getLevelList()){
+ 					if(g.getID().equals(prevClick.getText()));
+ 				}
  	 			startActivity(new Intent(this, GameActivity.class));
  	 			prevClick = null;
  			}
@@ -130,6 +133,12 @@ public class SelectLevelActivity extends Activity {
 			}
 			v.setBackgroundColor(0x650000FF);
 			prevClick = (TextView) v;
+			
+			for(Grid g: ((QRLabyrinth)getApplicationContext()).getCustomList()){
+				if(g.getID().equals(prevClick.getText().toString())){
+					((QRLabyrinth)getApplicationContext()).setCurrentLevel(g);
+				}
+			}
 			
 			findViewById(R.id.play).setAlpha(1);
 			

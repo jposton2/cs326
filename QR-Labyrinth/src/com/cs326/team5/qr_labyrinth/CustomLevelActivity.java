@@ -43,10 +43,11 @@ public class CustomLevelActivity extends Activity {
         super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_custom);
-        GridStorage gs = ((GridStorage)getApplicationContext());
-
-        levelList = gs.getCustomList();
-        setupListView();
+        QRLabyrinth qrl = ((QRLabyrinth)getApplicationContext());
+        levelList = qrl.getCustomList();
+        if(levelList != null){
+        	setupListView();
+        }
     }
     
     public void scan(){
@@ -86,26 +87,6 @@ public class CustomLevelActivity extends Activity {
 		});
     }
     
-    public ArrayList<Grid> checkFiles(){
-    	QRHandler h = new QRHandler();  
-    	ArrayList<Grid> gridList = new ArrayList<Grid>();
-        for(int i = 1; i <= 10; i++){
-                File file = getBaseContext().getFileStreamPath("level_" + Integer.toString(i));
-                //if(!file.exists()){
-//                      Grid g = h.getGrid("lol", 400, 400);
-              Grid g = h.getGrid(h.getLevel(i), 400, 400);
-              Log.w("Array", Integer.toString(i));
-              Log.w("Array", h.getLevel(i));
-              g.setName("Story Level "+Integer.toString(i));
-              g.setHighscore(0);
-              //writeGrid("level_"+Integer.toString(i), g);
-              gridList.add(g);
-                //}
-        }
-        Log.w("Array", Integer.toString(gridList.size()));
-        return gridList;
-    }
-    
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 	   if (requestCode == 0) {
 	      if (resultCode == RESULT_OK) {
@@ -115,7 +96,7 @@ public class CustomLevelActivity extends Activity {
 	         String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
 	         
 	         QRHandler qr = new QRHandler();
-	         Grid g = qr.getGrid(contents, qrheight, qrwidth);
+	         Grid g = qr.getGrid(contents, qrheight, qrwidth, contents);
 	         
 	         
 	         File file = getBaseContext().getFileStreamPath(contents);
@@ -193,6 +174,13 @@ public class CustomLevelActivity extends Activity {
 			}
 			v.setBackgroundColor(0x650000FF);
 			prevClick = (TextView) v;
+			
+			for(Grid g: ((QRLabyrinth)getApplicationContext()).getCustomList()){
+				if(g.getID().equals(prevClick.getText().toString())){
+					((QRLabyrinth)getApplicationContext()).setCurrentLevel(g);
+
+				}
+			}
 			
 			findViewById(R.id.play).setAlpha(1);
 			findViewById(R.id.trash).setAlpha(1);
