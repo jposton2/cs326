@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -24,7 +25,7 @@ public class MazeView extends View {
 	private Paint paint;
 	private Rect rect;
 	
-	private Grid grid;
+	private Grid grid = null;
 
 	public MazeView(Context context) {
 		super(context);
@@ -53,7 +54,6 @@ public class MazeView extends View {
 		paint = new Paint();
 		charImg = res.getDrawable(R.drawable.qr_guy);
 		
-		grid = null;
 
 	}
 
@@ -66,15 +66,20 @@ public class MazeView extends View {
 		int sqrWidth = getWidth() / 10;
 		if(!this.isInEditMode() && grid != null)
 		{
-			sqrWidth = getWidth() / grid.getGrid().length;
-			for(int i = 0; i < grid.getGrid().length; i++)
+			PointData[][] cells = grid.getGrid();
+			sqrWidth = getWidth() / cells.length;
+			Log.i("MazeBuilder", String.valueOf(cells.length));
+			for(PointData[] row : cells)
 			{
-				PointData[] row = grid.getGrid()[i];
-				for(int j = 0; j < row.length; i++)
+				for(PointData cell : row)
 				{
-					if(row[j].isBlack())
+					
+					if(cell == null)
+						continue;
+					//Log.i("MazeBuilder", "Cell " + i + "," + j + cells[i][j].isBlack());
+					if(cell.isBlack())
 						paint.setColor(Color.BLACK);
-					else if(row[j].hasTeleporter())
+					else if(cell.hasTeleporter())
 						paint.setColor(Color.BLUE);
 					else
 						paint.setColor(Color.BLACK);

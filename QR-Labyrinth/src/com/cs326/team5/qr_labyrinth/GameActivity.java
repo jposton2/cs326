@@ -9,17 +9,24 @@ import android.view.View;
 import android.widget.TextView;
 
 public class GameActivity extends Activity {
-	Grid grid;
+	Grid grid = null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.maze_view);
-		Intent i = getIntent();
-		grid = null;
-		
-		//Log.i("GameActivity", test);
+		grid = ((QRLabyrinth)getApplicationContext()).getCurrentLevel();
+		for(PointData[] row : grid.getGrid())
+		{
+			for(PointData cell : row)
+			{
+				Log.i("GameActivity", cell.toString());
+			}
+		}
+		Log.i("GameActivity", "Grid id: " + grid.getID());
 		MazeView mv = (MazeView) findViewById(R.id.maze);
 		mv.setGrid(grid);
+		mv.invalidate();
+		Log.i("GameActivity", "MazeView's grid: " + mv.getGrid().getID());
 	}
 
 	@Override

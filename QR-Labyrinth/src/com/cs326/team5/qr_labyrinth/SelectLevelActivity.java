@@ -120,9 +120,6 @@ public class SelectLevelActivity extends Activity {
  		switch (id) {
  		case R.id.play:	// if play button was clicked
  			if(prevClick != null){
- 				for(Grid g: ((QRLabyrinth)getApplicationContext()).getLevelList()){
- 					if(g.getID().equals(prevClick.getText()));
- 				}
  	 			startActivity(new Intent(this, GameActivity.class));
  	 			prevClick = null;
  			}
@@ -134,7 +131,7 @@ public class SelectLevelActivity extends Activity {
 			v.setBackgroundColor(0x650000FF);
 			prevClick = (TextView) v;
 			
-			for(Grid g: ((QRLabyrinth)getApplicationContext()).getCustomList()){
+			for(Grid g: ((QRLabyrinth)getApplicationContext()).getLevelList()){
 				if(g.getID().equals(prevClick.getText().toString())){
 					((QRLabyrinth)getApplicationContext()).setCurrentLevel(g);
 				}
