@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
         	// TODO: Create level files here
         }*/
         setContentView(R.layout.activity_main);
-        GridStorage gs = ((GridStorage)getApplicationContext());
+        GridStorage gs = ((GridStorage)getApplication());
         gs.setLevelList(checkFiles());
     }
     
