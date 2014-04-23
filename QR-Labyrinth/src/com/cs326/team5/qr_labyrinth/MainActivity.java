@@ -58,7 +58,7 @@ public class MainActivity extends Activity implements Serializable{
     public ArrayList<Grid> checkCustomFiles(){
     	QRHandler h = new QRHandler();  
     	ArrayList<Grid> gridList = new ArrayList<Grid>();
-        for(int i = 1; i <= 10; i++){
+        for(int i = 1; i <= 1; i++){
         	File file = getBaseContext().getFileStreamPath("aba" + Integer.toString(i));
             if(!file.exists()){
 //                      Grid g = h.getGrid("lol", 400, 400);
@@ -86,20 +86,20 @@ public class MainActivity extends Activity implements Serializable{
     public ArrayList<Grid> checkFiles(){
     	QRHandler h = new QRHandler();  
     	ArrayList<Grid> gridList = new ArrayList<Grid>();
-        for(int i = 1; i <= 10; i++){
+        for(int i = 1; i <= 1; i++){
         	File file = getBaseContext().getFileStreamPath("aba" + Integer.toString(i));
-            if(!file.exists()){
+            //if(!file.exists()){
 //                      Grid g = h.getGrid("lol", 400, 400);
 	        	Grid g = h.getGrid(h.getLevel(i), 400, 400, "level_"+Integer.toString(i));
         	    Log.w("Array", Integer.toString(i));
 	        	Log.w("Array", h.getLevel(i));
-	        	writeGrid("aba"+Integer.toString(i), g);
+	        //	writeGrid("aba"+Integer.toString(i), g);
 	        	gridList.add(g);
-            }
-            else{
-                    Log.w("Lol", "it existssss!!!");
-                    gridList.add(loadGrid(file));
-            }
+            //}
+            //else{
+            //        Log.w("Lol", "it existssss!!!");
+            //        gridList.add(loadGrid(file));
+            //}
 
         	//writeGrid("level_"+Integer.toString(i), g);
                 //}

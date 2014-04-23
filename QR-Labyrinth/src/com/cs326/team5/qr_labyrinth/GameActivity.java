@@ -15,7 +15,10 @@ public class GameActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.maze_view);
 		grid = ((QRLabyrinth)getApplicationContext()).getCurrentLevel();
+
 		/*for(PointData[] row : grid.getGrid())
+		Log.w("Lolololololl", String.valueOf(grid.getGrid()[0][0].isBlack()));
+		for(PointData[] row : grid.getGrid())
 		{
 			for(PointData cell : row)
 			{
