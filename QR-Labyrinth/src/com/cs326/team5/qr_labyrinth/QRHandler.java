@@ -98,7 +98,7 @@ public class QRHandler {
 //        	Log.w("Grid", l);
 //        	l = "";
         }
-		return new Grid(gridArray, xEnd-xStart, yEnd-yStart, name, 0);
+		return new Grid(gridArray, xEnd, yEnd, name, 0);
 	}
 	
 
