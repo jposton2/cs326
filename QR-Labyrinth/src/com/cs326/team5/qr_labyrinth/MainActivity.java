@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.io.StreamCorruptedException;
 import java.util.ArrayList;
 
@@ -26,7 +27,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements Serializable{
 	private int qrheight = 400;
 	private int qrwidth = 400;
 	//SharedPreferences prefs = getSharedPreferences("userValues", MODE_PRIVATE);
@@ -44,6 +45,7 @@ public class MainActivity extends Activity {
         }*/
         setContentView(R.layout.activity_main);
         QRLabyrinth qrl = ((QRLabyrinth)getApplication());
+        qrl.setCustomList(checkCustomFiles());
         qrl.setLevelList(checkFiles());
     }
     
@@ -53,22 +55,48 @@ public class MainActivity extends Activity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-    
+    public ArrayList<Grid> checkCustomFiles(){
+    	QRHandler h = new QRHandler();  
+    	ArrayList<Grid> gridList = new ArrayList<Grid>();
+        for(int i = 1; i <= 10; i++){
+        	File file = getBaseContext().getFileStreamPath("levelere_" + Integer.toString(i));
+            if(!file.exists()){
+//                      Grid g = h.getGrid("lol", 400, 400);
+	        	Grid g = h.getGrid(h.getLevel(i), 400, 400);
+	        	Log.w("Array", Integer.toString(i));
+	        	Log.w("Array", h.getLevel(i));
+	        	g.setName("Level "+Integer.toString(i));
+	        	g.setHighscore(0);
+	        	writeGrid("levelere_"+Integer.toString(i), g);
+	        	gridList.add(g);
+            }
+            else{
+                    Log.w("Lol", "it existssss!!!");
+                    gridList.add(loadGrid(file));
+            }
+        }
+        Log.w("Array", Integer.toString(gridList.size()));
+        return gridList;
+    }
     public ArrayList<Grid> checkFiles(){
     	QRHandler h = new QRHandler();  
     	ArrayList<Grid> gridList = new ArrayList<Grid>();
-        for(int i = 1; i <= 4; i++){
-        	File file = getBaseContext().getFileStreamPath("level_" + Integer.toString(i));
-            //if(!file.exists()){
+        for(int i = 1; i <= 10; i++){
+        	File file = getBaseContext().getFileStreamPath("levelere_" + Integer.toString(i));
+            if(!file.exists()){
 //                      Grid g = h.getGrid("lol", 400, 400);
-        	Grid g = h.getGrid(h.getLevel(i), 400, 400);
-        	Log.w("Array", Integer.toString(i));
-        	Log.w("Array", h.getLevel(i));
-        	g.setName("level_"+Integer.toString(i));
-        	g.setHighscore(0);
-        	//writeGrid("level_"+Integer.toString(i), g);
-        	gridList.add(g);
-                //}
+	        	Grid g = h.getGrid(h.getLevel(i), 400, 400);
+	        	Log.w("Array", Integer.toString(i));
+	        	Log.w("Array", h.getLevel(i));
+	        	g.setName("Level "+Integer.toString(i));
+	        	g.setHighscore(0);
+	        	writeGrid("levelere_"+Integer.toString(i), g);
+	        	gridList.add(g);
+            }
+            else{
+                    Log.w("Lol", "it existssss!!!");
+                    gridList.add(loadGrid(file));
+            }
         }
         Log.w("Array", Integer.toString(gridList.size()));
         return gridList;
@@ -91,14 +119,15 @@ public class MainActivity extends Activity {
 	}
 	
 	// TO PUT IN OTHER ACTIVITYYYYY
-	public Grid loadGrid(String s){
+	public Grid loadGrid(File f){
 		FileInputStream fis;
 		ObjectInputStream is;
 		Grid g;
 		try {
-			fis = openFileInput(s);
+			fis = new FileInputStream(f);
 			is = new ObjectInputStream(fis);
 			g = (Grid) is.readObject();
+			Log.w("heheh", "hehe");
 			is.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -113,7 +142,7 @@ public class MainActivity extends Activity {
 			e.printStackTrace();
 			return null;
 		}
-		
+		Log.w("LoL", "We got this far");
 		return g;
 	}
     

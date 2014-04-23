@@ -1,8 +1,9 @@
 package com.cs326.team5.qr_labyrinth;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Grid{
+public class Grid implements Serializable{
 	
 //  private ArrayList<ArrayList<PointData>> grid;
 	private String name;
