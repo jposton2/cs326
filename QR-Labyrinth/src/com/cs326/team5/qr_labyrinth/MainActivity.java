@@ -73,7 +73,8 @@ public class MainActivity extends Activity {
  			startActivity(new Intent(this, CustomLevelActivity.class));
  			break;
  		case R.id.exit: // start about activity
- 			onExit();
+ 			finish();
+ 			//onExit();
  			break;
  		}
  	}

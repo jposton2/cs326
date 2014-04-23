@@ -54,7 +54,7 @@ public class CustomLevelActivity extends Activity {
     }
     
     private void setupListView(){
-    	ListView list = (ListView) findViewById(R.id.level_list);
+    	ListView list = (ListView) findViewById(R.id.custom_list);
 		list.setAdapter(new BaseAdapter() {	//adapter for list of Locations
 			public int getCount() {
 				return levelList.size();
