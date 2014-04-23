@@ -73,9 +73,6 @@ public class SelectLevelActivity extends Activity {
 				View view = inflater.inflate(R.layout.list_row, null);
 				TextView textView = (TextView) view.findViewById(R.id.listRow);
 				try {	//decode database text to print
-					if(levelList.get(position) == null){
-						Log.d("myFilterDebug", "mine like a bird");
-					}
 					textView.setText(URLDecoder.decode(levelList.get(position).toString(), "UTF-8"));
 				} catch (UnsupportedEncodingException e) {
 					e.printStackTrace();
@@ -96,6 +93,7 @@ public class SelectLevelActivity extends Activity {
  		case R.id.play:	// if play button was clicked
  			if(prevClick != null){
  	 			startActivity(new Intent(this, GameActivity.class));
+				prevClick.setBackgroundColor(0x00000000);
  	 			prevClick = null;
  			}
  			break;

@@ -162,6 +162,7 @@ public class CustomLevelActivity extends Activity {
  		case R.id.play:	// if play button was clicked
  			if(prevClick != null){
  				startActivity(new Intent(this, GameActivity.class));
+				prevClick.setBackgroundColor(0x00000000);
  				prevClick = null;
  			}
  			break;
