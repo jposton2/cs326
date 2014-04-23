@@ -175,6 +175,13 @@ public class CustomLevelActivity extends Activity {
 			v.setBackgroundColor(0x650000FF);
 			prevClick = (TextView) v;
 			
+			for(Grid g: ((QRLabyrinth)getApplicationContext()).getCustomList()){
+				if(g.getID().equals(prevClick.getText())){
+					((QRLabyrinth)getApplicationContext()).setCurrentLevel(g);
+
+				}
+			}
+			
 			findViewById(R.id.play).setAlpha(1);
 			findViewById(R.id.trash).setAlpha(1);
 			
