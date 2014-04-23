@@ -15,14 +15,16 @@ public class GameActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.maze_view);
 		grid = ((QRLabyrinth)getApplicationContext()).getCurrentLevel();
-		for(PointData[] row : grid.getGrid())
+		/*for(PointData[] row : grid.getGrid())
 		{
 			for(PointData cell : row)
 			{
-				Log.i("GameActivity", cell.toString());
+				if(cell != null)
+					Log.i("GameActivity", String.valueOf(cell.isBlack()));
+				else
+					Log.i("GameActivity", "NULL CELL!");
 			}
-		}
-		Log.i("GameActivity", "Grid id: " + grid.getID());
+		}*/
 		MazeView mv = (MazeView) findViewById(R.id.maze);
 		mv.setGrid(grid);
 		mv.invalidate();

@@ -67,30 +67,35 @@ public class MazeView extends View {
 		if(!this.isInEditMode() && grid != null)
 		{
 			PointData[][] cells = grid.getGrid();
-			sqrWidth = getWidth() / cells.length;
+			//sqrWidth = getWidth() / cells.length;
 			Log.i("MazeBuilder", String.valueOf(cells.length));
-			for(PointData[] row : cells)
+			for(int i = 0; i < cells.length; i++)
 			{
-				for(PointData cell : row)
+				for(int j = 0; j < cells.length; j++)
 				{
-					
-					if(cell == null)
+					if(cells[i][j] == null)
 						continue;
 					//Log.i("MazeBuilder", "Cell " + i + "," + j + cells[i][j].isBlack());
-					if(cell.isBlack())
+					if(cells[i][j].isBlack())
 						paint.setColor(Color.BLACK);
-					else if(cell.hasTeleporter())
+					else if(cells[i][j].hasTeleporter())
 						paint.setColor(Color.BLUE);
 					else
 						paint.setColor(Color.BLACK);
+					rect.set(sqrWidth*i, sqrWidth*j, sqrWidth*i + sqrWidth, sqrWidth*j + sqrWidth);
+					canvas.drawRect(rect, paint);
 				}
 			}
 			if(res != null)
 			{
-				int side = sqrWidth * grid.getPlayer().getX();
-				int top = sqrWidth * grid.getPlayer().getY();
-				charImg.setBounds(side, top, side+sqrWidth, top+sqrWidth);
-				charImg.draw(canvas);
+				Point player;
+				if((player = grid.getPlayer()) != null)
+				{
+					int side = sqrWidth * player.getX();
+					int top = sqrWidth * player.getY();
+					charImg.setBounds(side, top, side+sqrWidth, top+sqrWidth);
+					charImg.draw(canvas);
+				}
 			}
 		}
 		else
