@@ -43,7 +43,9 @@ public class CustomLevelActivity extends Activity {
         super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_custom);
-        levelList = checkFiles();
+        GridStorage gs = ((GridStorage)getApplicationContext());
+
+        levelList = gs.getCustomList();
         setupListView();
     }
     

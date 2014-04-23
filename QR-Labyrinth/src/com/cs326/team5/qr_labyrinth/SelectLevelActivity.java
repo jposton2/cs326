@@ -64,7 +64,8 @@ public class SelectLevelActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_select_level);
-        levelList = checkFiles();
+        GridStorage gs = ((GridStorage)getApplicationContext());
+        levelList = gs.getLevelList();
         setupListView();
     }
     
@@ -106,26 +107,7 @@ public class SelectLevelActivity extends Activity {
 			}
 		});
     }
-    
-    public ArrayList<Grid> checkFiles(){
-    	QRHandler h = new QRHandler();  
-    	ArrayList<Grid> gridList = new ArrayList<Grid>();
-        for(int i = 1; i <= 10; i++){
-               // File file = getBaseContext().getFileStreamPath("level_" + Integer.toString(i));
-                //if(!file.exists()){
-//                      Grid g = h.getGrid("lol", 400, 400);
-              Grid g = h.getGrid(h.getLevel(i), 400, 400);
-              Log.w("Array", Integer.toString(i));
-              Log.w("Array", h.getLevel(i));
-              g.setName("Level "+Integer.toString(i));
-              g.setHighscore(0);
-              //writeGrid("level_"+Integer.toString(i), g);
-              gridList.add(g);
-                //}
-        }
-        Log.w("Array", Integer.toString(gridList.size()));
-        return gridList;
-    }
+
     
  // TO PUT IN OTHER ACTIVITY
 	public void writeGrid(String s, Grid g){

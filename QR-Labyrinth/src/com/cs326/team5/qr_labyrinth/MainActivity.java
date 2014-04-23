@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.StreamCorruptedException;
+import java.util.ArrayList;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -42,13 +43,8 @@ public class MainActivity extends Activity {
         	// TODO: Create level files here
         }*/
         setContentView(R.layout.activity_main);
-    }
-    
-    public void onExit(){
-    	Intent intent = new Intent(this, MainActivity.class);
-    	intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-    	intent.putExtra("exit", "true");
-    	startActivity(intent);
+        GridStorage gs = ((GridStorage)getApplicationContext());
+        gs.setLevelList(checkFiles());
     }
     
     @Override
@@ -56,6 +52,26 @@ public class MainActivity extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+    
+    public ArrayList<Grid> checkFiles(){
+    	QRHandler h = new QRHandler();  
+    	ArrayList<Grid> gridList = new ArrayList<Grid>();
+        for(int i = 1; i <= 4; i++){
+        	File file = getBaseContext().getFileStreamPath("level_" + Integer.toString(i));
+            //if(!file.exists()){
+//                      Grid g = h.getGrid("lol", 400, 400);
+        	Grid g = h.getGrid(h.getLevel(i), 400, 400);
+        	Log.w("Array", Integer.toString(i));
+        	Log.w("Array", h.getLevel(i));
+        	g.setName("level_"+Integer.toString(i));
+        	g.setHighscore(0);
+        	//writeGrid("level_"+Integer.toString(i), g);
+        	gridList.add(g);
+                //}
+        }
+        Log.w("Array", Integer.toString(gridList.size()));
+        return gridList;
     }
     
     /**
@@ -74,7 +90,6 @@ public class MainActivity extends Activity {
  			break;
  		case R.id.exit: // start about activity
  			finish();
- 			//onExit();
  			break;
  		}
  	}
