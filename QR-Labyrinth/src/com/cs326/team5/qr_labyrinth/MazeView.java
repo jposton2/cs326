@@ -1,6 +1,7 @@
 package com.cs326.team5.qr_labyrinth;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -9,6 +10,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.ImageView;
 
 /**
  * TODO: document your custom view class.
@@ -17,6 +19,7 @@ public class MazeView extends View {
 	
 	private float charDimension = 0;
 	private Drawable charImg;
+	private Resources res;
 	
 	private Paint paint;
 	private Rect rect;
@@ -25,37 +28,33 @@ public class MazeView extends View {
 
 	public MazeView(Context context) {
 		super(context);
+		res = context.getResources();
 		init(null, 0);
 	}
 
 	public MazeView(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		res = context.getResources();
 		init(attrs, 0);
 	}
 
 	public MazeView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
+		res = context.getResources();
 		init(attrs, defStyle);
 	}
 
 	private void init(AttributeSet attrs, int defStyle) {
 		// Load attributes
-		final TypedArray a = getContext().obtainStyledAttributes(attrs,
-				R.styleable.MazeView, defStyle, 0);
+		/*final TypedArray a = getContext().obtainStyledAttributes(attrs,
+				R.styleable.MazeView, defStyle, 0);*/
 
 		rect = new Rect();
 		paint = new Paint();
-		
-		charDimension = a.getDimension(R.drawable.qr_guy, charDimension);
-		if(a.hasValue(R.drawable.qr_guy))
-		{
-			charImg = a.getDrawable(R.drawable.qr_guy);
-			charImg.setCallback(this);
-		}
+		charImg = res.getDrawable(R.drawable.qr_guy);
 		
 		grid = null;
 
-		a.recycle();
 	}
 
 	@Override
@@ -65,7 +64,7 @@ public class MazeView extends View {
 		// TODO: consider storing these as member variables to reduce
 		// allocations per draw cycle.
 		int sqrWidth = getWidth() / 10;
-		if(!this.isInEditMode())
+		if(!this.isInEditMode() && grid != null)
 		{
 			sqrWidth = getWidth() / grid.getGrid().length;
 			for(int i = 0; i < grid.getGrid().length; i++)
@@ -81,7 +80,7 @@ public class MazeView extends View {
 						paint.setColor(Color.BLACK);
 				}
 			}
-			if(charImg != null)
+			if(res != null)
 			{
 				int side = sqrWidth * grid.getPlayer().getX();
 				int top = sqrWidth * grid.getPlayer().getY();
@@ -110,7 +109,7 @@ public class MazeView extends View {
 					canvas.drawRect(rect, paint);
 				}
 			}
-			if(charImg != null)
+			if(res != null)
 			{
 				int side = getWidth()/2;
 				int top = getHeight()/2;
