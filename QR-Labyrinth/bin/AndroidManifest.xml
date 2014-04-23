@@ -12,7 +12,7 @@
         android:targetSdkVersion="19" />
     
     <application
-        android:name=".GridStorage"
+        android:name=".QRLabyrinth"
         android:allowBackup="true"
         android:icon="@drawable/qr_guy"
         android:label="@string/app_name"

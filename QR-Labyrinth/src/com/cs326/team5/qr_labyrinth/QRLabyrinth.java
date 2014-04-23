@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import android.app.Application;
 
-public class GridStorage extends Application{
+public class QRLabyrinth extends Application{
 	
 	private ArrayList<Grid> levelList;
 	private ArrayList<Grid> customList;;

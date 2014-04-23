@@ -64,8 +64,8 @@ public class SelectLevelActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_select_level);
-        GridStorage gs = ((GridStorage)getApplicationContext());
-        levelList = gs.getLevelList();
+        QRLabyrinth qrl = ((QRLabyrinth)getApplicationContext());
+        levelList = qrl.getLevelList();
         setupListView();
     }
     

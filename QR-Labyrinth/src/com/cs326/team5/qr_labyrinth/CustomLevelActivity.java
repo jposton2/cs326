@@ -43,9 +43,8 @@ public class CustomLevelActivity extends Activity {
         super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_custom);
-        GridStorage gs = ((GridStorage)getApplicationContext());
-
-        levelList = gs.getCustomList();
+        QRLabyrinth qrl = ((QRLabyrinth)getApplicationContext());
+        levelList = qrl.getCustomList();
         setupListView();
     }
     

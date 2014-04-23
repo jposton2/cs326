@@ -43,8 +43,8 @@ public class MainActivity extends Activity {
         	// TODO: Create level files here
         }*/
         setContentView(R.layout.activity_main);
-        GridStorage gs = ((GridStorage)getApplication());
-        gs.setLevelList(checkFiles());
+        QRLabyrinth qrl = ((QRLabyrinth)getApplication());
+        qrl.setLevelList(checkFiles());
     }
     
     @Override
