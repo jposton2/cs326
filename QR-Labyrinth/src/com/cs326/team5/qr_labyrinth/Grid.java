@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Grid implements Serializable{
 	
-	private static final long serialVersionUID = -29238982928391L;
+	private static final long serialVersionUID = 1L;
 //  private ArrayList<ArrayList<PointData>> grid;
 	private String name;
 	private int highscore;
