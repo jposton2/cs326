@@ -1,9 +1,11 @@
 package com.cs326.team5.qr_labyrinth;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Grid{
+public class Grid implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 //  private ArrayList<ArrayList<PointData>> grid;
 	private String name;
 	private int highscore;
