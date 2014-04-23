@@ -59,7 +59,7 @@ public class MainActivity extends Activity implements Serializable{
     	QRHandler h = new QRHandler();  
     	ArrayList<Grid> gridList = new ArrayList<Grid>();
         for(int i = 1; i <= 10; i++){
-        	File file = getBaseContext().getFileStreamPath("levelere_" + Integer.toString(i));
+        	File file = getBaseContext().getFileStreamPath("levelssss_" + Integer.toString(i));
             if(!file.exists()){
 //                      Grid g = h.getGrid("lol", 400, 400);
 	        	Grid g = h.getGrid(h.getLevel(i), 400, 400, "Level " + Integer.toString(i));
@@ -67,7 +67,7 @@ public class MainActivity extends Activity implements Serializable{
 	        	Log.w("Array", h.getLevel(i));
 	        	g.setName("Level "+Integer.toString(i));
 	        	g.setHighscore(0);
-	        	writeGrid("levelere_"+Integer.toString(i), g);
+	        	writeGrid("levelssss_"+Integer.toString(i), g);
 	        	gridList.add(g);
             }
             else{
@@ -82,13 +82,13 @@ public class MainActivity extends Activity implements Serializable{
     	QRHandler h = new QRHandler();  
     	ArrayList<Grid> gridList = new ArrayList<Grid>();
         for(int i = 1; i <= 10; i++){
-        	File file = getBaseContext().getFileStreamPath("levelere_" + Integer.toString(i));
+        	File file = getBaseContext().getFileStreamPath("levelssss_" + Integer.toString(i));
             if(!file.exists()){
 //                      Grid g = h.getGrid("lol", 400, 400);
 	        	Grid g = h.getGrid(h.getLevel(i), 400, 400, "level_"+Integer.toString(i));
         	    Log.w("Array", Integer.toString(i));
 	        	Log.w("Array", h.getLevel(i));
-	        	writeGrid("levelere_"+Integer.toString(i), g);
+	        	writeGrid("levelssss_"+Integer.toString(i), g);
 	        	gridList.add(g);
             }
             else{
@@ -108,7 +108,7 @@ public class MainActivity extends Activity implements Serializable{
 		try {
 			fos = openFileOutput(s, Context.MODE_PRIVATE);
 			os = new ObjectOutputStream(fos);
-			os.writeObject(this);
+			os.writeObject(g);
 			os.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
