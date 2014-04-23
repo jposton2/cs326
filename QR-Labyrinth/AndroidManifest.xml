@@ -69,8 +69,8 @@
     </application>
     
     <application 
+        android:name=".GridStorage"
         android:allowBackup="true"
-        android:name="com.cs326.team5.qr_labyrinth.GridStorage"
         android:icon="@drawable/qr_guy">
         
     </application>
