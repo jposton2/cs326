@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
         	// TODO: Create level files here
         }*/
         setContentView(R.layout.activity_main);
-        GridStorage gs = ((GridStorage)getApplicationContext());
+        GridStorage gs = ((GridStorage)getApplication());
         gs.setLevelList(checkFiles());
     }
     
@@ -73,6 +73,49 @@ public class MainActivity extends Activity {
         Log.w("Array", Integer.toString(gridList.size()));
         return gridList;
     }
+	public void writeGrid(String s, Grid g){
+		FileOutputStream fos;
+		ObjectOutputStream os;
+		try {
+			fos = openFileOutput(s, Context.MODE_PRIVATE);
+			os = new ObjectOutputStream(fos);
+			os.writeObject(this);
+			os.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	// TO PUT IN OTHER ACTIVITYYYYY
+	public Grid loadGrid(String s){
+		FileInputStream fis;
+		ObjectInputStream is;
+		Grid g;
+		try {
+			fis = openFileInput(s);
+			is = new ObjectInputStream(fis);
+			g = (Grid) is.readObject();
+			is.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		} catch (StreamCorruptedException e) {
+			e.printStackTrace();
+			return null;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		return g;
+	}
     
     /**
  	 * Handles button clicks for the UI
