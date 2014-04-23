@@ -62,7 +62,7 @@ public class MainActivity extends Activity implements Serializable{
         	File file = getBaseContext().getFileStreamPath("levelere_" + Integer.toString(i));
             if(!file.exists()){
 //                      Grid g = h.getGrid("lol", 400, 400);
-	        	Grid g = h.getGrid(h.getLevel(i), 400, 400);
+	        	Grid g = h.getGrid(h.getLevel(i), 400, 400, "Level " + Integer.toString(i));
 	        	Log.w("Array", Integer.toString(i));
 	        	Log.w("Array", h.getLevel(i));
 	        	g.setName("Level "+Integer.toString(i));
@@ -97,7 +97,6 @@ public class MainActivity extends Activity implements Serializable{
             }
 
         	//writeGrid("level_"+Integer.toString(i), g);
-        	gridList.add(g);
                 //}
         }
         Log.w("Array", Integer.toString(gridList.size()));
