@@ -81,23 +81,6 @@ public class SelectLevelActivity extends Activity {
     }
 
     
- // TO PUT IN OTHER ACTIVITY
-	public void writeGrid(String s, Grid g){
- 		FileOutputStream fos;
- 		ObjectOutputStream os;
- 		try {
- 			fos = openFileOutput(s, Context.MODE_PRIVATE);
- 			os = new ObjectOutputStream(fos);
- 			os.writeObject(this);
- 			os.close();
- 		} catch (FileNotFoundException e) {
- 			e.printStackTrace();
- 		}
- 		catch (IOException e) {
- 			e.printStackTrace();
- 		}
- 		
- 	}
     
     /**
  	 * Handles button clicks for the UI
