@@ -25,35 +25,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class SelectLevelActivity extends Activity {
-	
-	private class MyBaseAdapter extends BaseAdapter{	//adapter for list of Locations
-		public int getCount() {
-			return levelList.size();
-		}
-
-		public Object getItem(int position) {
-			return levelList.get(position);
-		}
-
-		@Override
-		public long getItemId(int position) {
-			return position;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-			View view = inflater.inflate(R.layout.list_row, null);
-			TextView textView = (TextView) view.findViewById(R.id.listRow);
-			try {	//decode database text to print
-				textView.setText(URLDecoder.decode(levelList.get(position).toString(), "UTF-8"));
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
-			return view;
-		}
-	}
-	
+		
 	private int qrheight = 400;
 	private int qrwidth = 400;
     private TextView prevClick = null;
@@ -66,7 +38,9 @@ public class SelectLevelActivity extends Activity {
         setContentView(R.layout.activity_select_level);
         QRLabyrinth qrl = ((QRLabyrinth)getApplicationContext());
         levelList = qrl.getLevelList();
-        setupListView();
+        if(levelList != null){
+        	setupListView();
+        }
     }
     
     @Override
@@ -108,8 +82,6 @@ public class SelectLevelActivity extends Activity {
 		});
     }
 
-    
-    
     /**
  	 * Handles button clicks for the UI
  	 * @param v view that was clicked
@@ -120,9 +92,6 @@ public class SelectLevelActivity extends Activity {
  		switch (id) {
  		case R.id.play:	// if play button was clicked
  			if(prevClick != null){
- 				for(Grid g: ((QRLabyrinth)getApplicationContext()).getLevelList()){
- 					if(g.getID().equals(prevClick.getText()));
- 				}
  	 			startActivity(new Intent(this, GameActivity.class));
  	 			prevClick = null;
  			}
@@ -134,7 +103,7 @@ public class SelectLevelActivity extends Activity {
 			v.setBackgroundColor(0x650000FF);
 			prevClick = (TextView) v;
 			
-			for(Grid g: ((QRLabyrinth)getApplicationContext()).getCustomList()){
+			for(Grid g: ((QRLabyrinth)getApplicationContext()).getLevelList()){
 				if(g.getID().equals(prevClick.getText().toString())){
 					((QRLabyrinth)getApplicationContext()).setCurrentLevel(g);
 				}

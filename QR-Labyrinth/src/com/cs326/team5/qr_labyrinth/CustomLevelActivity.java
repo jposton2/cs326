@@ -178,7 +178,6 @@ public class CustomLevelActivity extends Activity {
 			for(Grid g: ((QRLabyrinth)getApplicationContext()).getCustomList()){
 				if(g.getID().equals(prevClick.getText().toString())){
 					((QRLabyrinth)getApplicationContext()).setCurrentLevel(g);
-
 				}
 			}
 			
