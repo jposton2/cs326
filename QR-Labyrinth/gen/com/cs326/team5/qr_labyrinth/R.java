@@ -9,14 +9,42 @@ package com.cs326.team5.qr_labyrinth;
 
 public final class R {
     public static final class attr {
+        /** <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int exampleColor=0x7f010002;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int exampleDimension=0x7f010001;
+        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+         */
+        public static final int exampleDrawable=0x7f010003;
+        /** <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int exampleString=0x7f010000;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
-
-         Example customization of dimensions originally defined in res/values/dimens.xml
-         (such as screen margins) for screens with more than 820dp of available width. This
-         would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
-    
 
          Customize dimensions originally defined in res/values/dimens.xml (such as
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
@@ -61,14 +89,17 @@ public final class R {
     }
     public static final class layout {
         public static final int activity_custom=0x7f030000;
-        public static final int activity_game_field=0x7f030001;
-        public static final int activity_main=0x7f030002;
-        public static final int activity_select_level=0x7f030003;
-        public static final int list_row=0x7f030004;
+        public static final int activity_game=0x7f030001;
+        public static final int activity_game_field=0x7f030002;
+        public static final int activity_main=0x7f030003;
+        public static final int activity_select_level=0x7f030004;
+        public static final int list_row=0x7f030005;
+        public static final int maze_view=0x7f030006;
     }
     public static final class menu {
-        public static final int game_field=0x7f070000;
-        public static final int main=0x7f070001;
+        public static final int game=0x7f070000;
+        public static final int game_field=0x7f070001;
+        public static final int main=0x7f070002;
     }
     public static final class string {
         public static final int action_settings=0x7f050001;
@@ -83,6 +114,7 @@ public final class R {
         public static final int scan=0x7f05000c;
         public static final int story=0x7f050004;
         public static final int title_activity_custom_level=0x7f050009;
+        public static final int title_activity_game=0x7f05000f;
         public static final int title_activity_game_field=0x7f050008;
         public static final int title_activity_select_level=0x7f05000a;
         public static final int trash=0x7f05000e;
@@ -115,4 +147,82 @@ public final class R {
          */
         public static final int AppTheme=0x7f060001;
     }
+    public static final class styleable {
+        /** Attributes that can be used with a MazeView.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #MazeView_exampleColor com.cs326.team5.qr_labyrinth:exampleColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #MazeView_exampleDimension com.cs326.team5.qr_labyrinth:exampleDimension}</code></td><td></td></tr>
+           <tr><td><code>{@link #MazeView_exampleDrawable com.cs326.team5.qr_labyrinth:exampleDrawable}</code></td><td></td></tr>
+           <tr><td><code>{@link #MazeView_exampleString com.cs326.team5.qr_labyrinth:exampleString}</code></td><td></td></tr>
+           </table>
+           @see #MazeView_exampleColor
+           @see #MazeView_exampleDimension
+           @see #MazeView_exampleDrawable
+           @see #MazeView_exampleString
+         */
+        public static final int[] MazeView = {
+            0x7f010000, 0x7f010001, 0x7f010002, 0x7f010003
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.cs326.team5.qr_labyrinth.R.attr#exampleColor}
+          attribute's value can be found in the {@link #MazeView} array.
+
+
+          <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.cs326.team5.qr_labyrinth:exampleColor
+        */
+        public static final int MazeView_exampleColor = 2;
+        /**
+          <p>This symbol is the offset where the {@link com.cs326.team5.qr_labyrinth.R.attr#exampleDimension}
+          attribute's value can be found in the {@link #MazeView} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.cs326.team5.qr_labyrinth:exampleDimension
+        */
+        public static final int MazeView_exampleDimension = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.cs326.team5.qr_labyrinth.R.attr#exampleDrawable}
+          attribute's value can be found in the {@link #MazeView} array.
+
+
+          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
+or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
+<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
+"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
+          @attr name com.cs326.team5.qr_labyrinth:exampleDrawable
+        */
+        public static final int MazeView_exampleDrawable = 3;
+        /**
+          <p>This symbol is the offset where the {@link com.cs326.team5.qr_labyrinth.R.attr#exampleString}
+          attribute's value can be found in the {@link #MazeView} array.
+
+
+          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.cs326.team5.qr_labyrinth:exampleString
+        */
+        public static final int MazeView_exampleString = 0;
+    };
 }

@@ -1,8 +1,5 @@
 package com.cs326.team5.qr_labyrinth;
 
-
-
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -27,7 +24,6 @@ import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
-
 
 public class MainActivity extends Activity {
 	private int qrheight = 400;
