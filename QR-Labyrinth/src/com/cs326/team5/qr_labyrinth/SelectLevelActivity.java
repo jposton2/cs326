@@ -26,6 +26,34 @@ import android.widget.TextView;
 
 public class SelectLevelActivity extends Activity {
 	
+	private class MyBaseAdapter extends BaseAdapter{	//adapter for list of Locations
+		public int getCount() {
+			return levelList.size();
+		}
+
+		public Object getItem(int position) {
+			return levelList.get(position);
+		}
+
+		@Override
+		public long getItemId(int position) {
+			return position;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+			View view = inflater.inflate(R.layout.list_row, null);
+			TextView textView = (TextView) view.findViewById(R.id.listRow);
+			try {	//decode database text to print
+				textView.setText(URLDecoder.decode(levelList.get(position).toString(), "UTF-8"));
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			return view;
+		}
+	}
+	
 	private int qrheight = 400;
 	private int qrwidth = 400;
     private TextView prevClick = null;
@@ -137,8 +165,11 @@ public class SelectLevelActivity extends Activity {
 			}
 			v.setBackgroundColor(0x650000FF);
 			prevClick = (TextView) v;
+			Intent i = new Intent(getApplicationContext(), GameActivity.class);
+			i.putExtra("level", prevClick.toString());
+			startActivity(i);
 			
-			findViewById(R.id.play).setAlpha(1);
+			//findViewById(R.id.play).setAlpha(1);
 			
 			break;
 		case R.id.back: // if back button was clicked
