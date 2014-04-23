@@ -199,6 +199,13 @@ public class GridHandler{
 				
 				tel1.setDestination(tel2);
 				tel2.setDestination(tel1);
+				
+				if(tel1.isPseudoTeleporter()){
+					tel1.setDestination(grid.deadEnd);
+				}
+				if(tel2.isPseudoTeleporter()){
+					tel2.setDestination(grid.deadEnd);
+				}
 			}
 		}
 	}
