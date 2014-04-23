@@ -13,8 +13,10 @@ public class GameActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.maze_view);
 		Intent i = getIntent();
-		//String test = i.getStringExtra("level");
+		Grid grid = null;
 		//Log.i("GameActivity", test);
+		MazeView mv = (MazeView) findViewById(R.id.maze);
+		mv.setGrid(grid);
 	}
 
 	@Override
