@@ -64,6 +64,7 @@ public class MainActivity extends Activity implements Serializable{
         		if(f.isFile()){
         			if(f.getName().length() > 7){
         			if(f.getName().substring(0,6).equals("custom")){
+        				Log.w("Name", f.getName());
         				int temp = Integer.parseInt(f.getName().substring(7));
         				currNum = (temp > currNum ? temp : currNum);
         			}
@@ -74,17 +75,15 @@ public class MainActivity extends Activity implements Serializable{
         	File file = getBaseContext().getFileStreamPath("custom_" + Integer.toString(i));
             if(!file.exists()){
 //                      Grid g = h.getGrid("lol", 400, 400);
-	        	Grid g = h.getGrid(h.getLevel(i), 400, 400, "Level " + Integer.toString(i));
+	        	Grid g = h.getGrid(h.getLevel(i), 400, 400, "custom_" + Integer.toString(i));
 	        	
 	        	Log.w("Array", Integer.toString(i));
 	        	Log.w("Array", h.getLevel(i));
-	        	g.setName("Level "+Integer.toString(i));
-	        	g.setHighscore(0);
-	        	writeGrid("aba"+Integer.toString(i), g);
+	        	writeGrid("custom_"+Integer.toString(i), g);
 	        	gridList.add(g);
             }
             else{
-                Log.w("Lol", "it existssss!!!");
+                Log.w("Custom Lol", "it existssss!!!");
                 gridList.add(loadGrid(file));
             }
         }
@@ -99,23 +98,20 @@ public class MainActivity extends Activity implements Serializable{
     public ArrayList<Grid> checkFiles(){
     	QRHandler h = new QRHandler();  
     	ArrayList<Grid> gridList = new ArrayList<Grid>();
-        for(int i = 1; i <= 1; i++){
-        	File file = getBaseContext().getFileStreamPath("aba" + Integer.toString(i));
-            //if(!file.exists()){
-//                      Grid g = h.getGrid("lol", 400, 400);
+        for(int i = 1; i <= 2; i++){
+        	File file = getBaseContext().getFileStreamPath("level_" + Integer.toString(i));
+            if(!file.exists()){
 	        	Grid g = h.getGrid(h.getLevel(i), 400, 400, "level_"+Integer.toString(i));
         	    Log.w("Array", Integer.toString(i));
 	        	Log.w("Array", h.getLevel(i));
-	        //	writeGrid("aba"+Integer.toString(i), g);
+	        	writeGrid("aba"+Integer.toString(i), g);
 	        	gridList.add(g);
-            //}
-            //else{
-            //        Log.w("Lol", "it existssss!!!");
-            //        gridList.add(loadGrid(file));
-            //}
+            }
+            else{
+                    Log.w("Lol", "it existssss!!!");
+                    gridList.add(loadGrid(file));
+            }
 
-        	//writeGrid("level_"+Integer.toString(i), g);
-                //}
         }
         Log.w("Array", Integer.toString(gridList.size()));
         

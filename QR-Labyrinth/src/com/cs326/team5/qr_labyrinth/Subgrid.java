@@ -18,7 +18,7 @@ public class Subgrid implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2415170723764044236L;
 	Grid grid;
 	int groupID;
 	ArrayList<PointData> subgridArray = new ArrayList<PointData>();

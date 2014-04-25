@@ -1,8 +1,14 @@
 package com.cs326.team5.qr_labyrinth;
 
-public class Point{
+import java.io.Serializable;
+
+public class Point implements Serializable{
 	
-    private int x=-1, y=-1;//mandatory -1 to check if variable is unmodified
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int x=-1, y=-1;//mandatory -1 to check if variable is unmodified
     
     Point(){
     	//do nothing for when x and y will be later set
