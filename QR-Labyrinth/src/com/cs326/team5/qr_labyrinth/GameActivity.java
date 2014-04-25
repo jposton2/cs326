@@ -30,7 +30,7 @@ public class GameActivity extends Activity {
 		end = grid.getEnd();
 		start = grid.getStart();
 		
-		grid.setPlayer(grid.getStart());
+		grid.setPlayer(grid.getStart().copy());
 		mv = (MazeView) findViewById(R.id.maze);
 		mv.setGrid(grid);
 		mv.invalidate();
@@ -110,7 +110,7 @@ public class GameActivity extends Activity {
 
  			grid.setEnd(end);
  			grid.setStart(start);
- 			plr = grid.getStart();
+ 			plr = grid.getStart().copy();
  			if(plr.getX() != grid.getStart().getX() || plr.getY() != grid.getStart().getY())
  				Log.i("GameActivity", "Couldn't move player back to start...");
  			grid.setPlayer(plr);
@@ -144,7 +144,7 @@ public class GameActivity extends Activity {
 		end = grid.getEnd();
 		start = grid.getStart();
 		
-		grid.setPlayer(grid.getStart());
+		grid.setPlayer(grid.getStart().copy());
 		mv = (MazeView) findViewById(R.id.maze);
 		mv.setGrid(grid);
 		mv.invalidate();

@@ -68,7 +68,7 @@ public class MazeView extends View {
 			return;
 		
 		if(grid.getPlayer() == null)
-			grid.setPlayer(grid.getStart());
+			grid.setPlayer(grid.getStart().copy());
 		Point plr = grid.getPlayer();
 		
 		if(plr == null)
