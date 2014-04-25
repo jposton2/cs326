@@ -19,7 +19,20 @@ public class Grid implements Serializable{
 	ArrayList<Subgrid> arrayOfSubgrids = new ArrayList<Subgrid>();
 	PointData deadEnd = null;
 	private Point player;
+	GridHandler handler = null;
 
+	Grid(PointData[][] grid, int xBound, int yBound, String name, int highscore){
+		this.xBound = xBound;
+		this.yBound = yBound;
+		this.gridArray = grid;
+		xBound = yBound = gridArray[0].length;
+		this.name = name;
+		this.highscore = highscore;
+		this.id = this.toString();
+		this.handler = new GridHandler(this);
+		
+		this.handler.setUpTeleporters(1, 0);
+	}
 
   	public Point getPlayer() {
 		return player;
@@ -61,16 +74,6 @@ public class Grid implements Serializable{
 	
 	public String getID(){
 		return id;
-	}
-
-	Grid(PointData[][] grid, int xBound, int yBound, String name, int highscore){
-		this.xBound = xBound;
-		this.yBound = yBound;
-		this.gridArray = grid;
-		xBound = yBound = gridArray[0].length;
-		this.name = name;
-		this.highscore = highscore;
-		this.id = this.toString();
 	}
 	
 	/**

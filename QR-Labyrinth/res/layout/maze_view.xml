@@ -55,6 +55,16 @@
             android:onClick="handleButton"
             android:text="@string/down" />
 
+        <Button
+            android:id="@+id/btnEnd"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:onClick="handleButton"
+            android:text="Win" />
+
     </RelativeLayout>
 
 </RelativeLayout>

@@ -13,6 +13,8 @@ import android.widget.TextView;
 public class GameActivity extends Activity {
 	Grid grid = null;
 	MazeView mv = null;
+	Point end;
+	Point start;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -22,18 +24,12 @@ public class GameActivity extends Activity {
 		setContentView(R.layout.maze_view);
 		grid = ((QRLabyrinth)getApplicationContext()).getCurrentLevel();
 
-		/*for(PointData[] row : grid.getGrid())
-		Log.w("Lolololololl", String.valueOf(grid.getGrid()[0][0].isBlack()));
-		for(PointData[] row : grid.getGrid())
-		{
-			for(PointData cell : row)
-			{
-				if(cell != null)
-					Log.i("GameActivity", String.valueOf(cell.isBlack()));
-				else
-					Log.i("GameActivity", "NULL CELL!");
-			}
-		}*/
+		if(grid.getStart() == grid.getEnd())
+			Log.i("GameActivity", "Start was the end all along!");
+
+		end = grid.getEnd();
+		start = grid.getStart();
+		
 		grid.setPlayer(grid.getStart());
 		mv = (MazeView) findViewById(R.id.maze);
 		mv.setGrid(grid);
@@ -54,30 +50,36 @@ public class GameActivity extends Activity {
  	 */
  	public void handleButton(View v) {
  		int id = v.getId();
+ 		
  		if(grid == null)
  			return;
  		
+ 		if(grid.getStart().equals(grid.getEnd()))
+			Log.i("GameActivity", "Start is now the end?!");
+ 		
+ 		Point end = grid.getEnd();
+ 		
  		Point plr = grid.getPlayer();
-
+ 		boolean debug = false;
  		switch (id) {
  		case R.id.btnDown:
- 			if(isPassable(plr.getX(), plr.getY()-1))
+ 			if(isPassable(plr.getX(), plr.getY()+1) || debug == true)
  			{
- 				plr.setY(plr.getY() - 1);
+ 				plr.setY(plr.getY() + 1);
  			}
  			Log.i("GameActivity", "Button pressed! (Down)");
  			break;
  		
  		case R.id.btnUp:
- 			if(isPassable(plr.getX(), plr.getY()+1))
+ 			if(isPassable(plr.getX(), plr.getY()-1) || debug == true)
  			{
- 				plr.setY(plr.getY() + 1);
+ 				plr.setY(plr.getY() - 1);
  			}
  			Log.i("GameActivity", "Button pressed! (Up)");
  			break;
  		
  		case R.id.btnLeft:
- 			if(isPassable(plr.getX()-1, plr.getY()))
+ 			if(isPassable(plr.getX()-1, plr.getY()) || debug == true)
  			{
  				plr.setX(plr.getX() - 1);
  			}
@@ -85,20 +87,53 @@ public class GameActivity extends Activity {
  			break;
  		
  		case R.id.btnRight:
- 			if(isPassable(plr.getX()+1, plr.getY()))
+ 			if(isPassable(plr.getX()+1, plr.getY()) || debug == true)
  			{
  				plr.setX(plr.getX() + 1);
  			}
  			Log.i("GameActivity", "Button pressed! (Right)");
  			break;
+ 		
+ 		case R.id.btnEnd:
+ 			grid.setPlayer(end);
+ 			break;
 		}
+ 		
+ 		if(!grid.getEnd().equals(end))
+ 			Log.i("GameActivity", "END HAS CHANGED!");
+ 		if(!grid.getStart().equals(start))
+ 			Log.i("GameActivity", "START HAS CHANGED!");
+ 		
+ 		PointData cell = grid.getGrid()[plr.getX()][plr.getY()];
+ 		if(cell.getX() == grid.getEnd().getX() && cell.getY() == grid.getEnd().getY())
+ 		{
+ 			grid.setEnd(end);
+ 			grid.setStart(start);
+ 			plr = grid.getStart();
+ 			if(plr.getX() != grid.getStart().getX() || plr.getY() != grid.getStart().getY())
+ 				Log.i("GameActivity", "Couldn't move player back to start...");
+ 			grid.setPlayer(plr);
+ 			grid = null;
+ 			finish();
+ 			
+ 			startActivity(new Intent(this, SelectLevelActivity.class));
+ 		}
+ 		else if(cell.getDestination() != null)
+ 		{
+ 			if(cell.getDestination().equals(cell))
+ 				Log.i("GameActivity", "Teleport destination was same as start...");
+ 			
+ 			plr.setX(cell.getDestination().getX());
+ 			plr.setY(cell.getDestination().getY());
+ 			Log.i("GameActivity", "Teleporting to " + cell.getDestination().getX() + "," + cell.getDestination().getY());
+ 		}
  		mv.invalidate();
  	}
  	
  	private boolean isPassable(int x, int y)
  	{
  		PointData[][] cells = grid.getGrid();
- 		if(x < 0 || y < 0 || x > cells.length || y > cells.length)
+ 		if(x < 0 || y < 0 || x >= cells.length || y >= cells.length)
  			return false;
  		return !cells[x][y].isBlack();
  	}

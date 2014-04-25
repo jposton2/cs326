@@ -106,7 +106,8 @@ public class QRHandler {
 		String s = "null";
 		switch(i){
 		case 1:
-			s = "Taumatawhakatangihangakoauauotamateapokaiwhenuakitanatahu";
+			//s = "Taumatawhakatangihangakoauauotamateapokaiwhenuakitanatahu";
+			s = "f";
 			break;
 		case 2:
 			s = "Llanfairpwllgwyngyll";

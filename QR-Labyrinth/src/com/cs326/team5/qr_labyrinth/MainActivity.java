@@ -74,6 +74,7 @@ public class MainActivity extends Activity implements Serializable{
             if(!file.exists()){
 //                      Grid g = h.getGrid("lol", 400, 400);
 	        	Grid g = h.getGrid(h.getLevel(i), 400, 400, "Level " + Integer.toString(i));
+	        	
 	        	Log.w("Array", Integer.toString(i));
 	        	Log.w("Array", h.getLevel(i));
 	        	g.setName("Level "+Integer.toString(i));
