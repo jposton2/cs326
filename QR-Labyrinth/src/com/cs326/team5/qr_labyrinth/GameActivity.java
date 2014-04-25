@@ -13,6 +13,7 @@ import android.widget.TextView;
 public class GameActivity extends Activity {
 	Grid grid = null;
 	MazeView mv = null;
+	Point plr = null;
 	Point end;
 	Point start;
 	@Override
@@ -30,7 +31,8 @@ public class GameActivity extends Activity {
 		end = grid.getEnd();
 		start = grid.getStart();
 		
-		grid.setPlayer(grid.getStart());
+		plr = new Point(grid.getStart().getX(), grid.getStart().getY());
+		grid.setPlayer(plr);
 		mv = (MazeView) findViewById(R.id.maze);
 		mv.setGrid(grid);
 		mv.invalidate();
@@ -105,15 +107,16 @@ public class GameActivity extends Activity {
  			Log.i("GameActivity", "START HAS CHANGED!");
  		
  		PointData cell = grid.getGrid()[plr.getX()][plr.getY()];
- 		if(grid.getEnd().equals(plr))
+ 		if(cell.getX() == grid.getEnd().getX() && cell.getY() == grid.getEnd().getY())
  		{
 
- 			grid.setEnd(end);
- 			grid.setStart(start);
+ 			grid.setEnd(this.end);
+ 			grid.setStart(this.start);
  			plr = grid.getStart();
  			if(plr.getX() != grid.getStart().getX() || plr.getY() != grid.getStart().getY())
  				Log.i("GameActivity", "Couldn't move player back to start...");
  			grid.setPlayer(plr);
+ 			mv.setGrid(grid);
  			//grid.reset();
  			grid = null;
  			finish();
