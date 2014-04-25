@@ -1,6 +1,8 @@
 package com.cs326.team5.qr_labyrinth;
 
 import android.annotation.SuppressLint;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -11,8 +13,12 @@ import java.util.LinkedList;
  * Area of whitespace in QR grid
  *
  */
-public class Subgrid {
+public class Subgrid implements Serializable{
 		
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	Grid grid;
 	int groupID;
 	ArrayList<PointData> subgridArray = new ArrayList<PointData>();

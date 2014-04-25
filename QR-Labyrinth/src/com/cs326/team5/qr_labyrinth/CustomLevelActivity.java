@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.io.StreamCorruptedException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -31,8 +32,12 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class CustomLevelActivity extends Activity {
+public class CustomLevelActivity extends Activity implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int qrheight = 400;
 	private int qrwidth = 400;
 	private TextView prevClick = null;
@@ -74,6 +79,9 @@ public class CustomLevelActivity extends Activity {
 
 			@Override
 			public View getView(int position, View convertView, ViewGroup parent) {
+				if(levelList.get(position) == null){
+					return null;
+				}
 				LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 				View view = inflater.inflate(R.layout.list_row, null);
 				TextView textView = (TextView) view.findViewById(R.id.listRow);
@@ -102,19 +110,23 @@ public class CustomLevelActivity extends Activity {
         	int currNum = 0;
         	for(File f: dir.listFiles()){
         		if(f.isFile()){
-        			if(f.getName().length() > 7)
+        			if(f.getName().length() > 6){
+        				Log.w("lols", f.getName().substring(0,6));
         			if(f.getName().substring(0,6).equals("custom")){
-        				int temp = Integer.parseInt(f.getName().substring(6));
+        				int temp = Integer.parseInt(f.getName().substring(5));
         				currNum = (temp > currNum ? temp : currNum);
+        			}
         			}
         		}
         	}
+        	String name = "custom_" + Integer.toString(currNum + 1);
+        	Log.w("ID", name);
 	         Grid g = qr.getGrid(contents, qrheight, qrwidth, "custom_"+ Integer.toString(currNum + 1));
 	         
 	         
-	         File file = getBaseContext().getFileStreamPath(contents);
+	         File file = getBaseContext().getFileStreamPath(name);
 	         if(!file.exists())
-	         	writeGrid(contents, g);
+	         	writeGrid(name, g);
 	      }
 	   }
 	}
@@ -126,7 +138,7 @@ public class CustomLevelActivity extends Activity {
 		try {
 			fos = openFileOutput(s, Context.MODE_PRIVATE);
 			os = new ObjectOutputStream(fos);
-			os.writeObject(this);
+			os.writeObject(g);
 			os.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
