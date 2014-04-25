@@ -30,7 +30,7 @@ public class GameActivity extends Activity {
 		end = grid.getEnd();
 		start = grid.getStart();
 		
-		grid.setPlayer(grid.getStart());
+		grid.setPlayer(grid.getStart().copy());
 		mv = (MazeView) findViewById(R.id.maze);
 		mv.setGrid(grid);
 		mv.invalidate();
