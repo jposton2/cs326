@@ -44,4 +44,9 @@ public class Point{
 	public Point copy() {
 		return new Point(this.x, this.y);
 	}
+
+	public boolean equals(Object that){
+		Point thatPoint = (Point) that;
+		return this.x == thatPoint.x && this.y == thatPoint.y;
+	}
 }
