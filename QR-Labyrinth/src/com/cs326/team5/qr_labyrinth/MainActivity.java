@@ -58,8 +58,18 @@ public class MainActivity extends Activity implements Serializable{
     public ArrayList<Grid> checkCustomFiles(){
     	QRHandler h = new QRHandler();  
     	ArrayList<Grid> gridList = new ArrayList<Grid>();
-        for(int i = 1; i <= 1; i++){
-        	File file = getBaseContext().getFileStreamPath("aba" + Integer.toString(i));
+        	File dir = getBaseContext().getFilesDir();
+        	int currNum = 0;
+        	for(File f: dir.listFiles()){
+        		if(f.isFile()){
+        			if(f.getName().substring(0,6).equals("custom")){
+        				int temp = Integer.parseInt(f.getName().substring(6));
+        				currNum = (temp > currNum ? temp : currNum);
+        			}
+        		}
+        	}
+        for(int i = 1; i <= currNum; i++){
+        	File file = getBaseContext().getFileStreamPath("custom_" + Integer.toString(i));
             if(!file.exists()){
 //                      Grid g = h.getGrid("lol", 400, 400);
 	        	Grid g = h.getGrid(h.getLevel(i), 400, 400, "Level " + Integer.toString(i));
