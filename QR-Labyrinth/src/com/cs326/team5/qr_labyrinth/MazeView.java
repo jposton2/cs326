@@ -62,6 +62,7 @@ public class MazeView extends View {
 		// allocations per draw cycle.
 		int sqrWidth = findViewById(R.id.maze).getWidth() / 4;
 		int sqrHeight = findViewById(R.id.maze).getHeight() / 4;
+		boolean drewPlayer = false;
 		
 		if(grid == null)
 			return;
@@ -92,11 +93,9 @@ public class MazeView extends View {
 				for(int j = plr.getY() - 2, y = 0; j < plr.getY() + 3; j++, y++)
 				{	
 					
-					if(i < 0 || j < 0 || i > cells.length || j > cells.length || cells[i][j] == null)
+					if(i < 0 || j < 0 || i >= cells.length || j >= cells.length || cells[i][j] == null)
 					{
 						paint.setColor(Color.RED);
-						int side = i - plr.getX();
-						int top = j - plr.getY();
 						
 						rect.set(sqrWidth*x, sqrHeight*y, sqrWidth*x + sqrWidth, sqrHeight*y + sqrHeight);
 						canvas.drawRect(rect, paint);
@@ -110,9 +109,9 @@ public class MazeView extends View {
 					{
 						paint.setColor(Color.BLUE);
 					}
-					else if(i == 20 && j == 20)
+					else if(grid.getEnd().getX() == i && grid.getEnd().getY() == j)
 					{
-						paint.setColor(Color.YELLOW);
+						paint.setColor(Color.GREEN);
 					}
 					else
 					{
@@ -122,8 +121,9 @@ public class MazeView extends View {
 					
 					rect.set(sqrWidth*x, sqrHeight*y, sqrWidth*x + sqrWidth, sqrHeight*y + sqrHeight);
 					canvas.drawRect(rect, paint);
-					if(i == plr.getX() && j == plr.getY())
+					if(i == plr.getX() && j == plr.getY() && !drewPlayer)
 					{
+						drewPlayer = true;
 						Log.i("MazeView", "Player: " + plr.getX() +","+ plr.getY());
 						charImg.setBounds(sqrWidth*x, sqrHeight*y, sqrWidth*x + sqrWidth, sqrHeight*y + sqrHeight);
 						charImg.draw(canvas);
