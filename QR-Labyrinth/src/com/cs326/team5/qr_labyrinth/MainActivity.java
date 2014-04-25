@@ -62,6 +62,7 @@ public class MainActivity extends Activity implements Serializable{
         	int currNum = 0;
         	for(File f: dir.listFiles()){
         		if(f.isFile()){
+        			if(f.getName().length() > 7)
         			if(f.getName().substring(0,6).equals("custom")){
         				int temp = Integer.parseInt(f.getName().substring(6));
         				currNum = (temp > currNum ? temp : currNum);
