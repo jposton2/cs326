@@ -105,14 +105,16 @@ public class GameActivity extends Activity {
  			Log.i("GameActivity", "START HAS CHANGED!");
  		
  		PointData cell = grid.getGrid()[plr.getX()][plr.getY()];
- 		if(cell.getX() == grid.getEnd().getX() && cell.getY() == grid.getEnd().getY())
+ 		if(grid.getEnd().equals(plr))
  		{
+
  			grid.setEnd(end);
  			grid.setStart(start);
  			plr = grid.getStart();
  			if(plr.getX() != grid.getStart().getX() || plr.getY() != grid.getStart().getY())
  				Log.i("GameActivity", "Couldn't move player back to start...");
  			grid.setPlayer(plr);
+ 			//grid.reset();
  			grid = null;
  			finish();
  			
@@ -128,6 +130,24 @@ public class GameActivity extends Activity {
  			Log.i("GameActivity", "Teleporting to " + cell.getDestination().getX() + "," + cell.getDestination().getY());
  		}
  		mv.invalidate();
+ 	}
+ 	
+ 	@Override
+ 	protected void onResume()
+ 	{
+ 		super.onResume();
+ 		grid = ((QRLabyrinth)getApplicationContext()).getCurrentLevel();
+
+		if(grid.getStart() == grid.getEnd())
+			Log.i("GameActivity", "Start was the end all along!");
+
+		end = grid.getEnd();
+		start = grid.getStart();
+		
+		grid.setPlayer(grid.getStart());
+		mv = (MazeView) findViewById(R.id.maze);
+		mv.setGrid(grid);
+		mv.invalidate();
  	}
  	
  	private boolean isPassable(int x, int y)

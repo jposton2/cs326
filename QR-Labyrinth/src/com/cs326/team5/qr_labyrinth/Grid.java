@@ -33,6 +33,11 @@ public class Grid implements Serializable{
 		
 		this.handler.setUpTeleporters(1, 0);
 	}
+	
+	public void reset()
+	{
+		this.handler.setUpTeleporters(1, 0);
+	}
 
   	public Point getPlayer() {
 		return player;

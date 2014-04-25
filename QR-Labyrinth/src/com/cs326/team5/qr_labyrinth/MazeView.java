@@ -95,7 +95,7 @@ public class MazeView extends View {
 					
 					if(i < 0 || j < 0 || i >= cells.length || j >= cells.length || cells[i][j] == null)
 					{
-						paint.setColor(Color.RED);
+						paint.setColor(Color.BLACK);
 						
 						rect.set(sqrWidth*x, sqrHeight*y, sqrWidth*x + sqrWidth, sqrHeight*y + sqrHeight);
 						canvas.drawRect(rect, paint);
