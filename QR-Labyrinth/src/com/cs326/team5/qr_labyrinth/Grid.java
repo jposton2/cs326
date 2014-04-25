@@ -12,18 +12,14 @@ public class Grid implements Serializable{
 	private String id;
 	private int xBound;
 	private int yBound;
-	private PointData start;
-	private PointData end;
+	private Point start;
+	private Point end;
 	private PointData[][] gridArray;
 	int numberOfGroups;
 	ArrayList<Subgrid> arrayOfSubgrids = new ArrayList<Subgrid>();
 	PointData deadEnd = null;
 	private Point player;
-	
-//  public Grid(Point start, ArrayList<ArrayList<PointData>> grid){
-//      this.grid = grid;
-//      this.start = start;
-//  }
+
 
   	public Point getPlayer() {
 		return player;
@@ -52,14 +48,14 @@ public class Grid implements Serializable{
   /**
    * @return start point
    */
-  public PointData getStart(){
+  public Point getStart(){
       return start;
   }
 	
 	/**
 	 * @param start the start to set
 	 */
-	public void setStart(PointData start) {
+	public void setStart(Point start) {
 		this.start = start;
 	}
 	
@@ -186,11 +182,11 @@ public class Grid implements Serializable{
 		return neighbors;
 	}
 
-	public PointData getEnd() {
+	public Point getEnd() {
 		return end;
 	}
 
-	public void setEnd(PointData end) {
+	public void setEnd(Point end) {
 		this.end = end;
 	}
 	

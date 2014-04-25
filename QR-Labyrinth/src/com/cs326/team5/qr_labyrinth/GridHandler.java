@@ -170,9 +170,14 @@ public class GridHandler{
     		s1.addTeleporter(s2);
     		s2.addTeleporter(s1);
     	}
+    	PointData start, end;
+    	start = arrayOfSubgrids.get(0).subgridArray.get(1);
+    	end = arrayOfSubgrids.get(arrayOfSubgrids.size() - 1).subgridArray.get(1);
+    	Point a = new Point(end.getX(), end.getY());
+    	Point b = new Point(start.getX(), start.getY());
     	
-    	grid.setStart(arrayOfSubgrids.get(0).subgridArray.get(1));
-    	grid.setEnd(arrayOfSubgrids.get(arrayOfSubgrids.size() - 1).subgridArray.get(1));
+    	grid.setStart(b);
+    	grid.setEnd(a);
     }
 	
 	/**

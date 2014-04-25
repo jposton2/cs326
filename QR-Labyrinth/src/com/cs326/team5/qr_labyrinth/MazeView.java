@@ -2,7 +2,6 @@ package com.cs326.team5.qr_labyrinth;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -11,14 +10,12 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 
 /**
  * TODO: document your custom view class.
  */
 public class MazeView extends View {
 	
-	private float charDimension = 0;
 	private Drawable charImg;
 	private Resources res;
 	
@@ -63,40 +60,84 @@ public class MazeView extends View {
 
 		// TODO: consider storing these as member variables to reduce
 		// allocations per draw cycle.
-		int sqrWidth = getWidth() / 10;
-		if(!this.isInEditMode() && grid != null)
+		int sqrWidth = findViewById(R.id.maze).getWidth() / 4;
+		int sqrHeight = findViewById(R.id.maze).getHeight() / 4;
+		
+		if(grid == null)
+			return;
+		
+		if(grid.getPlayer() == null)
+			grid.setPlayer(grid.getStart());
+		Point plr = grid.getPlayer();
+		
+		if(plr == null)
+		{
+			Log.i("MazeView", "Start was null; defaulting to 10,10");
+			plr = new Point(11,11);
+		}
+			
+		if(!this.isInEditMode() && grid != null && plr != null)
 		{
 			PointData[][] cells = grid.getGrid();
-			//sqrWidth = getWidth() / cells.length;
-			Log.i("MazeBuilder", String.valueOf(cells.length));
-			for(int i = 0; i < cells.length; i++)
+			sqrWidth = getWidth() / 5;
+			sqrHeight = getHeight() / 5;
+			Log.i("MazeView", "Cells: " + cells.length + ", Height: " + getHeight() + ", Tile size: " + sqrWidth);
+			
+			rect.set(0, 0, getWidth(), getHeight());
+			paint.setColor(Color.TRANSPARENT);
+			canvas.drawRect(rect, paint);
+			
+			for(int i = plr.getX() - 2, x = 0; i < plr.getX() + 3; i++, x++)
 			{
-				for(int j = 0; j < cells.length; j++)
-				{
-					if(cells[i][j] == null)
+				for(int j = plr.getY() - 2, y = 0; j < plr.getY() + 3; j++, y++)
+				{	
+					
+					if(i < 0 || j < 0 || i > cells.length || j > cells.length || cells[i][j] == null)
+					{
+						paint.setColor(Color.RED);
+						int side = i - plr.getX();
+						int top = j - plr.getY();
+						
+						rect.set(sqrWidth*x, sqrHeight*y, sqrWidth*x + sqrWidth, sqrHeight*y + sqrHeight);
+						canvas.drawRect(rect, paint);
 						continue;
-					//Log.i("MazeBuilder", "Cell " + i + "," + j + cells[i][j].isBlack());
-					if(cells[i][j].isBlack())
+					}
+					else if(cells[i][j].isBlack())
+					{
 						paint.setColor(Color.BLACK);
-					else if(cells[i][j].hasTeleporter())
+					}
+					else if(cells[i][j].hasTeleporter() || cells[i][j].isPseudoTeleporter())
+					{
 						paint.setColor(Color.BLUE);
+					}
+					else if(i == 20 && j == 20)
+					{
+						paint.setColor(Color.YELLOW);
+					}
 					else
-						paint.setColor(Color.BLACK);
-					rect.set(sqrWidth*i, sqrWidth*j, sqrWidth*i + sqrWidth, sqrWidth*j + sqrWidth);
+					{
+						paint.setColor(Color.WHITE);
+					}
+					
+					
+					rect.set(sqrWidth*x, sqrHeight*y, sqrWidth*x + sqrWidth, sqrHeight*y + sqrHeight);
 					canvas.drawRect(rect, paint);
+					if(i == plr.getX() && j == plr.getY())
+					{
+						Log.i("MazeView", "Player: " + plr.getX() +","+ plr.getY());
+						charImg.setBounds(sqrWidth*x, sqrHeight*y, sqrWidth*x + sqrWidth, sqrHeight*y + sqrHeight);
+						charImg.draw(canvas);
+					}
 				}
 			}
-			if(res != null)
+			if(res != null && plr != null)
 			{
-				Point player;
-				if((player = grid.getPlayer()) != null)
-				{
-					int side = sqrWidth * player.getX();
-					int top = sqrWidth * player.getY();
-					charImg.setBounds(side, top, side+sqrWidth, top+sqrWidth);
-					charImg.draw(canvas);
-				}
+				int side = sqrWidth * plr.getX();
+				int top = sqrWidth * plr.getY();
+				charImg.setBounds(side, top, side+sqrWidth, top+sqrWidth);
+				charImg.draw(canvas);
 			}
+			grid.setPlayer(plr);
 		}
 		else
 		{

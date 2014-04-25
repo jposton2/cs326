@@ -4,22 +4,15 @@
 
     <com.cs326.team5.qr_labyrinth.MazeView
         android:id="@+id/maze"
-        android:layout_width="400dp"
-        android:layout_height="177dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="#ccc"
         android:paddingBottom="40dp"
         android:paddingLeft="20dp" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/maze" >
+        android:layout_height="match_parent" >
 
         <Button
             android:id="@+id/btnRight"
@@ -28,31 +21,39 @@
             android:layout_alignBaseline="@+id/btnLeft"
             android:layout_alignBottom="@+id/btnLeft"
             android:layout_alignParentRight="true"
+            android:alpha="0.5"
+            android:onClick="handleButton"
             android:text="@string/right" />
 
         <Button
             android:id="@+id/btnLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/btnRight"
+            android:alpha="0.5"
+            android:onClick="handleButton"
             android:text="@string/left" />
-
-        <Button
-            android:id="@+id/btnDown"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btnRight"
-            android:layout_centerHorizontal="true"
-            android:text="@string/down" />
 
         <Button
             android:id="@+id/btnUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/btnRight"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
+            android:alpha="0.5"
+            android:onClick="handleButton"
             android:text="@string/up" />
+
+        <Button
+            android:id="@+id/btnDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:alpha="0.5"
+            android:onClick="handleButton"
+            android:text="@string/down" />
 
     </RelativeLayout>
 

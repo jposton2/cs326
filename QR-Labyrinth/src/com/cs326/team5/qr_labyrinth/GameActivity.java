@@ -6,13 +6,19 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 public class GameActivity extends Activity {
 	Grid grid = null;
+	MazeView mv = null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.maze_view);
 		grid = ((QRLabyrinth)getApplicationContext()).getCurrentLevel();
 
@@ -28,10 +34,11 @@ public class GameActivity extends Activity {
 					Log.i("GameActivity", "NULL CELL!");
 			}
 		}*/
-		MazeView mv = (MazeView) findViewById(R.id.maze);
+		grid.setPlayer(grid.getStart());
+		mv = (MazeView) findViewById(R.id.maze);
 		mv.setGrid(grid);
 		mv.invalidate();
-		Log.i("GameActivity", "MazeView's grid: " + mv.getGrid().getID());
+		Log.i("GameActivity", String.valueOf(grid.equals(mv.getGrid())));
 	}
 
 	@Override
@@ -50,25 +57,50 @@ public class GameActivity extends Activity {
  		if(grid == null)
  			return;
  		
- 		Point player = grid.getPlayer();
+ 		Point plr = grid.getPlayer();
 
  		switch (id) {
  		case R.id.btnDown:
- 			player.setY(player.getY()-1);
+ 			if(isPassable(plr.getX(), plr.getY()-1))
+ 			{
+ 				plr.setY(plr.getY() - 1);
+ 			}
+ 			Log.i("GameActivity", "Button pressed! (Down)");
  			break;
  		
  		case R.id.btnUp:
- 			player.setY(player.getY()+1);
+ 			if(isPassable(plr.getX(), plr.getY()+1))
+ 			{
+ 				plr.setY(plr.getY() + 1);
+ 			}
+ 			Log.i("GameActivity", "Button pressed! (Up)");
  			break;
  		
  		case R.id.btnLeft:
- 			player.setX(player.getX()-1);
+ 			if(isPassable(plr.getX()-1, plr.getY()))
+ 			{
+ 				plr.setX(plr.getX() - 1);
+ 			}
+ 			Log.i("GameActivity", "Button pressed! (Left)");
  			break;
  		
  		case R.id.btnRight:
- 			player.setX(player.getX()+1);
+ 			if(isPassable(plr.getX()+1, plr.getY()))
+ 			{
+ 				plr.setX(plr.getX() + 1);
+ 			}
+ 			Log.i("GameActivity", "Button pressed! (Right)");
  			break;
 		}
+ 		mv.invalidate();
+ 	}
+ 	
+ 	private boolean isPassable(int x, int y)
+ 	{
+ 		PointData[][] cells = grid.getGrid();
+ 		if(x < 0 || y < 0 || x > cells.length || y > cells.length)
+ 			return false;
+ 		return !cells[x][y].isBlack();
  	}
 
 }
