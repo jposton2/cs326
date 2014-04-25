@@ -62,8 +62,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
+            android:enabled="false"
             android:onClick="handleButton"
-            android:text="Win" />
+            android:text="Win"
+            android:visibility="invisible" />
 
     </RelativeLayout>
 

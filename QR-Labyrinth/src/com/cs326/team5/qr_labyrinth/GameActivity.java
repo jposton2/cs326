@@ -96,7 +96,7 @@ public class GameActivity extends Activity {
  			break;
  		
  		case R.id.btnEnd:
- 			grid.setPlayer(end);
+ 			//grid.setPlayer(end);
  			break;
 		}
  		
