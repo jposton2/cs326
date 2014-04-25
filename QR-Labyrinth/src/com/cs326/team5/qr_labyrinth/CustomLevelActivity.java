@@ -96,7 +96,19 @@ public class CustomLevelActivity extends Activity {
 	         String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
 	         
 	         QRHandler qr = new QRHandler();
-	         Grid g = qr.getGrid(contents, qrheight, qrwidth, contents);
+	         // TODO: Add custom names here
+
+        	File dir = getBaseContext().getFilesDir();
+        	int currNum = 0;
+        	for(File f: dir.listFiles()){
+        		if(f.isFile()){
+        			if(f.getName().substring(0,6).equals("custom")){
+        				int temp = Integer.parseInt(f.getName().substring(6));
+        				currNum = (temp > currNum ? temp : currNum);
+        			}
+        		}
+        	}
+	         Grid g = qr.getGrid(contents, qrheight, qrwidth, "custom_"+ Integer.toString(currNum + 1));
 	         
 	         
 	         File file = getBaseContext().getFileStreamPath(contents);
