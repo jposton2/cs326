@@ -94,10 +94,6 @@ public class GameActivity extends Activity {
  			}
  			Log.i("GameActivity", "Button pressed! (Right)");
  			break;
- 		
- 		case R.id.btnEnd:
- 			//grid.setPlayer(end);
- 			break;
 		}
  		
  		if(!grid.getEnd().equals(end))

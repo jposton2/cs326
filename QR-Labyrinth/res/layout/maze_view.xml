@@ -18,54 +18,58 @@
             android:id="@+id/btnRight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/btnLeft"
-            android:layout_alignBottom="@+id/btnLeft"
+            android:layout_above="@+id/btnDown"
             android:layout_alignParentRight="true"
+            android:layout_below="@+id/btnUp"
             android:alpha="0.5"
             android:onClick="handleButton"
-            android:text="@string/right" />
+            android:text="@string/right"
+            android:textColor="#ffff00"
+            android:textStyle="bold"
+            android:background="#eedddddd" />
 
         <Button
             android:id="@+id/btnLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/btnRight"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
+            android:layout_alignTop="@+id/btnRight"
             android:alpha="0.5"
             android:onClick="handleButton"
-            android:text="@string/left" />
+            android:text="@string/left"
+            android:textColor="#ffff00"
+            android:textStyle="bold"
+            android:background="#eedddddd" />
 
         <Button
             android:id="@+id/btnUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
+            android:layout_toLeftOf="@+id/btnRight"
+            android:layout_toRightOf="@+id/btnLeft"
             android:alpha="0.5"
             android:onClick="handleButton"
-            android:text="@string/up" />
+            android:text="@string/up"
+            android:textColor="#ffff00"
+            android:textStyle="bold"
+            android:background="#eedddddd" />
 
         <Button
             android:id="@+id/btnDown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/btnUp"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
+            android:layout_alignRight="@+id/btnUp"
             android:alpha="0.5"
             android:onClick="handleButton"
-            android:text="@string/down" />
+            android:text="@string/down"
+            android:textColor="#ffff00"
+            android:textStyle="bold"
+            android:background="#eedddddd" />
 
-        <Button
-            android:id="@+id/btnEnd"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:enabled="false"
-            android:onClick="handleButton"
-            android:text="Win"
-            android:visibility="invisible" />
 
     </RelativeLayout>
 
