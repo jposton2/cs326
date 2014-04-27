@@ -120,14 +120,15 @@ public class CustomLevelActivity extends Activity implements Serializable{
         		}
         	}
         	String name = "custom_" + Integer.toString(currNum + 1);
-        	Log.w("ID", name);
+        	Log.w("ID", contents);
 	         Grid g = qr.getGrid(contents, qrheight, qrwidth, "custom_"+ Integer.toString(currNum + 1));
-	         levelList.add(g);
+			((QRLabyrinth)getApplicationContext()).setCurrentLevel(g);
+ 			startActivity(new Intent(this, GameActivity.class));
 	         
 	         
-	         //File file = getBaseContext().getFileStreamPath(name);
-	         //if(!file.exists())
-	         //	writeGrid(name, g);
+	         File file = getBaseContext().getFileStreamPath(name);
+	         if(!file.exists())
+	         	writeGrid(name, g);
 	      }
 	   }
 	}
