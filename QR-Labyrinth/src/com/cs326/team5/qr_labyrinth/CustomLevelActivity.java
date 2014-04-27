@@ -230,6 +230,7 @@ public class CustomLevelActivity extends Activity{
 	    	File file = getBaseContext().getFileStreamPath("custom_" + n);
 	    	file.delete();
 
+			
  			setupListView();
  			break;
 		case R.id.back: // if back button was clicked
