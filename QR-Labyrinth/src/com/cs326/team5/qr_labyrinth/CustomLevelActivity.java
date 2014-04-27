@@ -32,16 +32,12 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class CustomLevelActivity extends Activity implements Serializable{
+public class CustomLevelActivity extends Activity{
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private int qrheight = 400;
 	private int qrwidth = 400;
 	private TextView prevClick = null;
-	private List<Grid> levelList = null;
+	private List<String> levelList = null;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +45,7 @@ public class CustomLevelActivity extends Activity implements Serializable{
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_custom);
         QRLabyrinth qrl = ((QRLabyrinth)getApplicationContext());
-        levelList = qrl.getCustomList();
+        levelList = qrl.getCustomIDs();
         if(levelList != null){
         	setupListView();
         }
@@ -103,7 +99,6 @@ public class CustomLevelActivity extends Activity implements Serializable{
 	         // We can use format to check if it is a URL, or TEXT or something!
 	         String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
 	         
-	         QRHandler qr = new QRHandler();
 	         // TODO: Add custom names here
 
         	File dir = getBaseContext().getFilesDir();
@@ -119,10 +114,13 @@ public class CustomLevelActivity extends Activity implements Serializable{
         			}
         		}
         	}
-        	String name = "custom_" + Integer.toString(currNum + 1);
-        	Log.w("ID", name);
-	         Grid g = qr.getGrid(contents, qrheight, qrwidth, "custom_"+ Integer.toString(currNum + 1));
-	         levelList.add(g);
+        	String name = "Custom " + Integer.toString(currNum + 1);
+    		Log.w("ID", name);
+	        Grid g = QRHandler.getGrid(contents, qrheight, qrwidth, name + Integer.toString(currNum + 1));
+	        writeGrid("custom_" + (currNum + 1),g);
+	        levelList.add(g.getID());
+	        setupListView();
+//**********	         levelList.add(g);
 	         
 	         
 	         //File file = getBaseContext().getFileStreamPath(name);
@@ -151,12 +149,12 @@ public class CustomLevelActivity extends Activity implements Serializable{
 	}
 	
 	// TO PUT IN OTHER ACTIVITYYYYY
-	public Grid loadGrid(String s){
+	public Grid loadGrid(File f){
 		FileInputStream fis;
 		ObjectInputStream is;
 		Grid g;
 		try {
-			fis = openFileInput(s);
+			fis = new FileInputStream(f);
 			is = new ObjectInputStream(fis);
 			g = (Grid) is.readObject();
 			is.close();
@@ -173,9 +171,14 @@ public class CustomLevelActivity extends Activity implements Serializable{
 			e.printStackTrace();
 			return null;
 		}
-		
+		Log.w("LoL", "We got this far");
 		return g;
 	}
+	
+	public Grid checkFile(char n){
+    	File file = getBaseContext().getFileStreamPath("custom_" + n);
+        return loadGrid(file);
+    }
 	
     /**
  	 * Handles button clicks for the UI
@@ -202,16 +205,33 @@ public class CustomLevelActivity extends Activity implements Serializable{
 			v.setBackgroundColor(0x650000FF);
 			prevClick = (TextView) v;
 			
-			for(Grid g: ((QRLabyrinth)getApplicationContext()).getCustomList()){
-				if(g.getID().equals(prevClick.getText().toString())){
-					((QRLabyrinth)getApplicationContext()).setCurrentLevel(g);
-				}
-			}
+			String [] s = prevClick.getText().toString().split("\n");
+			Grid g = checkFile(s[0].charAt(s[0].length()-1));
+
+			((QRLabyrinth)getApplicationContext()).setCurrentLevel(g);
 			
 			findViewById(R.id.play).setAlpha(1);
 			findViewById(R.id.trash).setAlpha(1);
 			
 			break;
+ 		case R.id.trash:
+ 			if(prevClick != null){
+				prevClick.setBackgroundColor(0x00000000);
+			}
+			v.setBackgroundColor(0x650000FF);
+			prevClick = (TextView) v;
+			
+			String t = prevClick.getText().toString();
+			levelList.remove(t);
+			
+			String [] s2 = t.split("\n");
+			char n = s2[0].charAt(s2[0].length()-1);
+			
+	    	File file = getBaseContext().getFileStreamPath("custom_" + n);
+	    	file.delete();
+
+ 			setupListView();
+ 			break;
 		case R.id.back: // if back button was clicked
 			finish();
 			break;

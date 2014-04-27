@@ -4,9 +4,6 @@ import java.io.Serializable;
 
 public class Point implements Serializable{
 	
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private int x=-1, y=-1;//mandatory -1 to check if variable is unmodified
     

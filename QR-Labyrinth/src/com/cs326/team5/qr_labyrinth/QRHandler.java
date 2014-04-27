@@ -8,7 +8,7 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
 public class QRHandler {
-	public Grid getGrid(String contents, int qrwidth, int qrheight, String name){
+	public static Grid getGrid(String contents, int qrwidth, int qrheight, String name){
 		
 		QRCodeWriter writer = new QRCodeWriter();
         BitMatrix matrix = null;
@@ -102,7 +102,7 @@ public class QRHandler {
 	}
 	
 
-	public String getLevel(int i){
+	public static String getLevel(int i){
 		String s = "null";
 		switch(i){
 		case 1:

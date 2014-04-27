@@ -1,14 +1,36 @@
 package com.cs326.team5.qr_labyrinth;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.app.Application;
 
 public class QRLabyrinth extends Application{
 	
-	private ArrayList<Grid> levelList;
-	private ArrayList<Grid> customList;;
+	protected final File levelIDsFile = new File("levelIDs.txt");
+	protected final File customIDsFile = new File("customIDs.txt");
+	private ArrayList<String> levelIDs;
+	private ArrayList<String> customIDs;
+	private HashMap<Integer,Grid> levelList;
+	private HashMap<Integer,Grid> customList;;
 	private Grid currentLevel;
+	
+	public ArrayList<String> getLevelIDs() {
+		return levelIDs;
+	}
+
+	public void setLevelIDs(ArrayList<String> levelIDs) {
+		this.levelIDs = levelIDs;
+	}
+
+	public ArrayList<String> getCustomIDs() {
+		return customIDs;
+	}
+
+	public void setCustomIDs(ArrayList<String> customIDs) {
+		this.customIDs = customIDs;
+	}
 	
 	public Grid getCurrentLevel() {
 		return currentLevel;
@@ -18,19 +40,19 @@ public class QRLabyrinth extends Application{
 		this.currentLevel = currentLevel;
 	}
 
-	public ArrayList<Grid> getLevelList() {
+	public HashMap<Integer,Grid> getLevelList() {
 		return levelList;
 	}
 	
-	public void setLevelList(ArrayList<Grid> levelList) {
+	public void setLevelList(HashMap<Integer,Grid> levelList) {
 		this.levelList = levelList;
 	}
 	
-	public ArrayList<Grid> getCustomList() {
+	public HashMap<Integer,Grid> getCustomList() {
 		return customList;
 	}
 	
-	public void setCustomList(ArrayList<Grid> customList) {
+	public void setCustomList(HashMap<Integer,Grid> customList) {
 		this.customList = customList;
 	}
 	
