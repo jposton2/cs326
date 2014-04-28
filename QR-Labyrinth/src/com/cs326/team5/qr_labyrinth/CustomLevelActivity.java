@@ -110,7 +110,7 @@ public class CustomLevelActivity extends Activity{
         		if(f.isFile()){
         			if(f.getName().length() > 6){
         				Log.w("lols", f.getName().substring(0,6));
-	        			if(f.getName().substring(0,6).equals("custom")){
+	        			if(f.getName().substring(0,7).equals("custom_")){
 	        				String [] s = f.getName().split("_");
 	        				int temp = Integer.parseInt(s[1]);
 	        				currNum = (temp > currNum ? temp : currNum);
