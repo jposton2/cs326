@@ -1,5 +1,11 @@
 package com.cs326.team5.qr_labyrinth;
 
+import java.io.File;
+import java.io.FileOutputStream;
+
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.os.Environment;
 import android.util.Log;
 
 import com.google.zxing.BarcodeFormat;
@@ -100,6 +106,35 @@ public class QRHandler {
 //        	Log.w("Grid", l);
 //        	l = "";
         }
+        Bitmap bmpMonochrome = Bitmap.createBitmap(xEnd*xSize, yEnd*ySize, Bitmap.Config.ARGB_8888);
+        int[] pixels = new int[10];
+        pixels[0] = 0;
+        for(int i = 0; i <= xEnd+8; i++){
+        	for(int j = 0; j <= yEnd+8; j++){
+        		for(int l = 0; l <= xSize; l ++){
+        			for(int m = 0; m <= ySize; m++){
+                		if(matrix.get((i*xSize)+xStart, (j*ySize)+yStart))
+                			bmpMonochrome.setPixel(i+l, j+m, Color.BLACK);
+                		else
+                			bmpMonochrome.setPixel(i+l, j+m, Color.WHITE);
+        		
+        				}
+        			}
+        		}
+        }
+		String file_path = Environment.getExternalStorageDirectory() + "/Lolz";
+		File dir = new File(file_path);
+		if(!dir.exists())
+		    dir.mkdirs();
+	        try {
+	            FileOutputStream out = new FileOutputStream(new File(dir, name+".bmp"));
+	            bmpMonochrome.compress(Bitmap.CompressFormat.PNG, 90, out);
+	            out.flush();
+	            out.close();
+
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }	         //levelList.add(g);
 		return new Grid(gridArray, xEnd, yEnd, name, 0);
 	}
 	
