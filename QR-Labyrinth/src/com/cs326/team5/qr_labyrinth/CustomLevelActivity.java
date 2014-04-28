@@ -231,7 +231,7 @@ public class CustomLevelActivity extends Activity{
 			prevClick = (TextView) v;
 			
 			String [] s = prevClick.getText().toString().split("\n");
-			String [] s1 = s[0].split("_");
+			String [] s1 = s[0].split(" ");
 			Grid g = checkFile(s1[1]);
 			
 			((QRLabyrinth)getApplicationContext()).setCurrentLevel(g);
@@ -251,7 +251,7 @@ public class CustomLevelActivity extends Activity{
 			levelList.remove(t);
 			
 			String [] s2 = t.split("\n");
-			String [] s3 = s2[0].split("_");
+			String [] s3 = s2[0].split(" ");
 			
 	    	File file = getBaseContext().getFileStreamPath("custom_" + s3[1]);
 	    	file.delete();
