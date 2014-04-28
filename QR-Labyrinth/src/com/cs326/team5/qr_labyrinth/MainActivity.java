@@ -56,11 +56,14 @@ public class MainActivity extends Activity{
         
         
         ArrayList<String> list = loadIDs(qrl.customIDsFile);
-        for(String s: list){
-        	Log.d("random tag", s);
+        
+        if(list != null){
+	        for(String s: list){
+	        	Log.d("random tag", s);
+	        }
         }
         
-    //    qrl.setCustomIDs(loadIDs(qrl.customIDsFile));
+        qrl.setCustomIDs(loadIDs(qrl.customIDsFile));
 
     }
 
