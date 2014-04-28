@@ -164,7 +164,7 @@ public class SelectLevelActivity extends Activity{
 			prevClick = (TextView) v;
 			
 			String [] s = prevClick.getText().toString().split("\n");
-			String [] s2 = s[0].split("_");
+			String [] s2 = s[0].split(" ");
 			Grid g = checkFile(s2[1]);
 			
 			((QRLabyrinth)getApplicationContext()).setCurrentLevel(g);
