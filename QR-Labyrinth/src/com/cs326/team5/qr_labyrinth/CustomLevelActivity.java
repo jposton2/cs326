@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
 import java.io.Serializable;
 import java.io.StreamCorruptedException;
 import java.io.UnsupportedEncodingException;
@@ -138,20 +139,21 @@ public class CustomLevelActivity extends Activity{
 	   }
 	}
     
-    protected void writeIDs(File f, ArrayList<String> IDs){
-		BufferedWriter out;
+    protected void writeIDs(String s, ArrayList<String> IDs){
+		//BufferedWriter out;
+		String writeString = "";
+		OutputStreamWriter os;
 		try {
-			out = new BufferedWriter(new FileWriter(f));
-			
-			for(String ID: IDs){
-				Log.d("somethign", ID);
-				out.write(ID);
-				out.newLine();
-			}
-			
-			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
+			os = new OutputStreamWriter(openFileOutput(s, Context.MODE_PRIVATE));
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		for(String ID: IDs){
+			writeString += ID + "\n";
+			Log.d("somethign", ID);
+			//out.write(ID);
+			//out.newLine();
 		}
 	}
     

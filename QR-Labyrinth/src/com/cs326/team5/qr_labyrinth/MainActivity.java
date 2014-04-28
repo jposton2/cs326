@@ -9,8 +9,11 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
 import java.io.Serializable;
 import java.io.StreamCorruptedException;
 import java.util.ArrayList;
@@ -110,10 +113,27 @@ public class MainActivity extends Activity{
     }
     */
     
+    protected void writeIDs(String s, ArrayList<String> IDs){
+		//BufferedWriter out;
+		String writeString = "";
+		OutputStreamWriter os;
+		try {
+			os = new OutputStreamWriter(openFileOutput(s, Context.MODE_PRIVATE));
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		for(String ID: IDs){
+			writeString += ID + "\n";
+			Log.d("somethign", ID);
+			//out.write(ID);
+			//out.newLine();
+		}
+	}
     
-	protected ArrayList<String> loadIDs(File f){
-		BufferedReader in;
+	protected ArrayList<String> loadIDs(String s){
 		ArrayList<String> IDs = new ArrayList<String>();
+		/*BufferedReader in;
 		String s;
 		try {
 			in = new BufferedReader(new FileReader(f));
@@ -124,11 +144,35 @@ public class MainActivity extends Activity{
 		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
-		}
+		}*/
+		String ret = "";
+	    try {
+	        InputStream inputStream = openFileInput(s);
+
+	        if ( inputStream != null ) {
+	            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+	            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+	            String receiveString = "";
+	            StringBuilder stringBuilder = new StringBuilder();
+
+	            while ( (receiveString = bufferedReader.readLine()) != null ) {
+	                stringBuilder.append(receiveString);
+	            }
+
+	            inputStream.close();
+	            ret = stringBuilder.toString();
+	        }
+	    }
+	    catch (FileNotFoundException e) {
+	        Log.e("login activity", "File not found: " + e.toString());
+	    } catch (IOException e) {
+	        Log.e("login activity", "Can not read file: " + e.toString());
+	    }
+	    Log.w("lol", ret);
 		return IDs;
 	}
 	
-	protected void writeIDs(File f, ArrayList<String> IDs){
+/*	protected void writeIDs(File f, ArrayList<String> IDs){
 		BufferedWriter out;
 		try {
 			out = new BufferedWriter(new FileWriter(f));
@@ -142,15 +186,15 @@ public class MainActivity extends Activity{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
-	private ArrayList<String> writeDefaultIDs(File f) {
+	private ArrayList<String> writeDefaultIDs(String s) {
 		ArrayList<String> IDs = new ArrayList<String>();
 		for(int i=1; i<=10; i++){
 			IDs.add("Level " + i + "\n\t0");
 		}
 		
-		writeIDs(f,IDs);
+		writeIDs(s,IDs);
 		
 		return IDs;
 	}

@@ -1,15 +1,17 @@
 package com.cs326.team5.qr_labyrinth;
 
 import java.io.File;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.Application;
+import android.content.Context;
 
 public class QRLabyrinth extends Application{
 	
-	protected final File levelIDsFile = new File("levelIDs.txt");
-	protected final File customIDsFile = new File("customIDs.txt");
+	protected final String levelIDsFile = "levelIDs.txt";
+	protected final String customIDsFile = "customIDs.txt";
 	private ArrayList<String> levelIDs;
 	private ArrayList<String> customIDs;
 	private HashMap<Integer,Grid> levelList;
