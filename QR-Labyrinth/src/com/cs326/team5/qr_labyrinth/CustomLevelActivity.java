@@ -35,7 +35,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class CustomLevelActivity extends Activity{
+public class CustomLevelActivity extends LevelSelectorActivity{
 	
 	private int qrheight = 400;
 	private int qrwidth = 400;
@@ -60,7 +60,7 @@ public class CustomLevelActivity extends Activity{
     	startActivityForResult(intent, 0);
     }
     
-    private void setupListView(){
+    protected void setupListView(){
     	ListView list = (ListView) findViewById(R.id.custom_list);
 		list.setAdapter(new BaseAdapter() {	//adapter for list of Locations
 			public int getCount() {
@@ -163,50 +163,6 @@ public class CustomLevelActivity extends Activity{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-    // TO PUT IN OTHER ACTIVITY
-	public void writeGrid(String s, Grid g){
-		FileOutputStream fos;
-		ObjectOutputStream os;
-		try {
-			fos = openFileOutput(s, Context.MODE_PRIVATE);
-			os = new ObjectOutputStream(fos);
-			os.writeObject(g);
-			os.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-	}
-	
-	// TO PUT IN OTHER ACTIVITYYYYY
-	public Grid loadGrid(File f){
-		FileInputStream fis;
-		ObjectInputStream is;
-		Grid g;
-		try {
-			fis = new FileInputStream(f);
-			is = new ObjectInputStream(fis);
-			g = (Grid) is.readObject();
-			is.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return null;
-		} catch (StreamCorruptedException e) {
-			e.printStackTrace();
-			return null;
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			return null;
-		}
-		Log.w("LoL", "We got this far");
-		return g;
 	}
 	
 	public Grid checkFile(String n){

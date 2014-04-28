@@ -28,7 +28,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class SelectLevelActivity extends Activity{
+public class SelectLevelActivity extends LevelSelectorActivity{
 	
 	private int qrheight = 400;
 	private int qrwidth = 400;
@@ -47,7 +47,7 @@ public class SelectLevelActivity extends Activity{
         }
     }
     
-    private void setupListView(){
+    protected void setupListView(){
     	ListView list = (ListView) findViewById(R.id.level_list);
     	
 		list.setAdapter(new BaseAdapter() {	//adapter for list of Locations
@@ -96,50 +96,6 @@ public class SelectLevelActivity extends Activity{
 
         return g;
     }
-    
-	public void writeGrid(String s, Grid g){
-		FileOutputStream fos;
-		ObjectOutputStream os;
-		try {
-			fos = openFileOutput(s, Context.MODE_PRIVATE);
-			os = new ObjectOutputStream(fos);
-			os.writeObject(g);
-			os.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-	}
-	
-	// TO PUT IN OTHER ACTIVITYYYYY
-	public Grid loadGrid(File f){
-		FileInputStream fis;
-		ObjectInputStream is;
-		Grid g;
-		try {
-			fis = new FileInputStream(f);
-			is = new ObjectInputStream(fis);
-			g = (Grid) is.readObject();
-			is.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return null;
-		} catch (StreamCorruptedException e) {
-			e.printStackTrace();
-			return null;
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			return null;
-		}
-		Log.w("LoL", "We got this far");
-		return g;
-	}
 
     /**
  	 * Handles button clicks for the UI
