@@ -53,8 +53,14 @@ public class MainActivity extends Activity{
         	IDs = writeDefaultIDs(qrl.levelIDsFile);
         }
         qrl.setLevelIDs(IDs);
-
-        qrl.setCustomIDs(loadIDs(qrl.customIDsFile));
+        
+        
+        ArrayList<String> list = loadIDs(qrl.customIDsFile);
+        for(String s: list){
+        	Log.d("random tag", s);
+        }
+        
+    //    qrl.setCustomIDs(loadIDs(qrl.customIDsFile));
 
     }
 
