@@ -107,17 +107,17 @@ public class CustomLevelActivity extends Activity{
         		if(f.isFile()){
         			if(f.getName().length() > 6){
         				Log.w("lols", f.getName().substring(0,6));
-        			if(f.getName().substring(0,6).equals("custom")){
-        				int temp = Integer.parseInt(f.getName().substring(5));
-        				currNum = (temp > currNum ? temp : currNum);
-        			}
+	        			if(f.getName().substring(0,6).equals("custom")){
+	        				int temp = Integer.parseInt(String.valueOf(f.getName().charAt(f.getName().length()-1)));
+	        				currNum = (temp > currNum ? temp : currNum);
+	        			}
         			}
         		}
         	}
         	String name = "Custom " + Integer.toString(currNum + 1);
     		Log.w("ID", name);
 	        Grid g = QRHandler.getGrid(contents, qrheight, qrwidth, name + Integer.toString(currNum + 1));
-	        writeGrid("custom_" + (currNum + 1),g);
+	        writeGrid("custom_" + (currNum + 1), g);
 	        levelList.add(g.getID());
 	        setupListView();
 //**********	         levelList.add(g);
