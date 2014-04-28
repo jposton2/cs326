@@ -117,7 +117,7 @@ public class CustomLevelActivity extends Activity{
         	}
         	String name = "Custom " + Integer.toString(currNum + 1);
     		Log.w("ID", name);
-	        Grid g = QRHandler.getGrid(contents, qrheight, qrwidth, name + Integer.toString(currNum + 1));
+	        Grid g = QRHandler.getGrid(contents, qrheight, qrwidth, name);
 	        writeGrid("custom_" + (currNum + 1), g);
 	        if(levelList == null){
 	        	levelList = new ArrayList<String>();
