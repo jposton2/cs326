@@ -63,7 +63,9 @@ public class MainActivity extends Activity{
 	        }
         }
         
-        qrl.setCustomIDs(loadIDs(qrl.customIDsFile));
+        qrl.setCustomIDs(list);
+
+//        qrl.setCustomIDs(loadIDs(qrl.customIDsFile));
 
     }
 

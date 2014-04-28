@@ -144,6 +144,7 @@ public class CustomLevelActivity extends Activity{
 			out = new BufferedWriter(new FileWriter(f));
 			
 			for(String ID: IDs){
+				Log.d("somethign", ID);
 				out.write(ID);
 				out.newLine();
 			}
@@ -199,7 +200,7 @@ public class CustomLevelActivity extends Activity{
 		return g;
 	}
 	
-	public Grid checkFile(char n){
+	public Grid checkFile(String n){
     	File file = getBaseContext().getFileStreamPath("custom_" + n);
         return loadGrid(file);
     }
@@ -230,8 +231,9 @@ public class CustomLevelActivity extends Activity{
 			prevClick = (TextView) v;
 			
 			String [] s = prevClick.getText().toString().split("\n");
-			Grid g = checkFile(s[0].charAt(s[0].length()-1));
-
+			String [] s1 = s[0].split("_");
+			Grid g = checkFile(s1[1]);
+			
 			((QRLabyrinth)getApplicationContext()).setCurrentLevel(g);
 			
 			findViewById(R.id.play).setAlpha(1);
@@ -249,9 +251,9 @@ public class CustomLevelActivity extends Activity{
 			levelList.remove(t);
 			
 			String [] s2 = t.split("\n");
-			char n = s2[0].charAt(s2[0].length()-1);
+			String [] s3 = s2[0].split("_");
 			
-	    	File file = getBaseContext().getFileStreamPath("custom_" + n);
+	    	File file = getBaseContext().getFileStreamPath("custom_" + s3[1]);
 	    	file.delete();
 
 			

@@ -79,12 +79,12 @@ public class SelectLevelActivity extends Activity{
 		});
     }
     
-    public Grid checkFile(char n){
+    public Grid checkFile(String n){
     	Grid g;
     	
     	File file = getBaseContext().getFileStreamPath("level_" + n);
         if(!file.exists()){
-        	g = QRHandler.getGrid(QRHandler.getLevel(n), 400, 400, "Level " + n);
+        	g = QRHandler.getGrid(QRHandler.getLevel(Integer.valueOf(n)), 400, 400, "Level " + n);
     	    //Log.w("Array", Integer.toString(i));
         	//Log.w("Array", QRHandler.getLevel(i));
         	writeGrid("level_" + n, g);
@@ -164,7 +164,8 @@ public class SelectLevelActivity extends Activity{
 			prevClick = (TextView) v;
 			
 			String [] s = prevClick.getText().toString().split("\n");
-			Grid g = checkFile(s[0].charAt(s[0].length()-1));
+			String [] s2 = s[0].split("_");
+			Grid g = checkFile(s2[1]);
 			
 			((QRLabyrinth)getApplicationContext()).setCurrentLevel(g);
 
