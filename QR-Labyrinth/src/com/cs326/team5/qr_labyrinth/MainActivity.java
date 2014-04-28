@@ -122,10 +122,13 @@ public class MainActivity extends Activity{
 		for(String ID: IDs){
 			writeString += ID + "\n";
 			Log.d("somethign", ID);
+			os.write(ID + "\n");
 			//out.write(ID);
 			//out.newLine();
 		}
-			os.write(writeString);
+			Log.w("sting", writeString);
+			//os.write(writeString);
+			os.close();
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -149,6 +152,7 @@ public class MainActivity extends Activity{
 			e.printStackTrace();
 			return null;
 		}*/
+		Log.w("got here even", "maybe");
 		String ret = "";
 	    try {
 	        InputStream inputStream = openFileInput(s);
@@ -157,10 +161,13 @@ public class MainActivity extends Activity{
 	            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
 	            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 	            String receiveString = "";
+	            String receiveString2 = "";
 	            StringBuilder stringBuilder = new StringBuilder();
 
 	            while ( (receiveString = bufferedReader.readLine()) != null ) {
 	                stringBuilder.append(receiveString);
+	            	if((receiveString2 = bufferedReader.readLine()) != null)
+                     IDs.add(receiveString + "\n\t" + receiveString2);
 	            }
 
 	            inputStream.close();
@@ -174,7 +181,6 @@ public class MainActivity extends Activity{
 	        Log.e("login activity", "Can not read file: " + e.toString());
 	        return null;
 	    }
-	    Log.w("lol", ret);
 		return IDs;
 	}
 	

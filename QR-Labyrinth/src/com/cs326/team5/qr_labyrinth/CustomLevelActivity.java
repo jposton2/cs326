@@ -139,6 +139,7 @@ public class CustomLevelActivity extends Activity{
 	   }
 	}
     
+    
     protected void writeIDs(String s, ArrayList<String> IDs){
 		//BufferedWriter out;
 		String writeString = "";
@@ -148,10 +149,13 @@ public class CustomLevelActivity extends Activity{
 		for(String ID: IDs){
 			writeString += ID + "\n";
 			Log.d("somethign", ID);
+			os.write(ID + "\n");
 			//out.write(ID);
 			//out.newLine();
 		}
-		os.write(writeString);
+			Log.w("sting", writeString);
+			//os.write(writeString);
+			os.close();
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -159,9 +163,7 @@ public class CustomLevelActivity extends Activity{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
-    
     // TO PUT IN OTHER ACTIVITY
 	public void writeGrid(String s, Grid g){
 		FileOutputStream fos;
