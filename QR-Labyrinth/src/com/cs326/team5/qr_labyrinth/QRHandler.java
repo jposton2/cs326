@@ -19,8 +19,10 @@ public class QRHandler {
         catch (WriterException e) {
        	    e.printStackTrace();
         }
-        if(matrix == null)
-       	 return null;
+        if(matrix == null){
+        	Log.d("Quick stuff happening","matrix is null");
+        	return null;
+        }
         
         // squareCount is the size of the "pixels" for each QR code segment
         int xSize = 0;

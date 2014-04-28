@@ -108,7 +108,8 @@ public class CustomLevelActivity extends Activity{
         			if(f.getName().length() > 6){
         				Log.w("lols", f.getName().substring(0,6));
 	        			if(f.getName().substring(0,6).equals("custom")){
-	        				int temp = Integer.parseInt(f.getName().substring(f.getName().length()-1));
+	        				String [] s = f.getName().split("_");
+	        				int temp = Integer.parseInt(s[1]);
 	        				currNum = (temp > currNum ? temp : currNum);
 	        			}
         			}
