@@ -15,7 +15,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 
 public class QRHandler {
 	public static Grid getGrid(String contents, int qrwidth, int qrheight, String name){
-		
+		Log.w("Name", contents);
 		QRCodeWriter writer = new QRCodeWriter();
         BitMatrix matrix = null;
         try{
@@ -70,7 +70,6 @@ public class QRHandler {
         	 currX += xSize;
        	 if(matrix.get(currX, currY))
        		 blackCount ++;
-      
        	 else
        		 blackCount = 0;
         }
@@ -86,7 +85,9 @@ public class QRHandler {
        	 else
        		 blackCount = 0;
         }
-        
+        yEnd += 3;
+        xEnd += 3;
+        yEnd = xEnd;
         // Print out the stuff found up there to the LogCat.
         Log.w("MainActivity", Integer.toString(xSize));
         Log.w("MainActivity", Integer.toString(ySize));
@@ -109,8 +110,8 @@ public class QRHandler {
         Bitmap bmpMonochrome = Bitmap.createBitmap(xEnd*xSize, yEnd*ySize, Bitmap.Config.ARGB_8888);
         int[] pixels = new int[10];
         pixels[0] = 0;
-        for(int i = 0; i <= xEnd+8; i++){
-        	for(int j = 0; j <= yEnd+8; j++){
+        for(int i = 0; i <= xEnd; i++){
+        	for(int j = 0; j <= yEnd; j++){
         		for(int l = 0; l <= xSize; l ++){
         			for(int m = 0; m <= ySize; m++){
                 		if(matrix.get((i*xSize)+xStart, (j*ySize)+yStart))
@@ -156,7 +157,7 @@ public class QRHandler {
 			s = "Pekwachnamaykoskwaskwaypinwanik";
 			break;
 		case 5:
-			s = "Venkatanarasimharajuvaripeta";
+			s = "Venkatanarasimhara";
 			break;
 		case 6:
 			s = "Onafhankelijkheidsplein";
