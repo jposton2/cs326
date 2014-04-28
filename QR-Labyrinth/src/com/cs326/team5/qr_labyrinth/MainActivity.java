@@ -169,8 +169,10 @@ public class MainActivity extends Activity{
 	    }
 	    catch (FileNotFoundException e) {
 	        Log.e("login activity", "File not found: " + e.toString());
+	        return null;
 	    } catch (IOException e) {
 	        Log.e("login activity", "Can not read file: " + e.toString());
+	        return null;
 	    }
 	    Log.w("lol", ret);
 		return IDs;
