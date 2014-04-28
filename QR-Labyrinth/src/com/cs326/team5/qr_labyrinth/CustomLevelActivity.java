@@ -37,7 +37,7 @@ public class CustomLevelActivity extends Activity{
 	private int qrheight = 400;
 	private int qrwidth = 400;
 	private TextView prevClick = null;
-	private List<String> levelList = null;
+	private ArrayList<String> levelList = null;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +123,7 @@ public class CustomLevelActivity extends Activity{
 	        	levelList = new ArrayList<String>();
 	        }
 	        levelList.add(g.getID());
+	        ((QRLabyrinth)getApplicationContext()).setCustomIDs(levelList);
 	        setupListView();
 //**********	         levelList.add(g);
 	         
