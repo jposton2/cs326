@@ -254,19 +254,18 @@ public class CustomLevelActivity extends Activity{
 				prevClick.setBackgroundColor(0x00000000);
 			}
 			v.setBackgroundColor(0x650000FF);
-			prevClick = (TextView) v;
+//			prevClick = (TextView) v;
 			
 			String t = prevClick.getText().toString();
 			levelList.remove(t);
 			
 			String [] s2 = t.split("\n");
 			String [] s3 = s2[0].split(" ");
-			
 	    	File file = getBaseContext().getFileStreamPath("custom_" + s3[1]);
 	    	file.delete();
 
-			
  			setupListView();
+ 			prevClick = (TextView) v;
  			break;
 		case R.id.back: // if back button was clicked
 			finish();
