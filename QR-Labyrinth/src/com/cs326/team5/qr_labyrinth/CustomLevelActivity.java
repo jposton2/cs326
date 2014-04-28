@@ -1,9 +1,11 @@
 package com.cs326.team5.qr_labyrinth;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -124,6 +126,7 @@ public class CustomLevelActivity extends Activity{
 	        }
 	        levelList.add(g.getID());
 	        ((QRLabyrinth)getApplicationContext()).setCustomIDs(levelList);
+	        writeIDs(((QRLabyrinth)getApplicationContext()).customIDsFile, levelList);
 	        setupListView();
 //**********	         levelList.add(g);
 	         
@@ -133,6 +136,22 @@ public class CustomLevelActivity extends Activity{
 	         //	writeGrid(name, g);
 	      }
 	   }
+	}
+    
+    protected void writeIDs(File f, ArrayList<String> IDs){
+		BufferedWriter out;
+		try {
+			out = new BufferedWriter(new FileWriter(f));
+			
+			for(String ID: IDs){
+				out.write(ID);
+				out.newLine();
+			}
+			
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
     
     // TO PUT IN OTHER ACTIVITY
