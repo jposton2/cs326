@@ -1,6 +1,7 @@
 package com.cs326.team5.qr_labyrinth;
 
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Chronometer;
 import android.widget.TextView;
 
 public class GameActivity extends Activity {
@@ -23,6 +25,10 @@ public class GameActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.maze_view);
+		
+		((Chronometer)findViewById(R.id.timer)).setTextSize(30);
+		((Chronometer)findViewById(R.id.timer)).start();
+		
 		grid = ((QRLabyrinth)getApplicationContext()).getCurrentLevel();
 
 		if(grid.getStart() == grid.getEnd())
@@ -110,6 +116,13 @@ public class GameActivity extends Activity {
  			if(plr.getX() != grid.getStart().getX() || plr.getY() != grid.getStart().getY())
  				Log.i("GameActivity", "Couldn't move player back to start...");
  			grid.setPlayer(plr);
+ 			
+ 			long timeElapsed = SystemClock.elapsedRealtime() - ((Chronometer)findViewById(R.id.timer)).getBase();
+ 			int hours = (int)(timeElapsed/3600000);
+ 			int minutes = (int)(timeElapsed-hours*3600000)/60000;
+ 			int seconds = (int)(timeElapsed-hours*3600000-minutes*60000);
+ 			grid.setHighscore(seconds); 			
+ 			
  			mv.setGrid(grid);
  			//grid.reset();
  			grid = null;

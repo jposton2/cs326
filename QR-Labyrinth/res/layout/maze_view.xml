@@ -70,6 +70,13 @@
             android:textSize="30sp"
             android:background="#65000000" />
 
+        <Chronometer
+            android:id="@+id/timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:text="Chronometer" />
 
     </RelativeLayout>
 
