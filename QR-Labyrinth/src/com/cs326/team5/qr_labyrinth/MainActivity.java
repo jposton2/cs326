@@ -119,15 +119,19 @@ public class MainActivity extends Activity{
 		OutputStreamWriter os;
 		try {
 			os = new OutputStreamWriter(openFileOutput(s, Context.MODE_PRIVATE));
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		for(String ID: IDs){
 			writeString += ID + "\n";
 			Log.d("somethign", ID);
 			//out.write(ID);
 			//out.newLine();
+		}
+			os.write(writeString);
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
     
