@@ -236,7 +236,9 @@ public class GridHandler implements Serializable{
 		
 		Subgrid deadEnd = grid.arrayOfSubgrids.get(numberList.get(0));
 		deadEnd.addPseudoTeleporter();
+		
 		grid.deadEnd = deadEnd.getPseudoTeleporter();
+		grid.deadEnd.setDestination(grid.deadEnd);
 		
 		for(int i = 1; i < badNodes; ++i){
 			badSubgrids.add(grid.arrayOfSubgrids.get(numberList.get(i)));

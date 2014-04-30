@@ -17,6 +17,9 @@ public class GameActivity extends Activity {
 	Point plr = null;
 	Point end;
 	Point start;
+	PointData returnPoint;
+	PointData returnDeadEndPoint;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -156,8 +159,30 @@ public class GameActivity extends Activity {
  			if(cell.getDestination().equals(cell))
  				Log.i("GameActivity", "Teleport destination was same as start...");
  			
- 			plr.setX(cell.getDestination().getX());
- 			plr.setY(cell.getDestination().getY());
+			if(cell.getDestination().isPseudoTeleporter()){
+ 				if(cell.getDestination().equals(grid.deadEnd)){
+ 					this.returnDeadEndPoint = cell;
+ 				}
+ 				else{
+ 					this.returnPoint = cell;	
+ 				}
+ 			}
+ 			
+ 			if(cell.isPseudoTeleporter()){
+ 				if(cell.equals(grid.deadEnd)){
+ 					plr.setX(returnDeadEndPoint.getX());
+ 					plr.setY(returnDeadEndPoint.getY());
+ 				}
+ 				else{
+ 					plr.setX(returnPoint.getX());
+ 					plr.setY(returnPoint.getY());
+ 				}
+ 			}
+ 			else{
+ 	 			plr.setX(cell.getDestination().getX());
+ 	 			plr.setY(cell.getDestination().getY());
+ 			}
+
  			Log.i("GameActivity", "Teleporting to " + cell.getDestination().getX() + "," + cell.getDestination().getY());
  		}
  		

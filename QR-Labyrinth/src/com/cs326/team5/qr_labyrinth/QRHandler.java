@@ -134,7 +134,7 @@ public class QRHandler {
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	        } */
-		return new Grid(gridArray, xEnd, yEnd, name, 0);
+		return new Grid(gridArray, xEnd, yEnd, name, 0, 1);
 	}
 	
 

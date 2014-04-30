@@ -20,8 +20,9 @@ public class Grid implements Serializable{
 	PointData deadEnd = null;
 	private Point player;
 	GridHandler handler = null;
+	int level;
 
-	Grid(PointData[][] grid, int xBound, int yBound, String name, int highscore){
+	Grid(PointData[][] grid, int xBound, int yBound, String name, int highscore, int level){
 		this.xBound = xBound;
 		this.yBound = yBound;
 		this.gridArray = grid;
@@ -30,13 +31,18 @@ public class Grid implements Serializable{
 		this.highscore = highscore;
 		this.id = this.toString();
 		this.handler = new GridHandler(this);
+		this.level = level;
 		
-		this.handler.setUpTeleporters(1, 0);
+		if(level < 1){
+			level = 1;
+		}
+		
+		this.handler.setUpTeleporters(1 + level, level-1);
 	}
 	
 	public void reset()
 	{
-		this.handler.setUpTeleporters(1, 0);
+		this.handler.setUpTeleporters(1+level, level-1);
 	}
 
   	public Point getPlayer() {
