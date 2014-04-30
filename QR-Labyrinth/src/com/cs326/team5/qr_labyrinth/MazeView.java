@@ -12,7 +12,7 @@ import android.util.Log;
 import android.view.View;
 
 /**
- * TODO: document your custom view class.
+ * Renders a maze, including the walls, player, and special tiles
  */
 public class MazeView extends View {
 	
@@ -43,56 +43,67 @@ public class MazeView extends View {
 	}
 
 	private void init(AttributeSet attrs, int defStyle) {
-		// Load attributes
-		/*final TypedArray a = getContext().obtainStyledAttributes(attrs,
-				R.styleable.MazeView, defStyle, 0);*/
-
+		
+		//Setup some items we're going to want for drawing later
 		rect = new Rect();
 		paint = new Paint();
 		charImg = res.getDrawable(R.drawable.qr_guy);
-		
-
+	
 	}
 
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
 
-		// TODO: consider storing these as member variables to reduce
-		// allocations per draw cycle.
+		//Get the width of the view and divide by four to get a good size
+		//It won't be square, but neither is the user's device
+		//We change this later anyways, but this is a nice default
 		int sqrWidth = findViewById(R.id.maze).getWidth() / 4;
 		int sqrHeight = findViewById(R.id.maze).getHeight() / 4;
+		
+		//We only want to draw the player once, so we'll use this to keep track of that
 		boolean drewPlayer = false;
 		
+		//We need the grid to go any farther; die if we don't
 		if(grid == null)
 			return;
 		
+		//Check for the player's location; set it to start if it's null
 		if(grid.getPlayer() == null)
 			grid.setPlayer(grid.getStart().copy());
 		Point plr = grid.getPlayer();
 		
+		//Sanity check
 		if(plr == null)
 		{
 			Log.i("MazeView", "Start was null; defaulting to 10,10");
 			plr = new Point(11,11);
 		}
-			
+		
+		//We need a grid and a player to continue; for the IDE's renderer we won't have an actual grid
 		if(!this.isInEditMode() && grid != null && plr != null)
 		{
+			//Grab the cells from the grid object
 			PointData[][] cells = grid.getGrid();
+			
+			//Recalculate the square width and height
 			sqrWidth = getWidth() / 5;
 			sqrHeight = getHeight() / 5;
 			Log.i("MazeView", "Cells: " + cells.length + ", Height: " + getHeight() + ", Tile size: " + sqrWidth);
 			
+			//Draw transparent over the background before drawing anything else
 			rect.set(0, 0, getWidth(), getHeight());
 			paint.setColor(Color.TRANSPARENT);
 			canvas.drawRect(rect, paint);
 			
+			//Iterate through the cells, coloring them as appropriate
+			//We only want to show 25 cells at a time, so we make the player's location the center cell
 			for(int i = plr.getX() - 2, x = 0; i < plr.getX() + 3; i++, x++)
 			{
 				for(int j = plr.getY() - 2, y = 0; j < plr.getY() + 3; j++, y++)
 				{	
 					
+					//The first one catches nulls and cells outside the grid. They're impassable, so make them black
 					if(i < 0 || j < 0 || i >= cells.length || j >= cells.length || cells[i][j] == null)
 					{
 						paint.setColor(Color.BLACK);
@@ -101,26 +112,33 @@ public class MazeView extends View {
 						canvas.drawRect(rect, paint);
 						continue;
 					}
-					else if(cells[i][j].isBlack())
+					else if(cells[i][j].isBlack())	//This cell is a wall, paint it black
 					{
 						paint.setColor(Color.BLACK);
 					}
 					else if(cells[i][j].hasTeleporter() || cells[i][j].isPseudoTeleporter())
 					{
+						//This cell is a teleporter, paint it blue so the player can see it
 						paint.setColor(Color.BLUE);
 					}
 					else if(grid.getEnd().getX() == i && grid.getEnd().getY() == j)
 					{
+						//This cell is the end of the level, paint it green so the player can see it
 						paint.setColor(Color.GREEN);
 					}
 					else
 					{
+						//Everything else is passable terrain, paint it white
 						paint.setColor(Color.WHITE);
 					}
 					
-					
+					//Set the bounds of the rectangle. This is independent of color, so we put it here to save space
 					rect.set(sqrWidth*x, sqrHeight*y, sqrWidth*x + sqrWidth, sqrHeight*y + sqrHeight);
+
+					//Draw the square on the view
 					canvas.drawRect(rect, paint);
+					
+					//While we're here, if the player is on this cell draw the player sprite
 					if(i == plr.getX() && j == plr.getY() && !drewPlayer)
 					{
 						drewPlayer = true;
@@ -130,17 +148,12 @@ public class MazeView extends View {
 					}
 				}
 			}
-			if(res != null && plr != null)
-			{
-				int side = sqrWidth * plr.getX();
-				int top = sqrWidth * plr.getY();
-				charImg.setBounds(side, top, side+sqrWidth, top+sqrWidth);
-				charImg.draw(canvas);
-			}
+			//Set the player's location again, just to be sure
 			grid.setPlayer(plr);
 		}
 		else
 		{
+			//This draws a checkerboard pattern on the view when shown in the IDE
 			boolean change = false;
 			for(int i = 0; i < 10; i++)
 			{
