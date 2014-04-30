@@ -1,28 +1,12 @@
 package com.cs326.team5.qr_labyrinth;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
-import java.io.Serializable;
-import java.io.StreamCorruptedException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
-import java.util.List;
-
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.QRCodeWriter;
-
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -119,6 +103,10 @@ public class CustomLevelActivity extends LevelSelectorActivity{
 	         // We can use format to check if it is a URL, or TEXT or something!
 	         String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
 	         
+	         if(format.equals("URL"))
+	         {
+	        	 //Maybe we can do something here later
+	         }
 	         // TODO: Add custom names here
 
         	File dir = getBaseContext().getFilesDir();

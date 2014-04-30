@@ -1,12 +1,9 @@
 package com.cs326.team5.qr_labyrinth;
 
-import java.io.File;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.app.Application;
-import android.content.Context;
 
 public class QRLabyrinth extends Application{
 	

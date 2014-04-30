@@ -17,9 +17,7 @@ import android.view.View;
 import android.view.Window;
 
 public class MainActivity extends Activity{
-	//private int qrheight = 400;
-	//private int qrwidth = 400;
-	
+
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +70,9 @@ public class MainActivity extends Activity{
     
 	protected ArrayList<String> loadIDs(String s){
 		ArrayList<String> IDs = new ArrayList<String>();
-	    try {
+
+		try {
+
 	        InputStream inputStream = openFileInput(s);
 
 	        if ( inputStream != null ) {
@@ -90,6 +90,7 @@ public class MainActivity extends Activity{
 	            }
 
 	            inputStream.close();
+
 	        }
 	    }
 	    catch (FileNotFoundException e) {

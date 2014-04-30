@@ -7,30 +7,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.io.StreamCorruptedException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.BaseAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
 public abstract class LevelSelectorActivity extends Activity{
     
@@ -64,8 +48,8 @@ public abstract class LevelSelectorActivity extends Activity{
 	}
 	
     protected Grid loadGrid(File f){
-		FileInputStream fis;
-		ObjectInputStream is;
+		FileInputStream fis = null;
+		ObjectInputStream is = null;
 		Grid g;
 		try {
 			fis = new FileInputStream(f);
@@ -83,6 +67,12 @@ public abstract class LevelSelectorActivity extends Activity{
 			return null;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
+			try {
+				is.close();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			return null;
 		}
 		return g;

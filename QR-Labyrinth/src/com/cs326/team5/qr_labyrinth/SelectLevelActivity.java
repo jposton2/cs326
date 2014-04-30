@@ -1,26 +1,14 @@
 package com.cs326.team5.qr_labyrinth;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.io.StreamCorruptedException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -30,9 +18,7 @@ import android.widget.TextView;
 
 public class SelectLevelActivity extends LevelSelectorActivity{
 	
-	private int qrheight = 400;
-	private int qrwidth = 400;
-    private TextView prevClick = null;
+	private TextView prevClick = null;
     private List<String> levelList = null;
 	
     @Override
