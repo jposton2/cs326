@@ -62,6 +62,7 @@ public class QRHandler {
         ySize = currY - yStart-1;
         
         // This stuff gets how many blocks to the ending corners of the QR code
+        // We start with Y, add two, and then check for the ending part of the code
         int blackCount = 1;
         currX = xStart + xSize*2;
         currY = yStart;
@@ -85,9 +86,12 @@ public class QRHandler {
        	 else
        		 blackCount = 0;
         }
+        
+        // Add three to xEnds because of earlier adding 3
         yEnd += 3;
         xEnd += 3;
         yEnd = xEnd;
+
         // Print out the stuff found up there to the LogCat.
         Log.w("MainActivity", Integer.toString(xSize));
         Log.w("MainActivity", Integer.toString(ySize));
@@ -96,17 +100,17 @@ public class QRHandler {
         Log.w("MainActivity", Integer.toString(yEnd));
         
         
+        // Convert the matrix to a gridArray
         PointData[][] gridArray = new PointData[xEnd][yEnd];
-        // This was my test case. Prints out whether or not a cell is black at the relative value
-//        String l = "";
         for(int i = 0; i < xEnd; i++){
         	for(int j = 0; j < yEnd; j++){
         		gridArray[i][j] = (matrix.get((i*xSize)+xStart, (j*ySize)+yStart) ? new PointData(true,i, j) : new PointData(false, i, j));
-//        		l+= String.valueOf(gridArray[i][j].isBlack());
         	}
-//        	Log.w("Grid", l);
-//        	l = "";
         }
+        /* 
+         * This code is written to print out bitmaps
+         * 
+         * 
         Bitmap bmpMonochrome = Bitmap.createBitmap(xEnd*xSize, yEnd*ySize, Bitmap.Config.ARGB_8888);
         int[] pixels = new int[10];
         pixels[0] = 0;
@@ -135,7 +139,7 @@ public class QRHandler {
 
 	        } catch (Exception e) {
 	            e.printStackTrace();
-	        }	         //levelList.add(g);
+	        } */
 		return new Grid(gridArray, xEnd, yEnd, name, 0);
 	}
 	
@@ -144,8 +148,7 @@ public class QRHandler {
 		String s = "null";
 		switch(i){
 		case 1:
-			//s = "Taumatawhakatangihangakoauauotamateapokaiwhenuakitanatahu";
-			s = "f";
+			s = "funstringnumberone";
 			break;
 		case 2:
 			s = "Llanfairpwllgwyngyll";

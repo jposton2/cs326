@@ -40,13 +40,6 @@ public class MainActivity extends Activity{
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
-       /* super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_main);
-        QRLabyrinth qrl = ((QRLabyrinth)getApplication());
-        qrl.setCustomList(checkCustomFiles());
-        qrl.setLevelList(checkFiles());
-        */
         super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE); 
         setContentView(R.layout.activity_main);
@@ -68,50 +61,9 @@ public class MainActivity extends Activity{
         
         qrl.setCustomIDs(list);
 
-//        qrl.setCustomIDs(loadIDs(qrl.customIDsFile));
 
     }
 
-	/*public ArrayList<Grid> checkCustomFiles(){
-    	ArrayList<Grid> gridList = new ArrayList<Grid>();
-        	File dir = getBaseContext().getFilesDir();
-        	int currNum = 0;
-        	for(File f: dir.listFiles()){
-        		if(f.isFile()){
-        			if(f.getName().length() > 7){
-        			if(f.getName().substring(0,6).equals("custom")){
-        				Log.w("Name", f.getName());
-        				int temp = Integer.parseInt(f.getName().substring(7));
-        				currNum = (temp > currNum ? temp : currNum);
-        			}
-        			}
-        		}
-        	}
-        for(int i = 1; i <= currNum; i++){
-        	File file = getBaseContext().getFileStreamPath("custom_" + Integer.toString(i));
-            if(!file.exists()){
-//                      Grid g = h.getGrid("lol", 400, 400);
-	        	Grid g = QRHandler.getGrid(QRHandler.getLevel(i), 400, 400, "custom_" + Integer.toString(i));
-	        	
-	        	Log.w("Array", Integer.toString(i));
-	        	Log.w("Array", QRHandler.getLevel(i));
-	        	writeGrid("custom_"+Integer.toString(i), g);
-	        	gridList.add(g);
-            }
-            else{
-                Log.w("Custom Lol", "it existssss!!!");
-                gridList.add(loadGrid(file));
-            }
-        }
-        Log.w("Array", Integer.toString(gridList.size()));
-        
-        if(gridList.isEmpty()){
-        	return null;
-        }
-        
-        return gridList;
-    }
-    */
     
     protected void writeIDs(String s, ArrayList<String> IDs){
 		//BufferedWriter out;
@@ -123,8 +75,6 @@ public class MainActivity extends Activity{
 			writeString += ID + "\n";
 			Log.d("somethign", ID);
 			os.write(ID + "\n");
-			//out.write(ID);
-			//out.newLine();
 		}
 			Log.w("sting", writeString);
 			//os.write(writeString);
@@ -140,19 +90,6 @@ public class MainActivity extends Activity{
     
 	protected ArrayList<String> loadIDs(String s){
 		ArrayList<String> IDs = new ArrayList<String>();
-		/*BufferedReader in;
-		String s;
-		try {
-			in = new BufferedReader(new FileReader(f));
-			while((s = in.readLine()) != null){
-				IDs.add(s);
-			}
-			in.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}*/
-		Log.w("got here even", "maybe");
 		String ret = "";
 	    try {
 	        InputStream inputStream = openFileInput(s);
@@ -184,21 +121,6 @@ public class MainActivity extends Activity{
 		return IDs;
 	}
 	
-/*	protected void writeIDs(File f, ArrayList<String> IDs){
-		BufferedWriter out;
-		try {
-			out = new BufferedWriter(new FileWriter(f));
-			
-			for(String ID: IDs){
-				out.write(ID);
-				out.newLine();
-			}
-			
-			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}*/
 	
 	private ArrayList<String> writeDefaultIDs(String s) {
 		ArrayList<String> IDs = new ArrayList<String>();
