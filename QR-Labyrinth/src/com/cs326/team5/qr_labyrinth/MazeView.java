@@ -8,7 +8,6 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 /**
@@ -73,13 +72,6 @@ public class MazeView extends View {
 			grid.setPlayer(grid.getStart().copy());
 		Point plr = grid.getPlayer();
 		
-		//Sanity check
-		if(plr == null)
-		{
-			Log.i("MazeView", "Start was null; defaulting to 10,10");
-			plr = new Point(11,11);
-		}
-		
 		//We need a grid and a player to continue; for the IDE's renderer we won't have an actual grid
 		if(!this.isInEditMode() && grid != null && plr != null)
 		{
@@ -89,7 +81,6 @@ public class MazeView extends View {
 			//Recalculate the square width and height
 			sqrWidth = getWidth() / 5;
 			sqrHeight = getHeight() / 5;
-			Log.i("MazeView", "Cells: " + cells.length + ", Height: " + getHeight() + ", Tile size: " + sqrWidth);
 			
 			//Draw transparent over the background before drawing anything else
 			rect.set(0, 0, getWidth(), getHeight());
@@ -142,7 +133,6 @@ public class MazeView extends View {
 					if(i == plr.getX() && j == plr.getY() && !drewPlayer)
 					{
 						drewPlayer = true;
-						Log.i("MazeView", "Player: " + plr.getX() +","+ plr.getY());
 						charImg.setBounds(sqrWidth*x, sqrHeight*y, sqrWidth*x + sqrWidth, sqrHeight*y + sqrHeight);
 						charImg.draw(canvas);
 					}

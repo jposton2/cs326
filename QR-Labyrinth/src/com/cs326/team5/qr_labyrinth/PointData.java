@@ -2,6 +2,10 @@ package com.cs326.team5.qr_labyrinth;
 
 import java.io.Serializable;
 
+/**
+ * Holds information for each Point in a Grid
+ * @author Team 5
+ */
 public class PointData implements Serializable{
 	
 	private static final long serialVersionUID = 1L;

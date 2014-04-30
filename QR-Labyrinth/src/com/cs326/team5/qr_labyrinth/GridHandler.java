@@ -10,6 +10,10 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 
+/**
+ * Handles mathematical analysis of a Grid as well as teleporter placement within a Grid
+ * @author Team 5
+ */
 public class GridHandler implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -236,7 +240,9 @@ public class GridHandler implements Serializable{
 		
 		Subgrid deadEnd = grid.arrayOfSubgrids.get(numberList.get(0));
 		deadEnd.addPseudoTeleporter();
+		
 		grid.deadEnd = deadEnd.getPseudoTeleporter();
+		grid.deadEnd.setDestination(grid.deadEnd);
 		
 		for(int i = 1; i < badNodes; ++i){
 			badSubgrids.add(grid.arrayOfSubgrids.get(numberList.get(i)));

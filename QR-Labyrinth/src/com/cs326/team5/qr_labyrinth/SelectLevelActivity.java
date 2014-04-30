@@ -7,7 +7,6 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,10 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+/**
+ * Level selector activity representing the default level selection
+ * @author Team 5
+ */
 public class SelectLevelActivity extends LevelSelectorActivity{
 	
 	private TextView prevClick = null;
@@ -33,6 +36,26 @@ public class SelectLevelActivity extends LevelSelectorActivity{
         }
     }
     
+    @Override
+    protected void onResume(){
+    	super.onResume();
+    	QRLabyrinth qrl = ((QRLabyrinth)getApplicationContext());
+        Grid g = qrl.getCurrentLevel();
+    	if(g != null){
+	        String [] t = g.getID().split("\n");
+	    	for(int i=0; i<levelList.size(); i++){
+	    		String ID = levelList.get(i);
+	    		if(ID.startsWith(t[0])){
+	    			levelList.set(i,g.getID());
+	            	setupListView();
+	    		}
+	    	}
+    	}
+    }
+    
+    /**
+     * Populates a list view with level ID's
+     */
     protected void setupListView(){
     	ListView list = (ListView) findViewById(R.id.level_list);
     	
@@ -65,6 +88,11 @@ public class SelectLevelActivity extends LevelSelectorActivity{
 		});
     }
     
+    /**
+     * Checks for the n'th level file to read a Grid
+     * @param n file number
+     * @return g level read from file
+     */
     public Grid checkFile(String n){
     	Grid g;
     	
@@ -76,7 +104,6 @@ public class SelectLevelActivity extends LevelSelectorActivity{
         	writeGrid("level_" + n, g);
         }
         else{
-            Log.w("Lol", "it existssss!!!");
             g = loadGrid(file);
         }
 
