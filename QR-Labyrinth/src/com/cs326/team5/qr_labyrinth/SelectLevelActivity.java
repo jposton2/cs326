@@ -1,10 +1,14 @@
 package com.cs326.team5.qr_labyrinth;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.io.StreamCorruptedException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -24,12 +28,12 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class SelectLevelActivity extends Activity {
-		
+public class SelectLevelActivity extends LevelSelectorActivity{
+	
 	private int qrheight = 400;
 	private int qrwidth = 400;
     private TextView prevClick = null;
-    private List<Grid> levelList = null;
+    private List<String> levelList = null;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,20 +41,13 @@ public class SelectLevelActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_select_level);
         QRLabyrinth qrl = ((QRLabyrinth)getApplicationContext());
-        levelList = qrl.getLevelList();
+        levelList = qrl.getLevelIDs();
         if(levelList != null){
         	setupListView();
         }
     }
     
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-    
-    private void setupListView(){
+    protected void setupListView(){
     	ListView list = (ListView) findViewById(R.id.level_list);
     	
 		list.setAdapter(new BaseAdapter() {	//adapter for list of Locations
@@ -73,13 +70,31 @@ public class SelectLevelActivity extends Activity {
 				View view = inflater.inflate(R.layout.list_row, null);
 				TextView textView = (TextView) view.findViewById(R.id.listRow);
 				try {	//decode database text to print
-					textView.setText(URLDecoder.decode(levelList.get(position).toString(), "UTF-8"));
+					textView.setText(URLDecoder.decode(levelList.get(position), "UTF-8"));
 				} catch (UnsupportedEncodingException e) {
 					e.printStackTrace();
 				}
 				return view;
 			}
 		});
+    }
+    
+    public Grid checkFile(String n){
+    	Grid g;
+    	
+    	File file = getBaseContext().getFileStreamPath("level_" + n);
+        if(!file.exists()){
+        	g = QRHandler.getGrid(QRHandler.getLevel(Integer.valueOf(n)), 400, 400, "Level " + n);
+    	    //Log.w("Array", Integer.toString(i));
+        	//Log.w("Array", QRHandler.getLevel(i));
+        	writeGrid("level_" + n, g);
+        }
+        else{
+            Log.w("Lol", "it existssss!!!");
+            g = loadGrid(file);
+        }
+
+        return g;
     }
 
     /**
@@ -104,12 +119,12 @@ public class SelectLevelActivity extends Activity {
 			v.setBackgroundColor(0x650000FF);
 			prevClick = (TextView) v;
 			
-			for(Grid g: ((QRLabyrinth)getApplicationContext()).getLevelList()){
-				if(g.getID().equals(prevClick.getText().toString())){
-					((QRLabyrinth)getApplicationContext()).setCurrentLevel(g);
-				}
-			}
+			String [] s = prevClick.getText().toString().split("\n");
+			String [] s2 = s[0].split(" ");
+			Grid g = checkFile(s2[1]);
 			
+			((QRLabyrinth)getApplicationContext()).setCurrentLevel(g);
+
 			findViewById(R.id.play).setAlpha(1);
 			
 			break;

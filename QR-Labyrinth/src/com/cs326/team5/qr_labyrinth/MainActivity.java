@@ -1,12 +1,19 @@
 package com.cs326.team5.qr_labyrinth;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
 import java.io.Serializable;
 import java.io.StreamCorruptedException;
 import java.util.ArrayList;
@@ -27,147 +34,105 @@ import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
-public class MainActivity extends Activity implements Serializable{
+public class MainActivity extends Activity{
 	private int qrheight = 400;
 	private int qrwidth = 400;
-	//SharedPreferences prefs = getSharedPreferences("userValues", MODE_PRIVATE);
-	// QR example here https://github.com/zxing/zxing/blob/master/androidtest/src/com/google/zxing/client/androidtest/ZXingTestActivity.java
-    @Override
+	
+	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-        // Tests if it is the first run or not.
-        /*if(prefs.getBoolean("firstRun", true)){
-        	SharedPreferences.Editor editor = prefs.edit();
-        	editor.putBoolean("firstRun", false);
-        	editor.commit();
-        	// TODO: Create level files here
-        }*/
+		requestWindowFeature(Window.FEATURE_NO_TITLE); 
         setContentView(R.layout.activity_main);
-        QRLabyrinth qrl = ((QRLabyrinth)getApplication());
-        qrl.setCustomList(checkCustomFiles());
-        qrl.setLevelList(checkFiles());
-    }
-    
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-    public ArrayList<Grid> checkCustomFiles(){
-    	QRHandler h = new QRHandler();  
-    	ArrayList<Grid> gridList = new ArrayList<Grid>();
-        	File dir = getBaseContext().getFilesDir();
-        	int currNum = 0;
-        	for(File f: dir.listFiles()){
-        		if(f.isFile()){
-        			if(f.getName().length() > 7)
-        			if(f.getName().substring(0,6).equals("custom")){
-        				int temp = Integer.parseInt(f.getName().substring(6));
-        				currNum = (temp > currNum ? temp : currNum);
-        			}
-        		}
-        	}
-        for(int i = 1; i <= currNum; i++){
-        	File file = getBaseContext().getFileStreamPath("custom_" + Integer.toString(i));
-            if(!file.exists()){
-//                      Grid g = h.getGrid("lol", 400, 400);
-	        	Grid g = h.getGrid(h.getLevel(i), 400, 400, "Level " + Integer.toString(i));
-	        	
-	        	Log.w("Array", Integer.toString(i));
-	        	Log.w("Array", h.getLevel(i));
-	        	g.setName("Level "+Integer.toString(i));
-	        	g.setHighscore(0);
-	        	writeGrid("aba"+Integer.toString(i), g);
-	        	gridList.add(g);
-            }
-            else{
-                Log.w("Lol", "it existssss!!!");
-                gridList.add(loadGrid(file));
-            }
+        QRLabyrinth qrl = ((QRLabyrinth)getApplicationContext());
+        ArrayList<String> IDs;
+        if((IDs = loadIDs(qrl.levelIDsFile)) == null){
+        	IDs = writeDefaultIDs(qrl.levelIDsFile);
         }
-        Log.w("Array", Integer.toString(gridList.size()));
+        qrl.setLevelIDs(IDs);
         
-        if(gridList.isEmpty()){
-        	return null;
+        
+        ArrayList<String> list = loadIDs(qrl.customIDsFile);
+        
+        if(list != null){
+	        for(String s: list){
+	        	Log.d("random tag", s);
+	        }
         }
         
-        return gridList;
-    }
-    public ArrayList<Grid> checkFiles(){
-    	QRHandler h = new QRHandler();  
-    	ArrayList<Grid> gridList = new ArrayList<Grid>();
-        for(int i = 1; i <= 1; i++){
-        	File file = getBaseContext().getFileStreamPath("aba" + Integer.toString(i));
-            //if(!file.exists()){
-//                      Grid g = h.getGrid("lol", 400, 400);
-	        	Grid g = h.getGrid(h.getLevel(i), 400, 400, "level_"+Integer.toString(i));
-        	    Log.w("Array", Integer.toString(i));
-	        	Log.w("Array", h.getLevel(i));
-	        //	writeGrid("aba"+Integer.toString(i), g);
-	        	gridList.add(g);
-            //}
-            //else{
-            //        Log.w("Lol", "it existssss!!!");
-            //        gridList.add(loadGrid(file));
-            //}
+        qrl.setCustomIDs(list);
 
-        	//writeGrid("level_"+Integer.toString(i), g);
-                //}
-        }
-        Log.w("Array", Integer.toString(gridList.size()));
-        
-        if(gridList.isEmpty()){
-        	return null;
-        }
-        
-        return gridList;
+
     }
-	public void writeGrid(String s, Grid g){
-		FileOutputStream fos;
-		ObjectOutputStream os;
+
+    
+    protected void writeIDs(String s, ArrayList<String> IDs){
+		//BufferedWriter out;
+		String writeString = "";
+		OutputStreamWriter os;
 		try {
-			fos = openFileOutput(s, Context.MODE_PRIVATE);
-			os = new ObjectOutputStream(fos);
-			os.writeObject(g);
+			os = new OutputStreamWriter(openFileOutput(s, Context.MODE_PRIVATE));
+		for(String ID: IDs){
+			writeString += ID + "\n";
+			Log.d("somethign", ID);
+			os.write(ID + "\n");
+		}
+			Log.w("sting", writeString);
+			//os.write(writeString);
 			os.close();
-		} catch (FileNotFoundException e) {
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+	}
+    
+	protected ArrayList<String> loadIDs(String s){
+		ArrayList<String> IDs = new ArrayList<String>();
+		String ret = "";
+	    try {
+	        InputStream inputStream = openFileInput(s);
+
+	        if ( inputStream != null ) {
+	            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+	            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+	            String receiveString = "";
+	            String receiveString2 = "";
+	            StringBuilder stringBuilder = new StringBuilder();
+
+	            while ( (receiveString = bufferedReader.readLine()) != null ) {
+	                stringBuilder.append(receiveString);
+	            	if((receiveString2 = bufferedReader.readLine()) != null)
+                     IDs.add(receiveString + "\n\t" + receiveString2);
+	            }
+
+	            inputStream.close();
+	            ret = stringBuilder.toString();
+	        }
+	    }
+	    catch (FileNotFoundException e) {
+	        Log.e("login activity", "File not found: " + e.toString());
+	        return null;
+	    } catch (IOException e) {
+	        Log.e("login activity", "Can not read file: " + e.toString());
+	        return null;
+	    }
+		return IDs;
 	}
 	
-	// TO PUT IN OTHER ACTIVITYYYYY
-	public Grid loadGrid(File f){
-		FileInputStream fis;
-		ObjectInputStream is;
-		Grid g;
-		try {
-			fis = new FileInputStream(f);
-			is = new ObjectInputStream(fis);
-			g = (Grid) is.readObject();
-			is.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return null;
-		} catch (StreamCorruptedException e) {
-			e.printStackTrace();
-			return null;
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			return null;
+	
+	private ArrayList<String> writeDefaultIDs(String s) {
+		ArrayList<String> IDs = new ArrayList<String>();
+		for(int i=1; i<=10; i++){
+			IDs.add("Level " + i + "\n\t0");
 		}
-		Log.w("LoL", "We got this far");
-		return g;
+		
+		writeIDs(s,IDs);
+		
+		return IDs;
 	}
-    
+	
     /**
  	 * Handles button clicks for the UI
  	 * @param v view that was clicked

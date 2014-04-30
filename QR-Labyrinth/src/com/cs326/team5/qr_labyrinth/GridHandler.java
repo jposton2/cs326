@@ -1,6 +1,8 @@
 package com.cs326.team5.qr_labyrinth;
 
 import android.annotation.SuppressLint;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -8,9 +10,10 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 
-public class GridHandler{
+public class GridHandler implements Serializable{
 	
-    private Grid grid;
+	private static final long serialVersionUID = 1L;
+	private Grid grid;
     
     public GridHandler(Grid grid){
     	this.grid = grid;

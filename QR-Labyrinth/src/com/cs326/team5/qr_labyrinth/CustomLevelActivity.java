@@ -1,12 +1,16 @@
 package com.cs326.team5.qr_labyrinth;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Serializable;
 import java.io.StreamCorruptedException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -31,12 +35,12 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class CustomLevelActivity extends Activity {
+public class CustomLevelActivity extends LevelSelectorActivity{
 	
 	private int qrheight = 400;
 	private int qrwidth = 400;
 	private TextView prevClick = null;
-	private List<Grid> levelList = null;
+	private ArrayList<String> levelList = null;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +48,7 @@ public class CustomLevelActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_custom);
         QRLabyrinth qrl = ((QRLabyrinth)getApplicationContext());
-        levelList = qrl.getCustomList();
+        levelList = qrl.getCustomIDs();
         if(levelList != null){
         	setupListView();
         }
@@ -56,7 +60,7 @@ public class CustomLevelActivity extends Activity {
     	startActivityForResult(intent, 0);
     }
     
-    private void setupListView(){
+    protected void setupListView(){
     	ListView list = (ListView) findViewById(R.id.custom_list);
 		list.setAdapter(new BaseAdapter() {	//adapter for list of Locations
 			public int getCount() {
@@ -74,6 +78,9 @@ public class CustomLevelActivity extends Activity {
 
 			@Override
 			public View getView(int position, View convertView, ViewGroup parent) {
+				if(levelList.get(position) == null){
+					return null;
+				}
 				LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 				View view = inflater.inflate(R.layout.list_row, null);
 				TextView textView = (TextView) view.findViewById(R.id.listRow);
@@ -95,74 +102,73 @@ public class CustomLevelActivity extends Activity {
 	         // We can use format to check if it is a URL, or TEXT or something!
 	         String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
 	         
-	         QRHandler qr = new QRHandler();
 	         // TODO: Add custom names here
 
         	File dir = getBaseContext().getFilesDir();
         	int currNum = 0;
         	for(File f: dir.listFiles()){
         		if(f.isFile()){
-        			if(f.getName().length() > 7)
-        			if(f.getName().substring(0,6).equals("custom")){
-        				int temp = Integer.parseInt(f.getName().substring(6));
-        				currNum = (temp > currNum ? temp : currNum);
+        			if(f.getName().length() > 6){
+        				Log.w("lols", f.getName().substring(0,6));
+	        			if(f.getName().substring(0,7).equals("custom_")){
+	        				String [] s = f.getName().split("_");
+	        				int temp = Integer.parseInt(s[1]);
+	        				currNum = (temp > currNum ? temp : currNum);
+	        			}
         			}
         		}
         	}
-	         Grid g = qr.getGrid(contents, qrheight, qrwidth, "custom_"+ Integer.toString(currNum + 1));
+        	String name = "Custom " + Integer.toString(currNum + 1);
+    		Log.w("ID", name);
+	        Grid g = QRHandler.getGrid(contents, qrheight, qrwidth, name);
+	        writeGrid("custom_" + (currNum + 1), g);
+	        if(levelList == null){
+	        	levelList = new ArrayList<String>();
+	        }
+	        levelList.add(g.getID());
+	        ((QRLabyrinth)getApplicationContext()).setCustomIDs(levelList);
+	        writeIDs(((QRLabyrinth)getApplicationContext()).customIDsFile, levelList);
+	        setupListView();
+//**********	         levelList.add(g);
 	         
 	         
-	         File file = getBaseContext().getFileStreamPath(contents);
-	         if(!file.exists())
-	         	writeGrid(contents, g);
+	         //File file = getBaseContext().getFileStreamPath(name);
+	         //if(!file.exists())
+	         //	writeGrid(name, g);
 	      }
 	   }
 	}
     
-    // TO PUT IN OTHER ACTIVITY
-	public void writeGrid(String s, Grid g){
-		FileOutputStream fos;
-		ObjectOutputStream os;
+    
+    protected void writeIDs(String s, ArrayList<String> IDs){
+		//BufferedWriter out;
+		String writeString = "";
+		OutputStreamWriter os;
 		try {
-			fos = openFileOutput(s, Context.MODE_PRIVATE);
-			os = new ObjectOutputStream(fos);
-			os.writeObject(this);
+			os = new OutputStreamWriter(openFileOutput(s, Context.MODE_PRIVATE));
+		for(String ID: IDs){
+			writeString += ID + "\n";
+			Log.d("somethign", ID);
+			os.write(ID + "\n");
+			//out.write(ID);
+			//out.newLine();
+		}
+			Log.w("sting", writeString);
+			//os.write(writeString);
 			os.close();
-		} catch (FileNotFoundException e) {
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		
 	}
 	
-	// TO PUT IN OTHER ACTIVITYYYYY
-	public Grid loadGrid(String s){
-		FileInputStream fis;
-		ObjectInputStream is;
-		Grid g;
-		try {
-			fis = openFileInput(s);
-			is = new ObjectInputStream(fis);
-			g = (Grid) is.readObject();
-			is.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			return null;
-		} catch (StreamCorruptedException e) {
-			e.printStackTrace();
-			return null;
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			return null;
-		}
-		
-		return g;
-	}
+	public Grid checkFile(String n){
+    	File file = getBaseContext().getFileStreamPath("custom_" + n);
+        return loadGrid(file);
+    }
 	
     /**
  	 * Handles button clicks for the UI
@@ -189,16 +195,34 @@ public class CustomLevelActivity extends Activity {
 			v.setBackgroundColor(0x650000FF);
 			prevClick = (TextView) v;
 			
-			for(Grid g: ((QRLabyrinth)getApplicationContext()).getCustomList()){
-				if(g.getID().equals(prevClick.getText().toString())){
-					((QRLabyrinth)getApplicationContext()).setCurrentLevel(g);
-				}
-			}
+			String [] s = prevClick.getText().toString().split("\n");
+			String [] s1 = s[0].split(" ");
+			Grid g = checkFile(s1[1]);
+			
+			((QRLabyrinth)getApplicationContext()).setCurrentLevel(g);
 			
 			findViewById(R.id.play).setAlpha(1);
 			findViewById(R.id.trash).setAlpha(1);
 			
 			break;
+ 		case R.id.trash:
+ 			if(prevClick != null){
+				prevClick.setBackgroundColor(0x00000000);
+			}
+			v.setBackgroundColor(0x650000FF);
+//			prevClick = (TextView) v;
+			
+			String t = prevClick.getText().toString();
+			levelList.remove(t);
+			
+			String [] s2 = t.split("\n");
+			String [] s3 = s2[0].split(" ");
+	    	File file = getBaseContext().getFileStreamPath("custom_" + s3[1]);
+	    	file.delete();
+
+ 			setupListView();
+ 			prevClick = (TextView) v;
+ 			break;
 		case R.id.back: // if back button was clicked
 			finish();
 			break;

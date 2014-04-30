@@ -4,9 +4,6 @@ import java.io.Serializable;
 
 public class PointData implements Serializable{
 	
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private boolean black;
     private PointData destination = null; //teleporter destination 
