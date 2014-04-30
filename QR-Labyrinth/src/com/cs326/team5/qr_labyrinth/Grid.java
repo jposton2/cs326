@@ -3,10 +3,13 @@ package com.cs326.team5.qr_labyrinth;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Stores and maintains information for a level
+ * @author Team 5
+ */
 public class Grid implements Serializable{
-	
+
 	private static final long serialVersionUID = 1L;
-//  private ArrayList<ArrayList<PointData>> grid;
 	private String name;
 	private int highscore;
 	private String id;
@@ -32,62 +35,86 @@ public class Grid implements Serializable{
 		this.id = this.toString();
 		this.handler = new GridHandler(this);
 		this.level = level;
-		
+
 		if(level < 1){
 			level = 1;
 		}
-		
+
 		this.handler.setUpTeleporters(1 + level, level-1);
 	}
-	
+
+	/**
+	 * Resets teleporters
+	 */
 	public void reset()
 	{
 		this.handler.setUpTeleporters(1+level, level-1);
 	}
 
-  	public Point getPlayer() {
+	/**
+	 * @return player player coordinates
+	 */
+	public Point getPlayer() {
 		return player;
 	}
 
+	/**
+	 * @param player player coordinates
+	 */
 	public void setPlayer(Point player) {
 		this.player = player;
 	}
 
+	/**
+	 * @return name name of the level
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * @param name name of the level
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * @return highscore highscore for the level
+	 */
 	public int getHighscore() {
 		return highscore;
 	}
 
+	/**
+	 * @param highscore highscore for the level
+	 */
 	public void setHighscore(int highscore) {
 		this.highscore = highscore;
 		this.id = this.toString();
 	}
 
-  /**
-   * @return start point
-   */
-  public Point getStart(){
-      return start;
-  }
-	
+	/**
+	 * @return start point
+	 */
+	public Point getStart(){
+		return start;
+	}
+
 	/**
 	 * @param start the start to set
 	 */
 	public void setStart(Point start) {
 		this.start = start;
 	}
-	
+
+	/**
+	 * @return id ID of the level
+	 */
 	public String getID(){
 		return id;
 	}
-	
+
 	/**
 	 * @return the xBound
 	 */
@@ -122,7 +149,7 @@ public class Grid implements Serializable{
 	PointData[][] getGrid(){
 		return gridArray;
 	}
-	
+
 	/**
 	 * Return PointData of node above parameter node
 	 * @param node - node for which the above node will be found
@@ -136,7 +163,7 @@ public class Grid implements Serializable{
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Return PointData of node below parameter node
 	 * @param node - node for which the below node will be found
@@ -150,7 +177,7 @@ public class Grid implements Serializable{
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Return PointData of node right parameter node
 	 * @param node - node for which the right node will be found
@@ -164,7 +191,7 @@ public class Grid implements Serializable{
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Return PointData of node left parameter node
 	 * @param node - node for which the left node will be found
@@ -178,8 +205,12 @@ public class Grid implements Serializable{
 			return null;
 		}
 	}
-	
 
+	/**
+	 * Gets the white neighboring PointData's to a node
+	 * @param node node whose white neighbors are returned
+	 * @return neighbors list of white neighbors to node
+	 */
 	public ArrayList<PointData> getWhiteNeighbors(PointData node){
 		ArrayList<PointData> neighbors = new ArrayList<PointData>();
 		if(this.getAbove(node) != null && !this.getAbove(node).isBlack()){
@@ -197,14 +228,21 @@ public class Grid implements Serializable{
 		return neighbors;
 	}
 
+	/**
+	 * @return end end of the level
+	 */
 	public Point getEnd() {
 		return end;
 	}
 
+	/**
+	 * @param end end of the level to be set
+	 */
 	public void setEnd(Point end) {
 		this.end = end;
 	}
-	
+
+	@Override
 	public String toString(){
 		return name + "\n\t" + highscore;
 	}

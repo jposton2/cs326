@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.cs326.team5.qr_labyrinth;
 
 import java.io.File;
@@ -16,6 +13,10 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
+/**
+ * Abstract class for activities in which level selection occurs
+ * @author Team 5
+ */
 public abstract class LevelSelectorActivity extends Activity{
     
     protected void onCreate(Bundle savedInstanceState){
@@ -26,10 +27,23 @@ public abstract class LevelSelectorActivity extends Activity{
     	super.onResume();
     }
     
+    /**
+     * Populates a list view with level ID's
+     */
     protected abstract void setupListView();
 
+    /**
+     * Checks for the n'th level file to read a Grid
+     * @param n file number
+     * @return g level read from file
+     */
     protected abstract Grid checkFile(String n);
     
+    /**
+     * Writes a grid to its cooresponding file
+     * @param s name of the file
+     * @param g grid to be written to file
+     */
     protected void writeGrid(String s, Grid g){
 		FileOutputStream fos;
 		ObjectOutputStream os;
@@ -47,6 +61,11 @@ public abstract class LevelSelectorActivity extends Activity{
 		
 	}
 	
+    /**
+     * Reads a grid from file
+     * @param f file to be read from
+     * @return g grid read from file
+     */
     protected Grid loadGrid(File f){
 		FileInputStream fis = null;
 		ObjectInputStream is = null;
@@ -70,7 +89,6 @@ public abstract class LevelSelectorActivity extends Activity{
 			try {
 				is.close();
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			return null;
@@ -78,5 +96,9 @@ public abstract class LevelSelectorActivity extends Activity{
 		return g;
 	}
     
+    /**
+ 	 * Handles button clicks for the UI
+ 	 * @param v view that was clicked
+ 	 */
  	protected abstract void handleButton(View v);
 }

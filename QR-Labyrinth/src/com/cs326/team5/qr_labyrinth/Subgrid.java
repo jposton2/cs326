@@ -11,7 +11,7 @@ import java.util.LinkedList;
 
 /**
  * Area of whitespace in QR grid
- *
+ * @author Team 5
  */
 public class Subgrid implements Serializable{
 		

@@ -1,15 +1,24 @@
 package com.cs326.team5.qr_labyrinth;
 
-import android.util.Log;
-
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
+/**
+ * Handles generation of Grids from QR codes
+ * @author Team 5
+ */
 public class QRHandler {
+	/**
+	 * Generates a Grid based on the contents returned from a scan
+	 * @param contents contents returned from a QR code scan
+	 * @param qrwidth width of the qr code
+	 * @param qrheight height of a qr code
+	 * @param name name of the qr code
+	 * @return Grid Grid generated from contents returned from scan
+	 */
 	public static Grid getGrid(String contents, int qrwidth, int qrheight, String name){
-		Log.w("Name", contents);
 		QRCodeWriter writer = new QRCodeWriter();
         BitMatrix matrix = null;
         try{
@@ -20,7 +29,6 @@ public class QRHandler {
        	    e.printStackTrace();
         }
         if(matrix == null){
-        	Log.d("Quick stuff happening","matrix is null");
         	return null;
         }
         
@@ -85,14 +93,6 @@ public class QRHandler {
         yEnd += 3;
         xEnd += 3;
         yEnd = xEnd;
-
-        // Print out the stuff found up there to the LogCat.
-        Log.w("MainActivity", Integer.toString(xSize));
-        Log.w("MainActivity", Integer.toString(ySize));
-        Log.w("MainActivity", Integer.toString(yStart));
-        Log.w("MainActivity", Integer.toString(xEnd));
-        Log.w("MainActivity", Integer.toString(yEnd));
-        
         
         // Convert the matrix to a gridArray
         PointData[][] gridArray = new PointData[xEnd][yEnd];
@@ -101,43 +101,16 @@ public class QRHandler {
         		gridArray[i][j] = (matrix.get((i*xSize)+xStart, (j*ySize)+yStart) ? new PointData(true,i, j) : new PointData(false, i, j));
         	}
         }
-        /* 
-         * This code is written to print out bitmaps
-         * 
-         * 
-        Bitmap bmpMonochrome = Bitmap.createBitmap(xEnd*xSize, yEnd*ySize, Bitmap.Config.ARGB_8888);
-        int[] pixels = new int[10];
-        pixels[0] = 0;
-        for(int i = 0; i <= xEnd; i++){
-        	for(int j = 0; j <= yEnd; j++){
-        		for(int l = 0; l <= xSize; l ++){
-        			for(int m = 0; m <= ySize; m++){
-                		if(matrix.get((i*xSize)+xStart, (j*ySize)+yStart))
-                			bmpMonochrome.setPixel(i+l, j+m, Color.BLACK);
-                		else
-                			bmpMonochrome.setPixel(i+l, j+m, Color.WHITE);
-        		
-        				}
-        			}
-        		}
-        }
-		String file_path = Environment.getExternalStorageDirectory() + "/Lolz";
-		File dir = new File(file_path);
-		if(!dir.exists())
-		    dir.mkdirs();
-	        try {
-	            FileOutputStream out = new FileOutputStream(new File(dir, name+".bmp"));
-	            bmpMonochrome.compress(Bitmap.CompressFormat.PNG, 90, out);
-	            out.flush();
-	            out.close();
-
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        } */
+        
 		return new Grid(gridArray, xEnd, yEnd, name, 0, 1);
 	}
 	
 
+	/**
+	 * Returns the i'th default level qr code contents
+	 * @param i
+	 * @return s qr code contents
+	 */
 	public static String getLevel(int i){
 		String s = "null";
 		switch(i){

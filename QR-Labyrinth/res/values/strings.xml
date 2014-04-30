@@ -4,8 +4,8 @@
     <string name="app_name">QR-Labyrinth</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    <string name="level_select">Level Select</string>
-    <string name="story">STORY</string>
+    <string name="level_select">Level Select</string><string name="story">PLAY DEFAULT</string>
+    
     <string name="credits">Credits</string>
     <string name="exit">EXIT</string>
     <string name="custom_level">CUSTOM LEVEL</string>

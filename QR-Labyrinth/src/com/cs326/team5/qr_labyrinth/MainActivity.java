@@ -12,17 +12,21 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 
+/**
+ * Initial activity representing the title menu interface
+ * @author Team 5
+ */
 public class MainActivity extends Activity{
 
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE); 
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
+        
         QRLabyrinth qrl = ((QRLabyrinth)getApplicationContext());
         ArrayList<String> IDs;
         if((IDs = loadIDs(qrl.levelIDsFile)) == null){
@@ -30,44 +34,38 @@ public class MainActivity extends Activity{
         }
         qrl.setLevelIDs(IDs);
         
-        
         ArrayList<String> list = loadIDs(qrl.customIDsFile);
         
-        if(list != null){
-	        for(String s: list){
-	        	Log.d("random tag", s);
-	        }
-        }
-        
         qrl.setCustomIDs(list);
-
-
     }
 
-    
+    /**
+     * Output a list of level ID's to file
+     * @param s name of the file
+     * @param IDs list of the ID's
+     */
     protected void writeIDs(String s, ArrayList<String> IDs){
-		//BufferedWriter out;
 		String writeString = "";
 		OutputStreamWriter os;
 		try {
 			os = new OutputStreamWriter(openFileOutput(s, Context.MODE_PRIVATE));
 		for(String ID: IDs){
 			writeString += ID + "\n";
-			Log.d("somethign", ID);
 			os.write(ID + "\n");
 		}
-			Log.w("sting", writeString);
-			//os.write(writeString);
 			os.close();
 		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
     
+    /**
+     * Input a list of level ID's from file
+     * @param s name of the file
+     * @return IDs list of the ID's
+     */
 	protected ArrayList<String> loadIDs(String s){
 		ArrayList<String> IDs = new ArrayList<String>();
 
@@ -94,16 +92,18 @@ public class MainActivity extends Activity{
 	        }
 	    }
 	    catch (FileNotFoundException e) {
-	        Log.e("login activity", "File not found: " + e.toString());
 	        return null;
 	    } catch (IOException e) {
-	        Log.e("login activity", "Can not read file: " + e.toString());
 	        return null;
 	    }
 		return IDs;
 	}
 	
-	
+	/**
+	 * Writes default ID's to file
+	 * @param s name of file
+	 * @return IDs list of ID's
+	 */
 	private ArrayList<String> writeDefaultIDs(String s) {
 		ArrayList<String> IDs = new ArrayList<String>();
 		for(int i=1; i<=10; i++){
