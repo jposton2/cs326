@@ -8,7 +8,7 @@
     
     <string name="credits">Credits</string>
     <string name="exit">EXIT</string>
-    <string name="custom_level">CUSTOM LEVEL</string>
+    <string name="custom_level">PLAY CUSTOM</string>
     <string name="title_activity_game_field">GameField</string>
     <string name="title_activity_custom_level">CustomLevel</string>
     <string name="title_activity_select_level">SelectLevel</string>
