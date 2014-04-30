@@ -47,6 +47,23 @@ public class SelectLevelActivity extends LevelSelectorActivity{
         }
     }
     
+    @Override
+    protected void onResume(){
+    	super.onResume();
+    	QRLabyrinth qrl = ((QRLabyrinth)getApplicationContext());
+        Grid g = qrl.getCurrentLevel();
+    	if(g != null){
+	        String [] t = g.getID().split("\n");
+	    	for(int i=0; i<levelList.size(); i++){
+	    		String ID = levelList.get(i);
+	    		if(ID.startsWith(t[0])){
+	    			levelList.set(i,g.getID());
+	            	setupListView();
+	    		}
+	    	}
+    	}
+    }
+    
     protected void setupListView(){
     	ListView list = (ListView) findViewById(R.id.level_list);
     	

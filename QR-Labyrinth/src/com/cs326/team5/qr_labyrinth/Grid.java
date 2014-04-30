@@ -61,6 +61,7 @@ public class Grid implements Serializable{
 
 	public void setHighscore(int highscore) {
 		this.highscore = highscore;
+		this.id = this.toString();
 	}
 
   /**

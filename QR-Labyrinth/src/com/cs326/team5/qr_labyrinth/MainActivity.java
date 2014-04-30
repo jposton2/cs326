@@ -1,42 +1,24 @@
 package com.cs326.team5.qr_labyrinth;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
-import java.io.Serializable;
-import java.io.StreamCorruptedException;
 import java.util.ArrayList;
-
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.QRCodeWriter;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.Window;
-import android.widget.TextView;
 
 public class MainActivity extends Activity{
-	private int qrheight = 400;
-	private int qrwidth = 400;
+	//private int qrheight = 400;
+	//private int qrwidth = 400;
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +72,6 @@ public class MainActivity extends Activity{
     
 	protected ArrayList<String> loadIDs(String s){
 		ArrayList<String> IDs = new ArrayList<String>();
-		String ret = "";
 	    try {
 	        InputStream inputStream = openFileInput(s);
 
@@ -103,12 +84,12 @@ public class MainActivity extends Activity{
 
 	            while ( (receiveString = bufferedReader.readLine()) != null ) {
 	                stringBuilder.append(receiveString);
-	            	if((receiveString2 = bufferedReader.readLine()) != null)
-                     IDs.add(receiveString + "\n\t" + receiveString2);
+	            	if((receiveString2 = bufferedReader.readLine()) != null){
+	                    IDs.add(receiveString + "\n\t" + receiveString2);
+	            	}
 	            }
 
 	            inputStream.close();
-	            ret = stringBuilder.toString();
 	        }
 	    }
 	    catch (FileNotFoundException e) {

@@ -38,6 +38,10 @@ public abstract class LevelSelectorActivity extends Activity{
     	super.onCreate(savedInstanceState);
     }
     
+    protected void onResume(){
+    	super.onResume();
+    }
+    
     protected abstract void setupListView();
 
     protected abstract Grid checkFile(String n);

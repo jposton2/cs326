@@ -123,12 +123,15 @@ public class GameActivity extends Activity {
  			int seconds = (int)(timeElapsed-hours*3600000-minutes*60000);
  			grid.setHighscore(seconds); 			
  			
+ 	        QRLabyrinth qrl = ((QRLabyrinth)getApplicationContext());
+ 	        qrl.setCurrentLevel(grid);
+
  			mv.setGrid(grid);
  			//grid.reset();
- 			grid = null;
+ 			//grid = null;
  			finish();
  			
- 			startActivity(new Intent(this, SelectLevelActivity.class));
+ 			//startActivity(new Intent(this, SelectLevelActivity.class));
  		}
  		else if(cell.getDestination() != null)
  		{
